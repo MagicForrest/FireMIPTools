@@ -4,6 +4,7 @@
 #'
 #'
 #' @format The \code{Quantity} class is an S4 class with the slots defined below.
+#' @rdname Quantity-class
 #' @keywords datasets
 #' @import DGVMTools
 #' @importFrom methods new
@@ -291,6 +292,14 @@ FireMIP.quantities <- list(
       format = c("FireMIP", "LPJ-GUESS-SPITFIRE"),
       cf.name = "Transpiration"),
 
+  new("Quantity",
+      id = "tsl",
+      name = "Temperature of soil",
+      units = "K",
+      colours = reversed.viridis,
+      format = c("FireMIP", "LPJ-GUESS-SPITFIRE"),
+      cf.name = "Temperature of soil"),
+
 
 
   ### FLUXES
@@ -352,6 +361,14 @@ FireMIP.quantities <- list(
       cf.name = "Vegtype level NPP"),
 
   new("Quantity",
+      id = "nbppft",
+      name = "Vegtype level NBP",
+      units = "kg C m-2 s-1",
+      colours = reversed.viridis,
+      format = c("FireMIP"),
+      cf.name = "Vegtype level NBP"),
+
+  new("Quantity",
       id = "fLuc",
       name = "CO2 Flux to Atmosphere from Land Use Change",
       units = "kg C m-2 s-1",
@@ -379,6 +396,30 @@ FireMIP.quantities <- list(
       cf.name = "Carbon in Vegetation"),
 
   new("Quantity",
+      id = "cLeaf",
+      name = "Carbon in Leaves",
+      units = "kg C m-2",
+      colours = reversed.viridis,
+      format = c("CTEM_FireMIP"),
+      cf.name = "Carbon_in_leaves"),
+
+  new("Quantity",
+      id = "cRoot",
+      name = "Carbon in Roots",
+      units = "kg C m-2",
+      colours = reversed.viridis,
+      format = c("CTEM_FireMIP"),
+      cf.name = "Carbon_in_roots"),
+
+  new("Quantity",
+      id = "cWood",
+      name = "Carbon in Wood",
+      units = "kg C m-2",
+      colours = reversed.viridis,
+      format = c("CTEM_FireMIP"),
+      cf.name = "Carbon_in_wood"),
+
+  new("Quantity",
       id = "cLitter",
       name = "Carbon in Above-ground Litter Pool",
       units = "kg C m-2",
@@ -393,6 +434,30 @@ FireMIP.quantities <- list(
       colours = reversed.viridis,
       format = c("FireMIP", "LPJ-GUESS-SPITFIRE"),
       cf.name = "Carbon in Soil (including below-ground litter)"),
+
+  new("Quantity",
+      id = "cSoilpft",
+      name = "Carbon in Soil per PFT (including below-ground litter)",
+      units = "kg C m-2",
+      colours = reversed.viridis,
+      format = c("FireMIP", "LPJ-GUESS-SPITFIRE"),
+      cf.name = "Vegtype soil carbon"),
+
+  new("Quantity",
+      id = "fLitterSoil",
+      name = "Total Carbon Flux from Litter to Soil",
+      units = "kg C m-2 s-1",
+      colours = reversed.viridis,
+      format = c("FireMIP"),
+      cf.name = "Total Carbon Flux from Litter to Soil"),
+
+  new("Quantity",
+      id = "fVegLitter",
+      name = "Total Carbon Flux from Vegetation to Litter",
+      units = "kg C m-2 s-1",
+      colours = reversed.viridis,
+      format = c("FireMIP"),
+      cf.name = "Total Carbon Flux from Vegetation to Litter"),
 
 
   ###  STRUCTURE
@@ -437,6 +502,34 @@ FireMIP.quantities <- list(
       units = "kg C m-2 s-1",
       colours = reversed.viridis,
       format = c("FireMIP", "LPJ-GUESS-SPITFIRE"),
-      cf.name = "CO2 Flux to Atmosphere from Land Use Change")
+      cf.name = "CO2 Flux to Atmosphere from Land Use Change"),
+
+  ### CLIMATE
+
+  new("Quantity",
+      id = "pr",
+      name = "Precipitation",
+      units = "kg m-2 s-1",
+      colours = reversed.viridis,
+      format = c("FireMIP", "LPJ-GUESS-SPITFIRE"),
+      cf.name = "Precipitation"),
+
+  new("Quantity",
+      id = "rsds",
+      name = "Surface_Downwelling_Shortwave-Radiation",
+      units = "W m-2",
+      colours = reversed.viridis,
+      format = c("FireMIP", "LPJ-GUESS-SPITFIRE"),
+      cf.name = "Surface_Downwelling_Shortwave-Radiation"),
+
+  new("Quantity",
+      id = "tas",
+      name = "Near-Surface_Air_Temperature",
+      units = "K",
+      colours = reversed.viridis,
+      format = c("FireMIP", "LPJ-GUESS-SPITFIRE"),
+      cf.name = "Near-Surface_Air_Temperature")
+
+
 
 )
