@@ -152,7 +152,7 @@ openFireMIPOutputFile_CLM <- function(run, quantity, sta.info, verbose = TRUE) {
     # set names, chuck out the water and set NAs to 0
     setnames(this.slice.dt, c("Year", "PFT", "Lat", "Lon", quantity@id))
     this.slice.dt <- selectGridcells(this.slice.dt, this.landmask.dt)
-    for (j in seq_len(ncol(this.slice.dt))[4:ncol(this.slice.dt)])  set(this.slice.dt,which(is.na(this.slice.dt[[j]])),j,0)
+    for (j in seq_len(ncol(this.slice.dt))[5:ncol(this.slice.dt)])  set(this.slice.dt,which(is.na(this.slice.dt[[j]])),j,0)
 
     # dcast back to a column for every PFT
     this.slice.dt <- dcast(this.slice.dt, Lon + Lat + Year ~ PFT, value.var = quantity@id)
@@ -345,7 +345,6 @@ determineQuantities_CLM_FireMIP <- function(source, names){
 ########################################################
 
 #' @format An S4 class object with the slots as defined below.
-#' @rdname PFT-class
 #' @keywords datasets
 CLM_FireMIP.PFTs <- list(
 
@@ -468,12 +467,11 @@ CLM_FireMIP.PFTs <- list(
 ####################################################
 ########### CLM_FireMIP FORMAT ########################
 ####################################################
-
+#' CLM-FireMIP Format objects
+#'
 #' @description \code{CLM_FireMIP} - a Format for reading CLM FireMIP model output
 #'
 #' @format A \code{Quantity} object is an S4 class.
-#' @aliases Format-class
-#' @rdname Format-class
 #' @keywords datasets
 #' @importClassesFrom DGVMTools Quantity Source Format Field PFT Period STAInfo
 #' @import DGVMTools

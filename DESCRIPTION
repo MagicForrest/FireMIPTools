@@ -2,14 +2,15 @@ Package: FireMIPTools
 Type: Package
 Title: FireMIP extensions for DGVMTools
 Version: 0.1.0
-Author: Who wrote it
-Maintainer: The package maintainer <yourself@somewhere.net>
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
+Author: person("Matthew", "Forrest", role=c("aut", "cre"), email="matthew.forrest@senckenberg.de")
+Maintainer: Matthew Forrest <matthew.forrest@senckenberg.de>
+Description: Read data from all the different FireMIP model output into the DGVMTools framework and alls translates to a common PFT set.
 Imports:
     DGVMTools,
+    data.table,
+    methods,
     ncdf4
-License: What license is it under?
+License: GPL | file LICENSE
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 6.1.0

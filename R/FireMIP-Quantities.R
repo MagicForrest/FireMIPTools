@@ -1,12 +1,12 @@
 ######################################################################
 ########## FIREMIP QUANTITIES  ######################################
 ######################################################################
-
-
+#'
+#'
 #' @format The \code{Quantity} class is an S4 class with the slots defined below.
-#' @rdname Quantity-class
 #' @keywords datasets
 #' @import DGVMTools
+#' @importFrom methods new
 #'
 FireMIP.quantities <- list(
 
