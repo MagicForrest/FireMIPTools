@@ -79,9 +79,8 @@ openFireMIPOutputFile_CTEM <- function(run, quantity, sta.info, verbose = TRUE) 
 
 
   # get the grid file and also prepare a list of land only gridcells
-  grid.file <- file.path(run@dir, "CTEM_t63_landmask.nc")
-  if(file.exists(grid.file)) grid.nc <-  nc_open(grid.file, readunlim=FALSE, verbose=verbose, suppress_dimvals=FALSE )
-  else stop("please ensure that your run directory contains the file CTEM_t63_landmask.nc")
+  grid.file <- system.file("gridfiles", "CTEM_t63_landmask.nc", package = "FireMIPTools")
+  grid.nc <-  nc_open(grid.file, readunlim=FALSE, verbose=verbose, suppress_dimvals=FALSE )
   this.landmask <- ncvar_get(grid.nc, "landmask", start = c(1,1,1), count = c(-1,-1,-1))
   dimnames(this.landmask) <- list(this.lon, this.lat)
   this.landmask.dt <- as.data.table(melt(this.landmask))

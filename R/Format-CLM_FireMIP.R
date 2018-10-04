@@ -46,9 +46,9 @@ openFireMIPOutputFile_CLM <- function(run, quantity, sta.info, verbose = TRUE) {
   this.nc <- nc_open(file.string, readunlim=FALSE, verbose=verbose, suppress_dimvals=FALSE )
 
   # because, frustratingly, CLM variables are often missing lon and lat, open another file
-  grid.file <- file.path(run@dir, "CLM-gridcell.nc")
-  if(file.exists(grid.file)) grid.nc <-  nc_open(grid.file, readunlim=FALSE, verbose=verbose, suppress_dimvals=FALSE )
-  else stop("Because CLM files are often incomplete, please ensure that your run directory contains the file CLM-gridcell.nc")
+  # also used for masking out water areas which have 0 instead on NA
+  grid.file <- system.file("gridfiles", "CLM-gridcell.nc", package = "FireMIPTools")
+  grid.nc <-  nc_open(grid.file, readunlim=FALSE, verbose=verbose, suppress_dimvals=FALSE )
 
   # standard easy dimensions stuff
   this.pfts <- c("Bare", "TeNE", "BNE", "BNS", "TrBE", "TeBE", "TrBR", "TeBS", "BBS", "BE_Shb", "TeBS_Shb", "BBS_Shb", "C3G_arc", "C3G", "C4G", "Crop1", "Crop2")
