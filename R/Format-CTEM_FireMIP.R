@@ -16,6 +16,7 @@
 #' @import data.table
 #' @import DGVMTools
 #' @import ncdf4
+#' @importFrom stats na.omit
 #'
 #' @keywords internal
 #'
@@ -32,55 +33,72 @@ openFireMIPOutputFile_CTEM <- function(run, quantity, sta.info, verbose = TRUE) 
   last.year = sta.info@last.year
 
 
-  Year = Lon = LandSea = NULL
+  Year = Lon = landmask = NULL
 
   # get the name of the model
   print(run@format@id)
 
-  # make the string and open the file
+  # open the data file and the gridl file
   file.string <- file.path(run@dir, paste0(run@id, "_", quantity@id, ".nc"))
   this.nc <- nc_open(file.string, readunlim=FALSE, verbose=verbose, suppress_dimvals=FALSE )
+  grid.file <- system.file("gridfiles", "CTEM_t63_landmask.nc", package = "FireMIPTools")
+  grid.nc <-  nc_open(grid.file, readunlim=FALSE, verbose=verbose, suppress_dimvals=FALSE )
 
 
-
-
+  # get and print the dimensions and variables present
   dims.present <- names(this.nc$dim)
-  print(dims.present)
-
+  print(paste("Dimensions present: ", paste(dims.present, collapse = " ")))
   vars.present <- names(this.nc$var)
-  print(vars.present)
-
-  #print(str(this.nc))
+  print(paste("Variables present: ", paste(vars.present , collapse = " ")))
 
 
   # PFTs - hard code
   this.pfts <- c("NDL-EVG", "NDL-DCD", "BDL-EVG", "BDL-DCD-COLD", "BDL-DCD-DRY", "C3-CROP", "C4-CROP", "C3-GRASS", "C4-GRASS")
 
-  # get latitude dimension
-  if("lat" %in% vars.present) this.lat <- ncvar_get(this.nc,"lat",verbose=verbose)
-  else if("latitude" %in% vars.present) this.lat <- ncvar_get(this.nc,"latitude",verbose=verbose)
-  else if("Lat" %in% vars.present) this.lat <- ncvar_get(this.nc,"Lat",verbose=verbose)
-  else if("Latitude" %in% vars.present) this.lat <- ncvar_get(this.nc,"Latitude",verbose=verbose)
-  else (stop(paste0("Can't find latitude dimension.  Dims are: ", dims.present, " and variables are ", vars.present, collapse = " ")))
+  # get dimensions
+  this.lat <- getDimension(this.nc, "lat", verbose)
+  if(is.null(this.lat)) getDimension(grid.nc, "lat", verbose)
+  this.lon <- getDimension(this.nc, "lon", verbose)
+  if(is.null(this.lon)) getDimension(grid.nc, "lon", verbose)
+  this.time <- getDimension(this.nc, "time", verbose)
 
-  # get longitude dimension
-  if("lon" %in% vars.present) this.lon <- ncvar_get(this.nc,"lon",verbose=verbose)
-  else if("longitude" %in% vars.present) this.lon <- ncvar_get(this.nc,"longitude",verbose=verbose)
-  else if("Lon" %in% vars.present) this.lon <- ncvar_get(this.nc,"Lon",verbose=verbose)
-  else if("Longitude" %in% vars.present) this.lon <- ncvar_get(this.nc,"Longitude",verbose=verbose)
-  else (stop(paste0("Can't find longitude dimension.  Dims are: ", dims.present, " and variables are ", vars.present, collapse = " ")))
 
-  # get time dimension
-  if("time" %in% vars.present) this.time <- ncvar_get(this.nc,"time",verbose=verbose)
-  else if("Time" %in% vars.present) this.lon <- ncvar_get(this.nc,"Time",verbose=verbose)
-  if("time" %in% dims.present) this.time <- ncvar_get(this.nc,"time",verbose=verbose)
-  else if("Time" %in% dims.present) this.lon <- ncvar_get(this.nc,"Time",verbose=verbose)
-  else (stop(paste0("Can't find time dimension.  Dims are: ", dims.present, " and variables are ", vars.present, collapse = " ")))
+  # # first check the netCDF variables
+  # if("lat" %in% vars.present) this.lat <- ncvar_get(this.nc,"lat",verbose=verbose)
+  # else if("latitude" %in% vars.present) this.lat <- ncvar_get(this.nc,"latitude",verbose=verbose)
+  # else if("Lat" %in% vars.present) this.lat <- ncvar_get(this.nc,"Lat",verbose=verbose)
+  # else if("Latitude" %in% vars.present) this.lat <- ncvar_get(this.nc,"Latitude",verbose=verbose)
+  # else if("x" %in% vars.present) this.lat <- ncvar_get(this.nc,"x",verbose=verbose)
+  # else if("X" %in% vars.present) this.lat <- ncvar_get(this.nc,"X",verbose=verbose)
+  # # else warn with helpful info
+  # else (warning(paste0("Can't find latitude dimension.  Variables are ", vars.present, collapse = " ")))
+  #
+  # # get longitude dimension
+  # if("lon" %in% vars.present) this.lon <- ncvar_get(this.nc,"lon",verbose=verbose)
+  # else if("longitude" %in% vars.present) this.lon <- ncvar_get(this.nc,"longitude",verbose=verbose)
+  # else if("Lon" %in% vars.present) this.lon <- ncvar_get(this.nc,"Lon",verbose=verbose)
+  # else if("Longitude" %in% vars.present) this.lon <- ncvar_get(this.nc,"Longitude",verbose=verbose)
+  # else if("y" %in% vars.present) this.lon <- ncvar_get(this.nc,"y",verbose=verbose)
+  # else if("Y" %in% vars.present) this.lon <- ncvar_get(this.nc,"Y",verbose=verbose)
+  # # else fail with helpful info
+  # else (warning(paste0("Can't find longitude dimension.  Variables are ", vars.present, collapse = " ")))
+  #
+  # # get time dimension
+  # if("time" %in% vars.present) this.time <- ncvar_get(this.nc,"time",verbose=verbose)
+  # else if("Time" %in% vars.present) this.time <- ncvar_get(this.nc,"Time",verbose=verbose)
+  # if("time" %in% dims.present) this.time <- ncvar_get(this.nc,"time",verbose=verbose)
+  # else if("Time" %in% dims.present) this.time <- ncvar_get(this.nc,"Time",verbose=verbose)
+  # else (warning(paste0("Can't find time dimension.  Dims are: ", dims.present, " and variables are ", vars.present, collapse = " ")))
 
 
   # get the grid file and also prepare a list of land only gridcells
-  grid.file <- system.file("gridfiles", "CTEM_t63_landmask.nc", package = "FireMIPTools")
-  grid.nc <-  nc_open(grid.file, readunlim=FALSE, verbose=verbose, suppress_dimvals=FALSE )
+
+
+  # # if lon and lat were missing from the data file, use from the gridcell file
+  # if(!exists("this.lon")) this.lon <- ncvar_get(grid.nc, "lon",verbose=verbose)
+  # if(!exists("this.lat")) this.lat <- ncvar_get(grid.nc, "lat",verbose=verbose)
+
+  # get the land mask
   this.landmask <- ncvar_get(grid.nc, "landmask", start = c(1,1,1), count = c(-1,-1,-1))
   dimnames(this.landmask) <- list(this.lon, this.lat)
   this.landmask.dt <- as.data.table(melt(this.landmask))
@@ -89,7 +107,6 @@ openFireMIPOutputFile_CTEM <- function(run, quantity, sta.info, verbose = TRUE) 
   this.landmask.dt[, landmask:=NULL]
 
   # attempt to automagically determine time axis
-  print(this.time)
   is.monthly <- FALSE
   # monthly starting in 1861 -- CTEM
   if(length(this.time) == 1836) {
@@ -98,6 +115,15 @@ openFireMIPOutputFile_CTEM <- function(run, quantity, sta.info, verbose = TRUE) 
   }
   # annual starting in 1950 -- CTEM
   else if(length(this.time) == 64) {
+    all.years <- 1950:2013
+  }
+  # annual starting in 1950 -- CTEM
+  else if(length(this.time) == 156) {
+    all.years <- 1860:2013
+  }
+  # monthly starting in 1950 -- CTEM
+  else if(length(this.time) == 768) {
+    is.monthly <- TRUE
     all.years <- 1950:2013
   }
   else {
@@ -117,14 +143,7 @@ openFireMIPOutputFile_CTEM <- function(run, quantity, sta.info, verbose = TRUE) 
     }
   }
 
-  if(is.monthly && is.perPFT) dimensions.present <- "perPFT_monthly"
-  else if(is.monthly) dimensions.present <- "monthly"
-  else if(is.perPFT) dimensions.present <- "perPFT"
-  else dimensions.present <- "annual"
 
-
-
-  print(dimensions.present)
   first.year.output <- all.years[1]
   last.year.output <- all.years[length(all.years)]
 
@@ -133,24 +152,76 @@ openFireMIPOutputFile_CTEM <- function(run, quantity, sta.info, verbose = TRUE) 
   if(is.null(last.year) || length(last.year) == 0) last.year <- last.year.output
 
   # What we do now depend on how we want the output to be
+  full.dt <- data.table()
+
+  # get each year and make it into a data.table
+  if(is.monthly && is.perPFT) {
+
+    print("per month and per PFT")
+
+    t1 <- Sys.time()
+
+    for(counter in first.year:last.year) {
+
+      year.counter <- counter - first.year.output
+
+      # diagnostics
+      #this.slice <- ncvar_get(this.nc, start = c(1,1,1,1), count = c(-1,-1,-1, -1))
+      #print(dim(this.slice))
+
+      this.slice <- ncvar_get(this.nc, start = c(1,1,1,(year.counter*12)+1), count = c(-1,-1,-1, 12))
+      dimnames(this.slice) <- list(this.lon, this.lat, this.pfts, 1:12)
+
+      # melt to a data.table, via data.frame
+      this.slice.dt <- as.data.table(melt(this.slice))
+
+      # set names, chuck out the water and set NAs to 0
+      setnames(this.slice.dt, c("Lon", "Lat", "PFT", "Month", quantity@id))
+      this.slice.dt <- selectGridcells(this.slice.dt, this.landmask.dt)
+      for (j in seq_len(ncol(this.slice.dt))[4:ncol(this.slice.dt)])  set(this.slice.dt,which(is.na(this.slice.dt[[j]])),j,0)
+      this.slice.dt <- na.omit(this.slice.dt)
+
+      # add Year dcast back to a column for every PFT
+      this.slice.dt[, Year := counter]
+      new.order <- c("Lon", "Lat", "Year", "Month", quantity@id)
+      setcolorder(this.slice.dt, new.order)
+      this.slice.dt <- dcast(this.slice.dt, Lon + Lat + Year + Month ~ PFT, value.var = quantity@id, fill = 0)
+
+
+
+
+      # add it on to the full data.table
+      full.dt <- rbind(full.dt, this.slice.dt)
+
+    }
+    t2 <- Sys.time()
+    print(t2-t1)
+
+  } # END ANNUAL PER-PFT CASE
 
 
   # get each year and make it into a data.table
-  if(dimensions.present == "perPFT") {
+  else if(is.perPFT) {
+
+    print("per PFT")
+
     t1 <- Sys.time()
-    full.dt <- data.table()
 
     year.start.index <- first.year - first.year.output +1
     count.index <- last.year - first.year +1
 
-    this.slice <- ncvar_get(this.nc, start = c(year.start.index,1,1,1), count = c(count.index,-1,-1, -1))
-    dimnames(this.slice) <- list(first.year:last.year, this.pfts, this.lat, this.lon)
+    # diagnostics
+    # this.slice <- ncvar_get(this.nc, start = c(1,1,1,1), count = c(-1,-1,-1, -1))
+    # print(dim(this.slice))
+
+    this.slice <- ncvar_get(this.nc, start = c(1,1,1,year.start.index), count = c(-1,-1,-1,count.index))
+    dimnames(this.slice) <- list(this.lon, this.lat, this.pfts, first.year:last.year)
 
     # melt to a data.table, via data.frame
     this.slice.dt <- as.data.table(melt(this.slice))
 
     # set names, chuck out the water and set NAs to 0
-    setnames(this.slice.dt, c("Year", "PFT", "Lat", "Lon", quantity@id))
+    setnames(this.slice.dt, c("Lon", "Lat", "PFT", "Year", quantity@id))
     this.slice.dt <- selectGridcells(this.slice.dt, this.landmask.dt)
     for (j in seq_len(ncol(this.slice.dt))[5:ncol(this.slice.dt)])  set(this.slice.dt,which(is.na(this.slice.dt[[j]])),j,0)
 
@@ -167,19 +238,24 @@ openFireMIPOutputFile_CTEM <- function(run, quantity, sta.info, verbose = TRUE) 
   } # END ANNUAL PER-PFT CASE
 
 
-  if(dimensions.present == "monthly") {
+  else if(is.monthly) {
+
+    print("per month")
 
     # get each year and make it into a data.table
     t1 <- Sys.time()
-    full.dt <- data.table()
+
     for(counter in first.year:last.year) {
 
       # get the slice
       year.counter <- counter - first.year.output
 
-      this.slice <-  ncvar_get(this.nc, start = c(1,1,(year.counter*12)+1), count = c(-1,-1,12))
+      # diagnostics
+      #this.slice <- ncvar_get(this.nc, start = c(1,1,1,1), count = c(-1,-1,-1, -1))
+      #print(dim(this.slice))
+      #stop()
 
-      print(dim(this.slice))
+      this.slice <-  ncvar_get(this.nc, start = c(1,1,(year.counter*12)+1), count = c(-1,-1,12))
       dimnames(this.slice) <- list(this.lon, this.lat, paste(1:12))
 
       # if necessary multiply data by a constant
@@ -187,7 +263,6 @@ openFireMIPOutputFile_CTEM <- function(run, quantity, sta.info, verbose = TRUE) 
 
       # melt to a data.table, via data.frame
       this.slice.dt <- as.data.table(melt(this.slice))
-      print(this.slice.dt)
 
       # set names, chuck out the water and set NAs to 0
       setnames(this.slice.dt, c("Lon", "Lat", "Month", quantity@id))
@@ -195,7 +270,6 @@ openFireMIPOutputFile_CTEM <- function(run, quantity, sta.info, verbose = TRUE) 
       this.slice.dt <- selectGridcells(this.slice.dt, this.landmask.dt)
       for (j in seq_len(ncol(this.slice.dt))[3:ncol(this.slice.dt)])  set(this.slice.dt,which(is.na(this.slice.dt[[j]])),j,0)
       this.slice.dt <- na.omit(this.slice.dt)
-
 
       # add a column for "Year"
       this.slice.dt[, Year := counter]
@@ -213,52 +287,35 @@ openFireMIPOutputFile_CTEM <- function(run, quantity, sta.info, verbose = TRUE) 
 
   }
 
-  # get each year and make it into a data.table
-  else if(dimensions.present == "perPFT_monthly") {
 
+  # get each year and make it into a data.table
+  else {
+
+    print("simple annual")
 
     t1 <- Sys.time()
-    full.dt <- data.table()
-    for(counter in first.year:last.year) {
 
-      year.counter <- counter - first.year.output
+    # diagnostics
+    #this.slice <- ncvar_get(this.nc, start = c(1,1,1), count = c(-1,-1,-1))
+    #print(dim(this.slice))
 
-      # diagnostics
-      #this.slice <- ncvar_get(this.nc, start = c(1,1,1,1), count = c(-1,-1,-1, -1))
-      #print(dim(this.slice))
-      #stop()
+    year.start.index <- first.year - first.year.output +1
+    count.index <- last.year - first.year +1
 
-      this.slice <- ncvar_get(this.nc, start = c(1,1,1,(year.counter*12)+1), count = c(-1,-1,-1, 12))
-      print(dim(this.slice))
-      dimnames(this.slice) <- list(this.lon, this.lat, this.pfts, 1:12)
+    this.slice <- ncvar_get(this.nc, start = c(1,1,year.start.index), count = c(-1, -1, count.index))
+    dimnames(this.slice) <- list(this.lon, this.lat, first.year:last.year)
 
-      # melt to a data.table, via data.frame
-      this.slice.dt <- as.data.table(melt(this.slice))
-      print(this.slice.dt)
+    # melt to a data.table, via data.frame
+    this.slice.dt <- as.data.table(melt(this.slice))
 
-      # set names, chuck out the water and set NAs to 0
-      setnames(this.slice.dt, c("Lon", "Lat", "PFT", "Month", quantity@id))
-      this.slice.dt <- selectGridcells(this.slice.dt, this.landmask.dt)
-      for (j in seq_len(ncol(this.slice.dt))[4:ncol(this.slice.dt)])  set(this.slice.dt,which(is.na(this.slice.dt[[j]])),j,0)
-      this.slice.dt <- na.omit(this.slice.dt)
-      print(this.slice.dt)
+    # set names, chuck out the water and set NAs to 0
+    setnames(this.slice.dt, c("Lon", "Lat",  "Year", quantity@id))
+    this.slice.dt <- selectGridcells(this.slice.dt, this.landmask.dt)
+    for (j in seq_len(ncol(this.slice.dt))[4:ncol(this.slice.dt)])  set(this.slice.dt,which(is.na(this.slice.dt[[j]])),j,0)
 
-      # add Year dcast back to a column for every PFT
-      this.slice.dt[, Year := counter]
-      new.order <- c("Lon", "Lat", "Year", "Month", quantity@id)
-      setcolorder(this.slice.dt, new.order)
-      this.slice.dt <- dcast(this.slice.dt, Lon + Lat + Year + Month ~ PFT, value.var = quantity@id, fill = 0)
-      print(this.slice.dt)
-      # add a column for "Year"
+    # add it on to the full data.table
+    full.dt <- rbind(full.dt, this.slice.dt)
 
-
-      # reorder columns so that "Year" follows after "Lon" and "Lat"
-
-
-      # add it on to the full data.table
-      full.dt <- rbind(full.dt, this.slice.dt)
-
-    }
     t2 <- Sys.time()
     print(t2-t1)
 
@@ -267,11 +324,10 @@ openFireMIPOutputFile_CTEM <- function(run, quantity, sta.info, verbose = TRUE) 
 
   # Tidy stuff
   full.dt <- stats::na.omit(full.dt)
-  print(full.dt)
 
   all.years <- sort(unique(full.dt[["Year"]]))
-  subannual <- "Month"
-  if(dimensions.present == "perPFT") subannual <- "Annual"
+  if(is.monthly) subannual <- "Month"
+  else subannual <- "Annual"
   sta.info = new("STAInfo",
                  first.year = min(all.years),
                  last.year = max(all.years),
@@ -330,11 +386,13 @@ determineQuantities_CTEM_FireMIP <- function(source, names){
 
       split.thing <- unlist(strsplit(var.str, "_"))
       var.str <- split.thing[length(split.thing)]
+      if(var.str == "mrso") var.str <- NULL # mutiple layers, not sure how to handle...
+      else if(var.str == "tsl") var.str <- NULL # mutiple layers, not sure how to handle...
 
       if(!is.null(var.str)) {
         print(lookupQuantity(var.str, source@format@quantities))
         if(names) quantities.present <- append(quantities.present, var.str)
-        else   quantities.present <- append(quantities.present, lookupQuantity(var.str, source@format@quantities))
+        else  quantities.present <- append(quantities.present, lookupQuantity(var.str, source@format@quantities))
 
       }
     }

@@ -16,6 +16,7 @@
 #' @import data.table
 #' @import DGVMTools
 #' @import ncdf4
+#' @importFrom stats na.omit
 #'
 #' @keywords internal
 #'
