@@ -1,9 +1,9 @@
 ############################################################################################################################
 ############################ FUNCTIONS TO HANDLE FireMIP FILES ###########################################################
 ############################################################################################################################
-#' Open a CTEM FireMIP output file
+#' Open a JSBACH FireMIP output file
 #'
-#' Opens a .nc file from the CTEM FireMIP output and sorts out the meta-data and dimensions and all that messy stuff.
+#' Opens a .nc file from the JSBACH FireMIP output and sorts out the meta-data and dimensions and all that messy stuff.
 #' Returns a data.table, because it is intended to be called by getField(), but of course the data.table could be used directly if you wish
 #'
 #'
@@ -26,7 +26,7 @@
 #'
 #' @export
 
-openFireMIPOutputFile_CTEM <- function(run, quantity, sta.info, verbose = TRUE) {
+openFireMIPOutputFile_JSBACH <- function(run, quantity, sta.info, verbose = TRUE) {
 
 
   first.year = sta.info@first.year
@@ -40,8 +40,9 @@ openFireMIPOutputFile_CTEM <- function(run, quantity, sta.info, verbose = TRUE) 
 
   # open the data file and the gridl file
   file.string <- file.path(run@dir, paste0(run@id, "_", quantity@id, ".nc"))
+  print(file.string)
   this.nc <- nc_open(file.string, readunlim=FALSE, verbose=verbose, suppress_dimvals=FALSE )
-  grid.file <- system.file("gridfiles", "CTEM_t63_landmask.nc", package = "FireMIPTools")
+  grid.file <- system.file("gridfiles", "JSBACH_grid.nc", package = "FireMIPTools")
   grid.nc <-  nc_open(grid.file, readunlim=FALSE, verbose=verbose, suppress_dimvals=FALSE )
 
 
@@ -52,7 +53,7 @@ openFireMIPOutputFile_CTEM <- function(run, quantity, sta.info, verbose = TRUE) 
   print(paste("Variables present: ", paste(vars.present , collapse = " ")))
 
   # PFTs - hard coded
-  this.pfts <- c("NDL-EVG", "NDL-DCD", "BDL-EVG", "BDL-DCD-COLD", "BDL-DCD-DRY", "C3-CROP", "C4-CROP", "C3-GRASS", "C4-GRASS")
+  this.pfts <- c("TrE", "TrD", "ExtE", "ExtD", "Rg_Shb", "De_Shb", "C3G", "C4G", "C3G_pas", "C4G_pas", "Crop")
 
   # get dimensions
   this.lat <- getDimension(this.nc, "lat", verbose)
@@ -63,7 +64,7 @@ openFireMIPOutputFile_CTEM <- function(run, quantity, sta.info, verbose = TRUE) 
 
 
   # get the land mask
-  this.landmask <- ncvar_get(grid.nc, "landmask", start = c(1,1,1), count = c(-1,-1,-1))
+  this.landmask <- ncvar_get(grid.nc, "masks", start = c(1,1), count = c(-1,-1))
   dimnames(this.landmask) <- list(this.lon, this.lat)
   this.landmask.dt <- as.data.table(melt(this.landmask))
   setnames(this.landmask.dt, c("Lon", "Lat", "landmask"))
@@ -90,6 +91,15 @@ openFireMIPOutputFile_CTEM <- function(run, quantity, sta.info, verbose = TRUE) 
     is.monthly <- TRUE
     all.years <- 1950:2013
   }
+  # monthly starting in 1700 -- JSBACH
+  else if(length(this.time) == 3768) {
+    is.monthly <- TRUE
+    all.years <- 1700:2013
+  }
+  # monthly starting in 1700 -- JSBACH
+  else if(length(this.time) == 314) {
+    all.years <- 1700:2013
+  }
   else {
     stop(paste("Guess time axis for time dimensions length", length(this.time)))
   }
@@ -102,8 +112,8 @@ openFireMIPOutputFile_CTEM <- function(run, quantity, sta.info, verbose = TRUE) 
     if("vegtype" %in% vars.present || "vegtype" %in% dims.present){
       is.perPFT <- TRUE
       this.vegtype <- ncvar_get(this.nc,"vegtype",verbose=verbose)
-      if(length(this.vegtype) == 9) this.pfts <- c("NDL-EVG", "NDL-DCD", "BDL-EVG", "BDL-DCD-COLD", "BDL-DCD-DRY", "C3-CROP", "C4-CROP", "C3-GRASS", "C4-GRASS")
-      else if(length(this.vegtype) == 10) this.pfts <- c("NDL-EVG", "NDL-DCD", "BDL-EVG", "BDL-DCD-COLD", "BDL-DCD-DRY", "C3-CROP", "C4-CROP", "C3-GRASS", "C4-GRASS", "Bare")
+      #if(length(this.vegtype) == 9) this.pfts <- c("NDL-EVG", "NDL-DCD", "BDL-EVG", "BDL-DCD-COLD", "BDL-DCD-DRY", "C3-CROP", "C4-CROP", "C3-GRASS", "C4-GRASS")
+      #else if(length(this.vegtype) == 10) this.pfts <- c("NDL-EVG", "NDL-DCD", "BDL-EVG", "BDL-DCD-COLD", "BDL-DCD-DRY", "C3-CROP", "C4-CROP", "C3-GRASS", "C4-GRASS", "Bare")
     }
   }
 
@@ -318,7 +328,7 @@ openFireMIPOutputFile_CTEM <- function(run, quantity, sta.info, verbose = TRUE) 
 #' @author Matthew Forrest \email{matthew.forrest@@senckenberg.de}
 #' @keywords internal
 
-determinePFTs_CTEM_FireMIP <- function(x, variables) {
+determinePFTs_JSBACH_FireMIP <- function(x, variables) {
 
   warning("determinePFTs_FireMIP not currently implmented.")
   return(x@format@default.pfts)
@@ -339,22 +349,27 @@ determinePFTs_CTEM_FireMIP <- function(x, variables) {
 #' @author Matthew Forrest \email{matthew.forrest@@senckenberg.de}
 
 
-determineQuantities_CTEM_FireMIP <- function(source, names){
+determineQuantities_JSBACH_FireMIP <- function(source, names){
 
   # First get the list of *.out files present
   files.present <- list.files(source@dir, "*.nc")
+  print(files.present)
 
   quantities.present <- list()
   for(file in files.present) {
 
     # remove the.nc
     var.str <- gsub(".nc", "", file)
-    if(var.str != "CTEM_t63_landmask"){
+
+    print(var.str)
 
       split.thing <- unlist(strsplit(var.str, "_"))
       var.str <- split.thing[length(split.thing)]
-      if(var.str == "mrso") var.str <- NULL # mutiple layers, not sure how to handle...
-      else if(var.str == "tsl") var.str <- NULL # mutiple layers, not sure how to handle...
+      if(var.str == "Frst") var.str <- NULL #  not standard
+      else if(var.str == "depth") var.str <- "snow_depth"
+      else if(var.str == "dlai") var.str <- NULL # daily LAI not supported
+      else if(var.str == "v2") var.str <- NULL # nbp_v2?
+      else if(var.str == "tsl") var.str <- NULL # ignore temperature of soil
 
       if(!is.null(var.str)) {
         print(lookupQuantity(var.str, source@format@quantities))
@@ -362,7 +377,6 @@ determineQuantities_CTEM_FireMIP <- function(source, names){
         else  quantities.present <- append(quantities.present, lookupQuantity(var.str, source@format@quantities))
 
       }
-    }
 
   }
 
@@ -376,7 +390,7 @@ determineQuantities_CTEM_FireMIP <- function(source, names){
 
 #' @format An S4 class object with the slots as defined below.
 #' @keywords datasets
-CTEM_FireMIP.PFTs <- list(
+JSBACH_FireMIP.PFTs <- list(
 
   # BOREAL TREES
 
@@ -495,11 +509,11 @@ CTEM_FireMIP.PFTs <- list(
 
 
 ####################################################
-########### CTEM_FireMIP FORMAT ########################
+########### JSBACH_FireMIP FORMAT ########################
 ####################################################
-#' CTEM-FireMIP Format objects
+#' JSBACH-FireMIP Format objects
 #'
-#' @description \code{CTEM_FireMIP} - a Format for reading CTEM FireMIP model output
+#' @description \code{JSBACH_FireMIP} - a Format for reading JSBACH FireMIP model output
 #'
 #' @format A \code{Quantity} object is an S4 class.
 #' @keywords datasets
@@ -507,22 +521,22 @@ CTEM_FireMIP.PFTs <- list(
 #' @import DGVMTools
 #' @export
 #'
-CTEM_FireMIP<- new("Format",
+JSBACH_FireMIP<- new("Format",
 
                    # UNIQUE ID
-                   id = "CTEM-FireMIP",
+                   id = "JSBACH-FireMIP",
 
                    # FUNCTION TO LIST ALL PFTS APPEARING IN A RUN
-                   determinePFTs = determinePFTs_CTEM_FireMIP,
+                   determinePFTs = determinePFTs_JSBACH_FireMIP,
 
                    # FUNCTION TO LIST ALL QUANTIES AVAILABLE IN A RUN
-                   determineQuantities = determineQuantities_CTEM_FireMIP,
+                   determineQuantities = determineQuantities_JSBACH_FireMIP,
 
                    # FUNCTION TO READ A FIELD
-                   getField = openFireMIPOutputFile_CTEM,
+                   getField = openFireMIPOutputFile_JSBACH,
 
                    # DEFAULT GLOBAL PFTS
-                   default.pfts = CTEM_FireMIP.PFTs,
+                   default.pfts = JSBACH_FireMIP.PFTs,
 
                    # QUANTITIES THAT CAN BE PULLED DIRECTLY FROM LPJ-GUESS RUNS
                    quantities = FireMIP.quantities

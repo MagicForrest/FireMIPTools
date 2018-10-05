@@ -183,6 +183,13 @@ FireMIP.quantities <- list(
       format = c("FireMIP", "LPJ-GUESS-SPITFIRE"),
       cf.name = "Fuel moisture of live grass fuel"),
 
+  new("Quantity",
+      id = "mFuel",
+      name = "Fuel moisture (all fuel)",
+      units = "",
+      colours = reversed.viridis,
+      format = c("FireMIP"),
+      cf.name = "Fuel moisture"),
 
   ### FIRE PROPERTIES AND MORTALITY
 
@@ -201,6 +208,14 @@ FireMIP.quantities <- list(
       colours = reversed.viridis,
       format = c("FireMIP", "LPJ-GUESS-SPITFIRE"),
       cf.name = "Number of fires"),
+
+  new("Quantity",
+      id = "nrIgn",
+      name = "Potential ignitions",
+      units = "nr m-2 month-1",
+      colours = reversed.viridis,
+      format = c("FireMIP", "LPJ-GUESS-SPITFIRE"),
+      cf.name = "Potential ignitions"),
 
   new("Quantity",
       id = "meanFire",
@@ -300,6 +315,14 @@ FireMIP.quantities <- list(
       format = c("FireMIP", "LPJ-GUESS-SPITFIRE"),
       cf.name = "Temperature of soil"),
 
+  new("Quantity",
+      id = "mslpft",
+      name = "Vegtype level soil moisture",
+      units = "kg  m-2",
+      colours = reversed.viridis,
+      format = c("FireMIP", "LPJ-GUESS-SPITFIRE"),
+      cf.name = "Vegtype level soil moisture"),
+
 
 
   ### FLUXES
@@ -376,6 +399,21 @@ FireMIP.quantities <- list(
       format = c("FireMIP", "LPJ-GUESS-SPITFIRE"),
       cf.name = "CO2 Flux to Atmosphere from Land Use Change"),
 
+  new("Quantity",
+      id = "fGrazing",
+      name = "CO2 Flux to Atmosphere from grazing",
+      units = "kg C m-2 s-1",
+      colours = reversed.viridis,
+      format = c("FireMIP", "LPJ-GUESS-SPITFIRE"),
+      cf.name = "CO2 Flux to Atmosphere from grazing"),
+
+  new("Quantity",
+      id = "fHarvest",
+      name = "CO2 Flux to Atmosphere from crop harvesting",
+      units = "kg C m-2 s-1",
+      colours = reversed.viridis,
+      format = c("FireMIP", "LPJ-GUESS-SPITFIRE"),
+      cf.name = "CO2 Flux to Atmosphere from crop harvesting"),
 
   # POOLS
 
@@ -528,8 +566,32 @@ FireMIP.quantities <- list(
       units = "K",
       colours = reversed.viridis,
       format = c("FireMIP", "LPJ-GUESS-SPITFIRE"),
-      cf.name = "Near-Surface_Air_Temperature")
+      cf.name = "Near-Surface_Air_Temperature"),
 
+  new("Quantity",
+     id = "Albedo",
+     name = "Vegtype level Broadband Albedo",
+     units = "fraction",
+     colours = reversed.viridis,
+     format = c("FireMIP", "LPJ-GUESS-SPITFIRE"),
+     cf.name = "Vegtype level Broadband Albedo"),
+
+  new("Quantity",
+      id = "shflxpft",
+      name = "Vegtype level sensible heat flux",
+      units = "W m_2",
+      colours = reversed.viridis,
+      format = c("FireMIP", "LPJ-GUESS-SPITFIRE"),
+      cf.name = "Vegtype level sensible heat flux"),
+
+
+  new("Quantity",
+      id = "snow_depth",
+      name = "Snow depth",
+      units = "m m_2",
+      colours = reversed.viridis,
+      format = c("FireMIP", "LPJ-GUESS-SPITFIRE"),
+      cf.name = "Snow depth")
 
 
 )
