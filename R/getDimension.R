@@ -4,7 +4,7 @@ getDimension <- function(nc, dimension, verbose) {
   # determine possible names
   if(tolower(dimension) == "lat") possibles <- c("lat", "Lat", "latitude", "Latitude")
   if(tolower(dimension) == "lon") possibles <- c("lon", "Lon", "longitude", "Longitude")
-  if(tolower(dimension) == "time") possibles <- c("time", "Time")
+  if(tolower(dimension) == "time") possibles <- c("time", "Time", "year", "Year")
 
   # get variables and return if present
   dims.present <- names(nc$dim)

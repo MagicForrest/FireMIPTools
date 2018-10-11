@@ -160,7 +160,7 @@ openFireMIPOutputFile_CLM <- function(run, quantity, sta.info, verbose = TRUE) {
 
     # add it on to the full data.table
     full.dt <- rbind(full.dt, this.slice.dt)
-
+    rm(this.slice, this.slice.dt)
 
     t2 <- Sys.time()
     print(t2-t1)
@@ -203,6 +203,7 @@ openFireMIPOutputFile_CLM <- function(run, quantity, sta.info, verbose = TRUE) {
 
       # add it on to the full data.table
       full.dt <- rbind(full.dt, this.slice.dt)
+      rm(this.slice, this.slice.dt)
 
     }
     t2 <- Sys.time()
@@ -241,6 +242,7 @@ openFireMIPOutputFile_CLM <- function(run, quantity, sta.info, verbose = TRUE) {
 
       # add it on to the full data.table
       full.dt <- rbind(full.dt, this.slice.dt)
+      rm(this.slice, this.slice.dt)
 
     }
     t2 <- Sys.time()
@@ -263,6 +265,11 @@ openFireMIPOutputFile_CLM <- function(run, quantity, sta.info, verbose = TRUE) {
                  subannual.original = subannual,
                  spatial.extent = extent(full.dt))
 
+
+  # close the file
+  nc_close(this.nc)
+  nc_close(grid.nc)
+  gc()
 
   return(list(dt = full.dt,
               sta.info = sta.info))
@@ -300,7 +307,7 @@ determinePFTs_CLM_FireMIP <- function(x, variables) {
 #' @author Matthew Forrest \email{matthew.forrest@@senckenberg.de}
 
 
-determineQuantities_CLM_FireMIP <- function(source, names){
+availableQuantities_CLM_FireMIP <- function(source, names){
 
   # First get the list of *.out files present
   files.present <- list.files(source@dir, "*.nc")
@@ -487,7 +494,7 @@ CLM_FireMIP<- new("Format",
               determinePFTs = determinePFTs_CLM_FireMIP,
 
               # FUNCTION TO LIST ALL QUANTIES AVAILABLE IN A RUN
-              determineQuantities = determineQuantities_CLM_FireMIP,
+              availableQuantities = availableQuantities_CLM_FireMIP,
 
               # FUNCTION TO READ A FIELD
               getField = openFireMIPOutputFile_CLM,

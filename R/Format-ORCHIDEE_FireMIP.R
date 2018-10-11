@@ -84,7 +84,6 @@ openFireMIPOutputFile_ORCHIDEE <- function(run, quantity, sta.info, verbose = TR
   this.lon <- getDimension(this.nc, "lon", verbose)
   # if(is.null(this.lon)) this.lon <- getDimension(grid.nc, "lon", verbose)
   this.time <- getDimension(this.nc, "time", verbose)
-  print(this.time)
 
   # get the land mask
   # this.landmask <- ncvar_get(grid.nc, "masks", start = c(1,1), count = c(-1,-1))
@@ -128,7 +127,6 @@ openFireMIPOutputFile_ORCHIDEE <- function(run, quantity, sta.info, verbose = TR
     # this ugliness is because the list.files command seems to fail occasionally
     repeat{
       all.files <- list.files(this.dir, ".nc")
-      print(all.files)
       if(length(all.files) > 0){
         break
       }
@@ -151,7 +149,6 @@ openFireMIPOutputFile_ORCHIDEE <- function(run, quantity, sta.info, verbose = TR
     # this ugliness is because the list.files command seems to fail occasionally
     repeat{
       all.files <- list.files(this.dir, ".nc")
-      print(all.files)
       if(length(all.files) > 0){
         break
       }
@@ -179,6 +176,9 @@ openFireMIPOutputFile_ORCHIDEE <- function(run, quantity, sta.info, verbose = TR
       #else if(length(this.vegtype) == 10) this.pfts <- c("NDL-EVG", "NDL-DCD", "BDL-EVG", "BDL-DCD-COLD", "BDL-DCD-DRY", "C3-CROP", "C4-CROP", "C3-GRASS", "C4-GRASS", "Bare")
     }
   }
+
+  # close the file
+  nc_close(this.nc)
 
 
   first.year.output <- all.years[1]
@@ -220,7 +220,7 @@ openFireMIPOutputFile_ORCHIDEE <- function(run, quantity, sta.info, verbose = TR
       this.slice <- ncvar_get(this.nc, start = c(1,1,1), count = c(-1,-1,-1), collapse_degen = FALSE)
       dimnames(this.slice) <- list(this.lon, this.lat,  counter)
     }
-
+    nc_close(this.nc)
 
     # melt to a data.table, via data.frame
     this.slice.dt <- as.data.table(melt(this.slice))
@@ -258,6 +258,7 @@ openFireMIPOutputFile_ORCHIDEE <- function(run, quantity, sta.info, verbose = TR
 
     # add it on to the full data.table
     full.dt <- rbind(full.dt, this.slice.dt)
+    rm(this.slice, this.slice.dt)
 
   }
   t2 <- Sys.time()
@@ -267,6 +268,7 @@ openFireMIPOutputFile_ORCHIDEE <- function(run, quantity, sta.info, verbose = TR
 
   # Tidy stuff
   full.dt <- stats::na.omit(full.dt)
+  gc()
 
   all.years <- sort(unique(full.dt[["Year"]]))
   if(is.monthly) subannual <- "Month"
@@ -315,19 +317,16 @@ determinePFTs_ORCHIDEE_FireMIP <- function(x, variables) {
 #' @author Matthew Forrest \email{matthew.forrest@@senckenberg.de}
 
 
-determineQuantities_ORCHIDEE_FireMIP <- function(source, names){
+availableQuantities_ORCHIDEE_FireMIP <- function(source, names){
 
   # First get the list of *.out files present
   files.present <- list.files(source@dir, ".tar.gz")
-  print(files.present)
 
   quantities.present <- list()
   for(file in files.present) {
 
     # remove the.nc
     var.str <- gsub(".tar.gz", "", file)
-
-    print(var.str)
 
     #split.thing <- unlist(strsplit(var.str, "_"))
     #var.str <- split.thing[length(split.thing)]
@@ -513,7 +512,7 @@ ORCHIDEE_FireMIP<- new("Format",
                        determinePFTs = determinePFTs_ORCHIDEE_FireMIP,
 
                        # FUNCTION TO LIST ALL QUANTIES AVAILABLE IN A RUN
-                       determineQuantities = determineQuantities_ORCHIDEE_FireMIP,
+                       availableQuantities = availableQuantities_ORCHIDEE_FireMIP,
 
                        # FUNCTION TO READ A FIELD
                        getField = openFireMIPOutputFile_ORCHIDEE,

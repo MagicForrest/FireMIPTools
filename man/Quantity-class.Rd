@@ -9,6 +9,6 @@
 FireMIP.quantities
 }
 \description{
-All the FiremMIP quantities
+All the FiremMIP quantities currently provided by the models.
 }
 \keyword{datasets}

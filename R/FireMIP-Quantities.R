@@ -267,6 +267,22 @@ FireMIP.quantities <- list(
       cf.name = "Total Evapo-Transpiration"),
 
   new("Quantity",
+      id = "evapotranspft",
+      name = "Vegtype level evapotranspiration ",
+      units = "kg m-2 s-1",
+      colours = reversed.viridis,
+      format = c("FireMIP", "LPJ-GUESS-SPITFIRE"),
+      cf.name = "Vegtype level evapotranspiration "),
+
+  new("Quantity",
+      id = "evapo",
+      name = "Vegtype level soil evaporation",
+      units = "kg m-2 s-1",
+      colours = reversed.viridis,
+      format = c("FireMIP", "LPJ-GUESS-SPITFIRE"),
+      cf.name = "Vegtype level soil evaporation"),
+
+  new("Quantity",
       id = "mrso",
       name = "Total Soil Moisture Content",
       units = "kg m-2",
@@ -457,6 +473,14 @@ FireMIP.quantities <- list(
       cf.name = "Carbon_in_wood"),
 
   new("Quantity",
+      id = "cCwd",
+      name = "Carbon in CWD",
+      units = "kg C m-2",
+      colours = reversed.viridis,
+      format = c("CTEM_FireMIP"),
+      cf.name = "Carbon_in_coarse_woody_debris"),
+
+  new("Quantity",
       id = "cLitter",
       name = "Carbon in Above-ground Litter Pool",
       units = "kg C m-2",
@@ -590,7 +614,16 @@ FireMIP.quantities <- list(
       units = "m m_2",
       colours = reversed.viridis,
       format = c("FireMIP", "LPJ-GUESS-SPITFIRE"),
-      cf.name = "Snow depth")
+      cf.name = "Snow depth"),
+
+  new("Quantity",
+      id = "vtype",
+      name = "MC2 vegetation type",
+      units = "category",
+      colours = reversed.viridis,
+      format = c("FireMIP", "LPJ-GUESS-SPITFIRE"),
+      cf.name = "MC2 vegetation type")
+
 
 
 )

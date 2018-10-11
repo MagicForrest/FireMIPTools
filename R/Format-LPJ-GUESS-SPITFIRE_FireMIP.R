@@ -171,11 +171,9 @@ openFireMIPOutputFile_LPJ_GUESS_SPITFIRE <- function(run, quantity, sta.info, ve
       setcolorder(this.slice.dt, new.order)
       this.slice.dt <- dcast(this.slice.dt, Lon + Lat + Year + Month ~ PFT, value.var = quantity@id, fill = 0)
 
-
-
-
       # add it on to the full data.table
       full.dt <- rbind(full.dt, this.slice.dt)
+      rm(this.slice, this.slice.dt)
 
     }
     t2 <- Sys.time()
@@ -215,7 +213,7 @@ openFireMIPOutputFile_LPJ_GUESS_SPITFIRE <- function(run, quantity, sta.info, ve
 
     # add it on to the full data.table
     full.dt <- rbind(full.dt, this.slice.dt)
-
+    rm(this.slice, this.slice.dt)
 
     t2 <- Sys.time()
     print(t2-t1)
@@ -265,6 +263,7 @@ openFireMIPOutputFile_LPJ_GUESS_SPITFIRE <- function(run, quantity, sta.info, ve
 
       # add it on to the full data.table
       full.dt <- rbind(full.dt, this.slice.dt)
+      rm(this.slice, this.slice.dt)
 
     }
     t2 <- Sys.time()
@@ -301,6 +300,7 @@ openFireMIPOutputFile_LPJ_GUESS_SPITFIRE <- function(run, quantity, sta.info, ve
 
     # add it on to the full data.table
     full.dt <- rbind(full.dt, this.slice.dt)
+    rm(this.slice, this.slice.dt)
 
     t2 <- Sys.time()
     print(t2-t1)
@@ -321,6 +321,9 @@ openFireMIPOutputFile_LPJ_GUESS_SPITFIRE <- function(run, quantity, sta.info, ve
                  subannual.original = subannual,
                  spatial.extent = extent(full.dt))
 
+  # close the file
+  nc_close(this.nc)
+  gc()
 
   return(list(dt = full.dt,
               sta.info = sta.info))
@@ -358,7 +361,7 @@ determinePFTs_LPJ_GUESS_SPITFIRE_FireMIP <- function(x, variables) {
 #' @author Matthew Forrest \email{matthew.forrest@@senckenberg.de}
 
 
-determineQuantities_LPJ_GUESS_SPITFIRE_FireMIP <- function(source, names){
+availableQuantities_LPJ_GUESS_SPITFIRE_FireMIP <- function(source, names){
 
   # First get the list of *.out files present
   files.present <- list.files(source@dir, "*.nc")
@@ -546,7 +549,7 @@ LPJ_GUESS_SPITFIRE_FireMIP<- new("Format",
                    determinePFTs = determinePFTs_LPJ_GUESS_SPITFIRE_FireMIP,
 
                    # FUNCTION TO LIST ALL QUANTIES AVAILABLE IN A RUN
-                   determineQuantities = determineQuantities_LPJ_GUESS_SPITFIRE_FireMIP,
+                   availableQuantities = availableQuantities_LPJ_GUESS_SPITFIRE_FireMIP,
 
                    # FUNCTION TO READ A FIELD
                    getField = openFireMIPOutputFile_LPJ_GUESS_SPITFIRE,

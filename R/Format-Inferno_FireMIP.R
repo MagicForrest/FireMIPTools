@@ -66,9 +66,6 @@ openFireMIPOutputFile_Inferno <- function(run, quantity, sta.info, verbose = TRU
   if(is.null(this.lon)) this.lon <- getDimension(grid.nc, "lon", verbose)
   this.time <- getDimension(this.nc, "time", verbose)
 
-  print(this.lon)
-  print(this.lat)
-
   # get the land mask
   this.landmask <- ncvar_get(grid.nc, "lsm", start = c(1,1), count = c(-1,-1))
   dimnames(this.landmask) <- list(this.lon, this.lat)
@@ -171,10 +168,9 @@ openFireMIPOutputFile_Inferno <- function(run, quantity, sta.info, verbose = TRU
       this.slice.dt <- dcast(this.slice.dt, Lon + Lat + Year + Month ~ PFT, value.var = quantity@id, fill = 0)
       this.slice.dt <- na.omit(this.slice.dt)
 
-
-
       # add it on to the full data.table
       full.dt <- rbind(full.dt, this.slice.dt)
+      rm(this.slice, this.slice.dt)
 
     }
     t2 <- Sys.time()
@@ -218,7 +214,7 @@ openFireMIPOutputFile_Inferno <- function(run, quantity, sta.info, verbose = TRU
 
     # add it on to the full data.table
     full.dt <- rbind(full.dt, this.slice.dt)
-
+    rm(this.slice, this.slice.dt)
 
     t2 <- Sys.time()
     print(t2-t1)
@@ -268,6 +264,7 @@ openFireMIPOutputFile_Inferno <- function(run, quantity, sta.info, verbose = TRU
 
       # add it on to the full data.table
       full.dt <- rbind(full.dt, this.slice.dt)
+      rm(this.slice, this.slice.dt)
 
     }
     t2 <- Sys.time()
@@ -303,6 +300,7 @@ openFireMIPOutputFile_Inferno <- function(run, quantity, sta.info, verbose = TRU
 
     # add it on to the full data.table
     full.dt <- rbind(full.dt, this.slice.dt)
+    rm(this.slice, this.slice.dt)
 
     t2 <- Sys.time()
     print(t2-t1)
@@ -323,6 +321,11 @@ openFireMIPOutputFile_Inferno <- function(run, quantity, sta.info, verbose = TRU
                  subannual.original = subannual,
                  spatial.extent = extent(full.dt))
 
+
+  # close the file
+  nc_close(this.nc)
+  nc_close(grid.nc)
+  gc()
 
   return(list(dt = full.dt,
               sta.info = sta.info))
@@ -360,11 +363,12 @@ determinePFTs_Inferno_FireMIP <- function(x, variables) {
 #' @author Matthew Forrest \email{matthew.forrest@@senckenberg.de}
 
 
-determineQuantities_Inferno_FireMIP <- function(source, names){
+availableQuantities_Inferno_FireMIP <- function(source, names){
 
   # First get the list of *.out files present
-  files.present <- list.files(source@dir, "*.nc*")
-  print(files.present)
+  files.present.nc <- list.files(source@dir, "*.nc")
+  files.present.nc4 <- list.files(source@dir, "*.nc4")
+  files.present <- append(files.present.nc,  files.present.nc4)
 
   quantities.present <- list()
   for(file in files.present) {
@@ -540,7 +544,7 @@ Inferno_FireMIP<- new("Format",
                       determinePFTs = determinePFTs_Inferno_FireMIP,
 
                       # FUNCTION TO LIST ALL QUANTIES AVAILABLE IN A RUN
-                      determineQuantities = determineQuantities_Inferno_FireMIP,
+                      availableQuantities = availableQuantities_Inferno_FireMIP,
 
                       # FUNCTION TO READ A FIELD
                       getField = openFireMIPOutputFile_Inferno,

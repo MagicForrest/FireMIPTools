@@ -176,6 +176,7 @@ openFireMIPOutputFile_LPJ_GUESS_SIMFIRE_BLAZE <- function(run, quantity, sta.inf
 
       # add it on to the full data.table
       full.dt <- rbind(full.dt, this.slice.dt)
+      rm(this.slice, this.slice.dt)
 
     }
     t2 <- Sys.time()
@@ -215,7 +216,7 @@ openFireMIPOutputFile_LPJ_GUESS_SIMFIRE_BLAZE <- function(run, quantity, sta.inf
 
     # add it on to the full data.table
     full.dt <- rbind(full.dt, this.slice.dt)
-
+    rm(this.slice, this.slice.dt)
 
     t2 <- Sys.time()
     print(t2-t1)
@@ -265,6 +266,7 @@ openFireMIPOutputFile_LPJ_GUESS_SIMFIRE_BLAZE <- function(run, quantity, sta.inf
 
       # add it on to the full data.table
       full.dt <- rbind(full.dt, this.slice.dt)
+      rm(this.slice, this.slice.dt)
 
     }
     t2 <- Sys.time()
@@ -301,6 +303,7 @@ openFireMIPOutputFile_LPJ_GUESS_SIMFIRE_BLAZE <- function(run, quantity, sta.inf
 
     # add it on to the full data.table
     full.dt <- rbind(full.dt, this.slice.dt)
+    rm(this.slice, this.slice.dt)
 
     t2 <- Sys.time()
     print(t2-t1)
@@ -321,6 +324,9 @@ openFireMIPOutputFile_LPJ_GUESS_SIMFIRE_BLAZE <- function(run, quantity, sta.inf
                  subannual.original = subannual,
                  spatial.extent = extent(full.dt))
 
+  # close the file
+  nc_close(this.nc)
+  gc()
 
   return(list(dt = full.dt,
               sta.info = sta.info))
@@ -358,7 +364,7 @@ determinePFTs_LPJ_GUESS_SIMFIRE_BLAZE_FireMIP <- function(x, variables) {
 #' @author Matthew Forrest \email{matthew.forrest@@senckenberg.de}
 
 
-determineQuantities_LPJ_GUESS_SIMFIRE_BLAZE_FireMIP <- function(source, names){
+availableQuantities_LPJ_GUESS_SIMFIRE_BLAZE_FireMIP <- function(source, names){
 
   # First get the list of *.out files present
   files.present <- list.files(source@dir, "*.nc")
@@ -379,7 +385,6 @@ determineQuantities_LPJ_GUESS_SIMFIRE_BLAZE_FireMIP <- function(source, names){
       else if(var.str == "cfuel") var.str <- "cFuel"
       else if(var.str == "clitter") var.str <- "cLitter"
       else if(var.str == "evap") var.str <- NULL # not standard - possibly should be evspslsoi
-      else if(var.str == "evapo") var.str <- NULL # not standard - possibly should be evspslsoi
       else if(var.str == "intercept") var.str <- NULL # not standard - possibly should be evspslveg
       else if(var.str == "landCoverFrac") var.str <- NULL # not ignore landCoverFrac
       else if(var.str == "v2") var.str <- "landCoverFrac" # use landCoverFrac_v2
@@ -546,7 +551,7 @@ LPJ_GUESS_SIMFIRE_BLAZE_FireMIP<- new("Format",
                    determinePFTs = determinePFTs_LPJ_GUESS_SIMFIRE_BLAZE_FireMIP,
 
                    # FUNCTION TO LIST ALL QUANTIES AVAILABLE IN A RUN
-                   determineQuantities = determineQuantities_LPJ_GUESS_SIMFIRE_BLAZE_FireMIP,
+                   availableQuantities = availableQuantities_LPJ_GUESS_SIMFIRE_BLAZE_FireMIP,
 
                    # FUNCTION TO READ A FIELD
                    getField = openFireMIPOutputFile_LPJ_GUESS_SIMFIRE_BLAZE,

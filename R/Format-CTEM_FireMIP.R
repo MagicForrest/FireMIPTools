@@ -155,10 +155,9 @@ openFireMIPOutputFile_CTEM <- function(run, quantity, sta.info, verbose = TRUE) 
       this.slice.dt <- dcast(this.slice.dt, Lon + Lat + Year + Month ~ PFT, value.var = quantity@id, fill = 0)
 
 
-
-
       # add it on to the full data.table
       full.dt <- rbind(full.dt, this.slice.dt)
+      rm(this.slice, this.slice.dt)
 
     }
     t2 <- Sys.time()
@@ -197,7 +196,7 @@ openFireMIPOutputFile_CTEM <- function(run, quantity, sta.info, verbose = TRUE) 
 
     # add it on to the full data.table
     full.dt <- rbind(full.dt, this.slice.dt)
-
+    rm(this.slice, this.slice.dt)
 
     t2 <- Sys.time()
     print(t2-t1)
@@ -247,6 +246,7 @@ openFireMIPOutputFile_CTEM <- function(run, quantity, sta.info, verbose = TRUE) 
 
       # add it on to the full data.table
       full.dt <- rbind(full.dt, this.slice.dt)
+      rm(this.slice, this.slice.dt)
 
     }
     t2 <- Sys.time()
@@ -282,6 +282,7 @@ openFireMIPOutputFile_CTEM <- function(run, quantity, sta.info, verbose = TRUE) 
 
     # add it on to the full data.table
     full.dt <- rbind(full.dt, this.slice.dt)
+    rm(this.slice, this.slice.dt)
 
     t2 <- Sys.time()
     print(t2-t1)
@@ -302,6 +303,11 @@ openFireMIPOutputFile_CTEM <- function(run, quantity, sta.info, verbose = TRUE) 
                  subannual.original = subannual,
                  spatial.extent = extent(full.dt))
 
+
+  # close the file
+  nc_close(this.nc)
+  nc_close(grid.nc)
+  gc()
 
   return(list(dt = full.dt,
               sta.info = sta.info))
@@ -339,7 +345,7 @@ determinePFTs_CTEM_FireMIP <- function(x, variables) {
 #' @author Matthew Forrest \email{matthew.forrest@@senckenberg.de}
 
 
-determineQuantities_CTEM_FireMIP <- function(source, names){
+availableQuantities_CTEM_FireMIP <- function(source, names){
 
   # First get the list of *.out files present
   files.present <- list.files(source@dir, "*.nc")
@@ -516,7 +522,7 @@ CTEM_FireMIP<- new("Format",
                    determinePFTs = determinePFTs_CTEM_FireMIP,
 
                    # FUNCTION TO LIST ALL QUANTIES AVAILABLE IN A RUN
-                   determineQuantities = determineQuantities_CTEM_FireMIP,
+                   availableQuantities = availableQuantities_CTEM_FireMIP,
 
                    # FUNCTION TO READ A FIELD
                    getField = openFireMIPOutputFile_CTEM,
