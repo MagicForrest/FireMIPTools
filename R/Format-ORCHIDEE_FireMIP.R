@@ -298,7 +298,6 @@ openFireMIPOutputFile_ORCHIDEE <- function(run, quantity, sta.info, verbose = TR
 
 determinePFTs_ORCHIDEE_FireMIP <- function(x, variables) {
 
-  warning("determinePFTs_FireMIP not currently implmented.")
   return(x@format@default.pfts)
 
 }
@@ -374,71 +373,100 @@ availableQuantities_ORCHIDEE_FireMIP <- function(source, names){
 #' @keywords datasets
 ORCHIDEE_FireMIP.PFTs <- list(
 
-  # BOREAL TREES
+  # TREES
 
-  # NE
   new("PFT",
-      id = "NE",
-      name = "Needleleaved Evergreen Tree",
+      id = "BNE",
+      name = "Boreal Needleleaved Evergreen Tree",
       growth.form = "Tree",
       leaf.form = "Needleleaved",
       phenology = "Evergreen",
-      climate.zone = "NA",
+      climate.zone = "Boreal",
       colour = "darkblue",
-      shade.tolerance = "no"
+      shade.tolerance = "None"
   ),
 
-  # NS
-  new("PFT",
-      id = "NS",
-      name = "Needleleaved Summergreen Tree",
-      growth.form = "Tree",
-      leaf.form = "Needleleaved",
-      phenology = "Summergreen",
-      climate.zone = "NA",
-      colour = "cornflowerblue",
-      shade.tolerance = "no"
+
+  BNS = new("PFT",
+            id = "BNS",
+            name = "Boreal Needleleaved Summergreen Tree",
+            growth.form = "Tree",
+            leaf.form = "Needleleaved",
+            phenology = "Summergreen",
+            climate.zone = "Boreal",
+            colour = "cadetblue2",
+            shade.tolerance = "None"
   ),
 
-  # BS
   new("PFT",
-      id = "BS",
-      name = "Broadleaved Summergreen Tree",
+      id = "BBS",
+      name = "Boreal B/leaved Summergreen Tree",
       growth.form = "Tree",
       leaf.form = "Broadleaved",
       phenology = "Summergreen",
-      climate.zone = "NA",
+      climate.zone = "Boreal",
       colour = "cyan",
-      shade.tolerance = "no"
+      shade.tolerance = "None"
   ),
 
-  # BE
   new("PFT",
-      id = "BE",
-      name = "Broadleaved Evergreen Tree",
+      id = "TeBE",
+      name = "Temperate Broadleaved Evergreen Tree",
       growth.form = "Tree",
       leaf.form = "Broadleaved",
       phenology = "Evergreen",
-      climate.zone = "NA",
+      climate.zone = "Temperate",
       colour = "darkgreen",
-      shade.tolerance = "no"
+      shade.tolerance = "None"
   ),
 
-  # BR
   new("PFT",
-      id = "BR",
-      name = "Broadleaved Raingreen Tree",
+      id = "TeNE",
+      name = "Temperate Needleleaved Evergreen Tree",
+      growth.form = "Tree",
+      leaf.form = "Needleleaved",
+      phenology = "Evergreen",
+      climate.zone = "Temperate",
+      colour = "lightseagreen",
+      shade.tolerance = "None"
+  ),
+
+  new("PFT",
+      id = "TeBS",
+      name = "Temperate Broadleaved Summergreen Tree",
+      growth.form = "Tree",
+      leaf.form = "Broadleaved",
+      phenology = "Summergreen",
+      colour = "darkolivegreen3",
+      climate.zone = "Temperate",
+      shade.tolerance = "None"
+  ),
+
+  new("PFT",
+      id = "TrBE",
+      name = "Tropical Broadleaved Evergreen Tree",
+      growth.form = "Tree",
+      leaf.form = "Broadleaved",
+      phenology = "Evergreen",
+      climate.zone = "Tropical",
+      colour = "orchid4",
+      shade.tolerance = "None"
+  ),
+
+  new("PFT",
+      id = "TrBR",
+      name = "Tropical Broadleaved Raingreen Tree",
       growth.form = "Tree",
       leaf.form = "Broadleaved",
       phenology = "Raingreen",
-      climate.zone = "NA",
-      colour = "maroon",
-      shade.tolerance = "no"
+      climate.zone = "Tropical",
+      colour = "palevioletred",
+      shade.tolerance = "None"
   ),
+
 
   # GRASSES
 
-  # C3G
   new("PFT",
       id = "C3G",
       name = "Boreal/Temperate Grass",
@@ -447,10 +475,9 @@ ORCHIDEE_FireMIP.PFTs <- list(
       phenology = "GrassPhenology",
       climate.zone = "NA",
       colour = "lightgoldenrod1",
-      shade.tolerance = "no"
+      shade.tolerance = "None"
   ),
 
-  # C4G
   new("PFT",
       id = "C4G",
       name = "Tropical Grass",
@@ -459,30 +486,44 @@ ORCHIDEE_FireMIP.PFTs <- list(
       phenology = "GrassPhenology",
       climate.zone = "NA",
       colour = "sienna2",
+      shade.tolerance = "None"
+  ),
+
+
+  new("PFT",
+      id = "C3_agr",
+      name = "C3 Agriculture",
+      growth.form = "Grass",
+      leaf.form = "Broadleaved",
+      phenology = "GrassPhenology",
+      climate.zone = "NA",
+      colour = "lightgoldenrod4",
       shade.tolerance = "no"
   ),
 
-  # Shb
   new("PFT",
-      id = "Shb",
-      name = "Shrub",
-      growth.form = "Shrub",
-      leaf.form = "NA",
-      phenology = "NA",
+      id = "C4_agr",
+      name = "C4 Agriculture",
+      growth.form = "Grass",
+      leaf.form = "Broadleaved",
+      phenology = "GrassPhenology",
       climate.zone = "NA",
-      colour = "darkred",
+      colour = "sienna",
       shade.tolerance = "no"
   ),
 
-  # Crops
+  # OTHER
+
+
+  # Bare
   new("PFT",
-      id = "Crops",
-      name = "Agricultural",
-      growth.form = "Agricultural",
+      id = "Bare",
+      name = "Bare",
+      growth.form = "NA",
       leaf.form = "NA",
       phenology = "NA",
       climate.zone = "NA",
-      colour = "black",
+      colour = "grey90",
       shade.tolerance = "no"
   )
 

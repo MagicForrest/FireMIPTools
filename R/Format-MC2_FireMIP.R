@@ -323,7 +323,7 @@ openFireMIPOutputFile_MC2 <- function(run, quantity, sta.info, verbose = TRUE) {
 
 determinePFTs_MC2_FireMIP <- function(x, variables) {
 
-  warning("determinePFTs_FireMIP not currently implmented.")
+  warning("determinePFTs_MC2_FireMIP not currently implmented.")
   return(x@format@default.pfts)
 
 }

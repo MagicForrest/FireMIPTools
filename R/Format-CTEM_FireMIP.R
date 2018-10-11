@@ -326,7 +326,6 @@ openFireMIPOutputFile_CTEM <- function(run, quantity, sta.info, verbose = TRUE) 
 
 determinePFTs_CTEM_FireMIP <- function(x, variables) {
 
-  warning("determinePFTs_FireMIP not currently implmented.")
   return(x@format@default.pfts)
 
 }
@@ -384,11 +383,10 @@ availableQuantities_CTEM_FireMIP <- function(source, names){
 #' @keywords datasets
 CTEM_FireMIP.PFTs <- list(
 
-  # BOREAL TREES
+  # TREES
 
-  # NE
-  new("PFT",
-      id = "NE",
+   new("PFT",
+      id = "NDL-EVG",
       name = "Needleleaved Evergreen Tree",
       growth.form = "Tree",
       leaf.form = "Needleleaved",
@@ -398,22 +396,21 @@ CTEM_FireMIP.PFTs <- list(
       shade.tolerance = "no"
   ),
 
-  # NS
+
   new("PFT",
-      id = "NS",
+      id = "NDL-DCD",
       name = "Needleleaved Summergreen Tree",
       growth.form = "Tree",
       leaf.form = "Needleleaved",
-      phenology = "Summergreen",
+      phenology = "Deciduous",
       climate.zone = "NA",
       colour = "cornflowerblue",
       shade.tolerance = "no"
   ),
 
-  # BS
   new("PFT",
-      id = "BS",
-      name = "Broadleaved Summergreen Tree",
+      id = "BDL-DCD-COLD",
+      name = "Broadleaved Cold Deciduous Tree",
       growth.form = "Tree",
       leaf.form = "Broadleaved",
       phenology = "Summergreen",
@@ -422,9 +419,8 @@ CTEM_FireMIP.PFTs <- list(
       shade.tolerance = "no"
   ),
 
-  # BE
   new("PFT",
-      id = "BE",
+      id = "BDL-EVG",
       name = "Broadleaved Evergreen Tree",
       growth.form = "Tree",
       leaf.form = "Broadleaved",
@@ -434,10 +430,9 @@ CTEM_FireMIP.PFTs <- list(
       shade.tolerance = "no"
   ),
 
-  # BR
   new("PFT",
-      id = "BR",
-      name = "Broadleaved Raingreen Tree",
+      id = "BDL-DCD-DRY",
+      name = "Broadleaved Dry Deciduous Tree",
       growth.form = "Tree",
       leaf.form = "Broadleaved",
       phenology = "Raingreen",
@@ -448,9 +443,8 @@ CTEM_FireMIP.PFTs <- list(
 
   # GRASSES
 
-  # C3G
   new("PFT",
-      id = "C3G",
+      id = "C3G-GRASS",
       name = "Boreal/Temperate Grass",
       growth.form = "Grass",
       leaf.form = "Broadleaved",
@@ -460,9 +454,8 @@ CTEM_FireMIP.PFTs <- list(
       shade.tolerance = "no"
   ),
 
-  # C4G
   new("PFT",
-      id = "C4G",
+      id = "C4G-GRASS",
       name = "Tropical Grass",
       growth.form = "Grass",
       leaf.form = "Broadleaved",
@@ -472,27 +465,28 @@ CTEM_FireMIP.PFTs <- list(
       shade.tolerance = "no"
   ),
 
-  # Shb
-  new("PFT",
-      id = "Shb",
-      name = "Shrub",
-      growth.form = "Shrub",
-      leaf.form = "NA",
-      phenology = "NA",
-      climate.zone = "NA",
-      colour = "darkred",
-      shade.tolerance = "no"
-  ),
 
-  # Crops
+  # CROPS
+
   new("PFT",
-      id = "Crops",
+      id = "C3-CROP",
       name = "Agricultural",
       growth.form = "Agricultural",
       leaf.form = "NA",
       phenology = "NA",
       climate.zone = "NA",
-      colour = "black",
+      colour = "palegreen",
+      shade.tolerance = "no"
+  ),
+
+  new("PFT",
+      id = "C4-CROP",
+      name = "Agricultural",
+      growth.form = "Agricultural",
+      leaf.form = "NA",
+      phenology = "NA",
+      climate.zone = "NA",
+      colour = "palegoldenrod",
       shade.tolerance = "no"
   )
 

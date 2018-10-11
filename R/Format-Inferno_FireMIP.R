@@ -334,17 +334,15 @@ openFireMIPOutputFile_Inferno <- function(run, quantity, sta.info, verbose = TRU
 }
 
 
-#' Detemine PFTs present in an FireMIP run source
+#' Return Inferno PFTs
 #'
-#' @param x  A Source objects describing a FireMIP source
-#' @param variables Some variable to look for to detremine the PFTs present in the run.  Not the function automatically searches:
-#'  "lai", "cmass", "dens" and "fpc".  If they are not in your output you should define another per-PFT variable here.  Currently ignored.
+#' @param x  A Source objects describing an  Inferno-FireMIP source
+#' @param variables  Currently ignored.
 #' @author Matthew Forrest \email{matthew.forrest@@senckenberg.de}
 #' @keywords internal
 
 determinePFTs_Inferno_FireMIP <- function(x, variables) {
 
-  warning("determinePFTs_FireMIP not currently implmented.")
   return(x@format@default.pfts)
 
 }
@@ -406,7 +404,7 @@ availableQuantities_Inferno_FireMIP <- function(source, names){
 #' @keywords datasets
 Inferno_FireMIP.PFTs <- list(
 
-  # BOREAL TREES
+  # TREES
 
   # NE
   new("PFT",
@@ -415,19 +413,19 @@ Inferno_FireMIP.PFTs <- list(
       growth.form = "Tree",
       leaf.form = "Needleleaved",
       phenology = "Evergreen",
-      climate.zone = "NA",
+      climate.zone = "Extratropical",
       colour = "darkblue",
       shade.tolerance = "no"
   ),
 
-  # NS
+  # ND
   new("PFT",
-      id = "NS",
-      name = "Needleleaved Summergreen Tree",
+      id = "ND",
+      name = "Needleleaved Deciduous Tree",
       growth.form = "Tree",
       leaf.form = "Needleleaved",
-      phenology = "Summergreen",
-      climate.zone = "NA",
+      phenology = "Deciduous",
+      climate.zone = "Extratropical",
       colour = "cornflowerblue",
       shade.tolerance = "no"
   ),
@@ -435,38 +433,39 @@ Inferno_FireMIP.PFTs <- list(
   # BS
   new("PFT",
       id = "BS",
-      name = "Broadleaved Summergreen Tree",
+      name = "Broadleaved Deciduous Tree",
       growth.form = "Tree",
       leaf.form = "Broadleaved",
-      phenology = "Summergreen",
-      climate.zone = "NA",
-      colour = "cyan",
+      phenology = "Deciduous",
+      climate.zone = "Extratropical",
+      colour = "chartreuse",
       shade.tolerance = "no"
   ),
 
-  # BE
+  # TrBE
   new("PFT",
-      id = "BE",
-      name = "Broadleaved Evergreen Tree",
+      id = "TrBE",
+      name = "Tropical Broadleaved Evergreen Tree",
       growth.form = "Tree",
       leaf.form = "Broadleaved",
       phenology = "Evergreen",
-      climate.zone = "NA",
+      climate.zone = "Tropical",
       colour = "darkgreen",
       shade.tolerance = "no"
   ),
 
-  # BR
+  # TeBE
   new("PFT",
-      id = "BR",
-      name = "Broadleaved Raingreen Tree",
+      id = "TeBE",
+      name = "Temperate Broadleaved Evergreen Tree",
       growth.form = "Tree",
       leaf.form = "Broadleaved",
-      phenology = "Raingreen",
-      climate.zone = "NA",
-      colour = "maroon",
+      phenology = "Evergreen",
+      climate.zone = "Extratropical",
+      colour = "green",
       shade.tolerance = "no"
   ),
+
 
   # GRASSES
 
@@ -477,7 +476,7 @@ Inferno_FireMIP.PFTs <- list(
       growth.form = "Grass",
       leaf.form = "Broadleaved",
       phenology = "GrassPhenology",
-      climate.zone = "NA",
+      climate.zone = "Extratropical",
       colour = "lightgoldenrod1",
       shade.tolerance = "no"
   ),
@@ -489,34 +488,90 @@ Inferno_FireMIP.PFTs <- list(
       growth.form = "Grass",
       leaf.form = "Broadleaved",
       phenology = "GrassPhenology",
-      climate.zone = "NA",
+      climate.zone = "Tropical",
       colour = "sienna2",
       shade.tolerance = "no"
   ),
 
-  # Shb
+
+  # SHRUBS
+
+  # Ev_Shb
   new("PFT",
-      id = "Shb",
-      name = "Shrub",
+      id = "Ev_Shb",
+      name = "Evergreen Shrub",
       growth.form = "Shrub",
       leaf.form = "NA",
-      phenology = "NA",
+      phenology = "Evergreen",
       climate.zone = "NA",
       colour = "darkred",
       shade.tolerance = "no"
   ),
 
-  # Crops
+  # De_Shb
   new("PFT",
-      id = "Crops",
-      name = "Agricultural",
-      growth.form = "Agricultural",
+      id = "De_Shb",
+      name = "Deciduous Shrub",
+      growth.form = "Shrub",
+      leaf.form = "NA",
+      phenology = "Deciduous",
+      climate.zone = "NA",
+      colour = "palevioletred1",
+      shade.tolerance = "no"
+  ),
+
+  # OTHER
+
+  # Urban
+  new("PFT",
+      id = "Urban",
+      name = "Urban",
+      growth.form = "NA",
       leaf.form = "NA",
       phenology = "NA",
       climate.zone = "NA",
-      colour = "black",
+      colour = "grey50",
+      shade.tolerance = "no"
+  ),
+
+  # Water
+  new("PFT",
+      id = "Water",
+      name = "Water",
+      growth.form = "NA",
+      leaf.form = "NA",
+      phenology = "NA",
+      climate.zone = "NA",
+      colour = "lightblue3",
+      shade.tolerance = "no"
+  ),
+
+  # Bare
+  new("PFT",
+      id = "Bare",
+      name = "Bare",
+      growth.form = "NA",
+      leaf.form = "NA",
+      phenology = "NA",
+      climate.zone = "NA",
+      colour = "grey90",
+      shade.tolerance = "no"
+  ),
+
+  # Ice
+  new("PFT",
+      id = "Ice",
+      name = "Ice",
+      growth.form = "NA",
+      leaf.form = "NA",
+      phenology = "NA",
+      climate.zone = "NA",
+      colour = "lightblue1",
       shade.tolerance = "no"
   )
+
+
+
 
 )
 

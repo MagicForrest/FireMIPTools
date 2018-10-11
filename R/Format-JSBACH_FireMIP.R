@@ -335,7 +335,6 @@ openFireMIPOutputFile_JSBACH <- function(run, quantity, sta.info, verbose = TRUE
 
 determinePFTs_JSBACH_FireMIP <- function(x, variables) {
 
-  warning("determinePFTs_FireMIP not currently implmented.")
   return(x@format@default.pfts)
 
 }
@@ -368,20 +367,20 @@ availableQuantities_JSBACH_FireMIP <- function(source, names){
 
     print(var.str)
 
-      split.thing <- unlist(strsplit(var.str, "_"))
-      var.str <- split.thing[length(split.thing)]
-      if(var.str == "Frst") var.str <- NULL #  not standard
-      else if(var.str == "depth") var.str <- "snow_depth"
-      else if(var.str == "dlai") var.str <- NULL # daily LAI not supported
-      else if(var.str == "v2") var.str <- NULL # nbp_v2?
-      else if(var.str == "tsl") var.str <- NULL # ignore temperature of soil
+    split.thing <- unlist(strsplit(var.str, "_"))
+    var.str <- split.thing[length(split.thing)]
+    if(var.str == "Frst") var.str <- NULL #  not standard
+    else if(var.str == "depth") var.str <- "snow_depth"
+    else if(var.str == "dlai") var.str <- NULL # daily LAI not supported
+    else if(var.str == "v2") var.str <- NULL # nbp_v2?
+    else if(var.str == "tsl") var.str <- NULL # ignore temperature of soil
 
-      if(!is.null(var.str)) {
-        print(lookupQuantity(var.str, source@format@quantities))
-        if(names) quantities.present <- append(quantities.present, var.str)
-        else  quantities.present <- append(quantities.present, lookupQuantity(var.str, source@format@quantities))
+    if(!is.null(var.str)) {
+      print(lookupQuantity(var.str, source@format@quantities))
+      if(names) quantities.present <- append(quantities.present, var.str)
+      else  quantities.present <- append(quantities.present, lookupQuantity(var.str, source@format@quantities))
 
-      }
+    }
 
   }
 
@@ -397,36 +396,21 @@ availableQuantities_JSBACH_FireMIP <- function(source, names){
 #' @keywords datasets
 JSBACH_FireMIP.PFTs <- list(
 
-  # BOREAL TREES
 
-  # NE
   new("PFT",
-      id = "NE",
-      name = "Needleleaved Evergreen Tree",
+      id = "ExtE",
+      name = "Extratropical Evergreen Tree",
       growth.form = "Tree",
       leaf.form = "Needleleaved",
       phenology = "Evergreen",
-      climate.zone = "NA",
+      climate.zone = "Extratropical",
       colour = "darkblue",
       shade.tolerance = "no"
   ),
 
-  # NS
   new("PFT",
-      id = "NS",
-      name = "Needleleaved Summergreen Tree",
-      growth.form = "Tree",
-      leaf.form = "Needleleaved",
-      phenology = "Summergreen",
-      climate.zone = "NA",
-      colour = "cornflowerblue",
-      shade.tolerance = "no"
-  ),
-
-  # BS
-  new("PFT",
-      id = "BS",
-      name = "Broadleaved Summergreen Tree",
+      id = "ExtD",
+      name = "Extratropical Deciduous Tree",
       growth.form = "Tree",
       leaf.form = "Broadleaved",
       phenology = "Summergreen",
@@ -435,25 +419,24 @@ JSBACH_FireMIP.PFTs <- list(
       shade.tolerance = "no"
   ),
 
-  # BE
+
   new("PFT",
-      id = "BE",
-      name = "Broadleaved Evergreen Tree",
+      id = "TrE",
+      name = "Tropical Evergreen Tree",
       growth.form = "Tree",
       leaf.form = "Broadleaved",
       phenology = "Evergreen",
-      climate.zone = "NA",
+      climate.zone = "Tropical",
       colour = "darkgreen",
       shade.tolerance = "no"
   ),
 
-  # BR
   new("PFT",
-      id = "BR",
-      name = "Broadleaved Raingreen Tree",
+      id = "TrD",
+      name = "Tropical Deciduous Tree",
       growth.form = "Tree",
       leaf.form = "Broadleaved",
-      phenology = "Raingreen",
+      phenology = "Deciduous",
       climate.zone = "NA",
       colour = "maroon",
       shade.tolerance = "no"
@@ -461,7 +444,6 @@ JSBACH_FireMIP.PFTs <- list(
 
   # GRASSES
 
-  # C3G
   new("PFT",
       id = "C3G",
       name = "Boreal/Temperate Grass",
@@ -473,7 +455,17 @@ JSBACH_FireMIP.PFTs <- list(
       shade.tolerance = "no"
   ),
 
-  # C4G
+  new("PFT",
+      id = "C3G_pas",
+      name = "C3 Pasture Grass",
+      growth.form = "Grass",
+      leaf.form = "Broadleaved",
+      phenology = "GrassPhenology",
+      climate.zone = "NA",
+      colour = "lightgoldenrod4",
+      shade.tolerance = "no"
+  ),
+
   new("PFT",
       id = "C4G",
       name = "Tropical Grass",
@@ -485,27 +477,55 @@ JSBACH_FireMIP.PFTs <- list(
       shade.tolerance = "no"
   ),
 
-  # Shb
+
   new("PFT",
-      id = "Shb",
-      name = "Shrub",
+      id = "C4G_pas",
+      name = "C4 Pasture Grass",
+      growth.form = "Grass",
+      leaf.form = "Broadleaved",
+      phenology = "GrassPhenology",
+      climate.zone = "NA",
+      colour = "sienna",
+      shade.tolerance = "no"
+  ),
+
+
+
+  # SHRUBS
+
+  new("PFT",
+      id = "Rg_Shb",
+      name = "Raingreen Shrub",
       growth.form = "Shrub",
       leaf.form = "NA",
-      phenology = "NA",
+      phenology = "Evergreen",
       climate.zone = "NA",
       colour = "darkred",
       shade.tolerance = "no"
   ),
 
-  # Crops
+
   new("PFT",
-      id = "Crops",
+      id = "De_Shb",
+      name = "Deciduous Shrub",
+      growth.form = "Shrub",
+      leaf.form = "NA",
+      phenology = "Deciduous",
+      climate.zone = "NA",
+      colour = "palevioletred1",
+      shade.tolerance = "no"
+  ),
+
+  # CROPS
+
+  new("PFT",
+      id = "Crop",
       name = "Agricultural",
       growth.form = "Agricultural",
       leaf.form = "NA",
       phenology = "NA",
       climate.zone = "NA",
-      colour = "black",
+      colour = "palegreen",
       shade.tolerance = "no"
   )
 
@@ -528,22 +548,22 @@ JSBACH_FireMIP.PFTs <- list(
 #'
 JSBACH_FireMIP<- new("Format",
 
-                   # UNIQUE ID
-                   id = "JSBACH-FireMIP",
+                     # UNIQUE ID
+                     id = "JSBACH-FireMIP",
 
-                   # FUNCTION TO LIST ALL PFTS APPEARING IN A RUN
-                   determinePFTs = determinePFTs_JSBACH_FireMIP,
+                     # FUNCTION TO LIST ALL PFTS APPEARING IN A RUN
+                     determinePFTs = determinePFTs_JSBACH_FireMIP,
 
-                   # FUNCTION TO LIST ALL QUANTIES AVAILABLE IN A RUN
-                   availableQuantities = availableQuantities_JSBACH_FireMIP,
+                     # FUNCTION TO LIST ALL QUANTIES AVAILABLE IN A RUN
+                     availableQuantities = availableQuantities_JSBACH_FireMIP,
 
-                   # FUNCTION TO READ A FIELD
-                   getField = openFireMIPOutputFile_JSBACH,
+                     # FUNCTION TO READ A FIELD
+                     getField = openFireMIPOutputFile_JSBACH,
 
-                   # DEFAULT GLOBAL PFTS
-                   default.pfts = JSBACH_FireMIP.PFTs,
+                     # DEFAULT GLOBAL PFTS
+                     default.pfts = JSBACH_FireMIP.PFTs,
 
-                   # QUANTITIES THAT CAN BE PULLED DIRECTLY FROM LPJ-GUESS RUNS
-                   quantities = FireMIP.quantities
+                     # QUANTITIES THAT CAN BE PULLED DIRECTLY FROM LPJ-GUESS RUNS
+                     quantities = FireMIP.quantities
 
 )
