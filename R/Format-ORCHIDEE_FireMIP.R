@@ -270,6 +270,16 @@ openFireMIPOutputFile_ORCHIDEE <- function(run, quantity, sta.info, verbose = TR
   full.dt <- stats::na.omit(full.dt)
   gc()
 
+  # convert landCoverFrac to fraction
+  if(quantity@id == "landCoverFrac") {
+    layer.names <- names(full.dt)
+    layer.names <- layer.names[!layer.names %in% getDimInfo(full.dt)]
+    full.dt[, (layer.names) := .SD /100, .SDcols = layer.names]
+  }
+
+
+
+
   all.years <- sort(unique(full.dt[["Year"]]))
   if(is.monthly) subannual <- "Month"
   else subannual <- "Annual"
@@ -353,7 +363,6 @@ availableQuantities_ORCHIDEE_FireMIP <- function(source, names){
     # else if(var.str == "cLitter2") var.str <- NULL # not standard
 
     if(!is.null(var.str)) {
-      print(lookupQuantity(var.str, source@format@quantities))
       if(names) quantities.present <- append(quantities.present, var.str)
       else  quantities.present <- append(quantities.present, lookupQuantity(var.str, source@format@quantities))
 

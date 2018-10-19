@@ -342,7 +342,6 @@ openFireMIPOutputFile_LPJ_GUESS_SPITFIRE <- function(run, quantity, sta.info, ve
 
 determinePFTs_LPJ_GUESS_SPITFIRE_FireMIP <- function(x, variables) {
 
-  warning("determinePFTs_FireMIP not currently implmented.")
   return(x@format@default.pfts)
 
 }
@@ -365,15 +364,12 @@ availableQuantities_LPJ_GUESS_SPITFIRE_FireMIP <- function(source, names){
 
   # First get the list of *.out files present
   files.present <- list.files(source@dir, "*.nc")
-  print(files.present)
 
   quantities.present <- list()
   for(file in files.present) {
 
     # remove the.nc
     var.str <- gsub(".nc", "", file)
-
-    print(var.str)
 
       split.thing <- unlist(strsplit(var.str, "_"))
       var.str <- split.thing[length(split.thing)]
@@ -391,7 +387,6 @@ availableQuantities_LPJ_GUESS_SPITFIRE_FireMIP <- function(source, names){
       # else if(var.str == "cLitter2") var.str <- NULL # not standard
 
       if(!is.null(var.str)) {
-        print(lookupQuantity(var.str, source@format@quantities))
         if(names) quantities.present <- append(quantities.present, var.str)
         else  quantities.present <- append(quantities.present, lookupQuantity(var.str, source@format@quantities))
 

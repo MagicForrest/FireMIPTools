@@ -362,7 +362,6 @@ availableQuantities_CTEM_FireMIP <- function(source, names){
       else if(var.str == "tsl") var.str <- NULL # mutiple layers, not sure how to handle...
 
       if(!is.null(var.str)) {
-        print(lookupQuantity(var.str, source@format@quantities))
         if(names) quantities.present <- append(quantities.present, var.str)
         else  quantities.present <- append(quantities.present, lookupQuantity(var.str, source@format@quantities))
 

@@ -204,9 +204,7 @@ openFireMIPOutputFile_LPJ_GUESS_GlobFIRM <- function(run, quantity, sta.info, ve
     this.slice.dt <- as.data.table(melt(this.slice))
 
     # set names, chuck out the water and set NAs to 0
-    print(this.slice.dt)
     setnames(this.slice.dt, c("PFT", "Lon", "Lat", "Year", quantity@id))
-    print(this.slice.dt)
     #this.slice.dt <- selectGridcells(this.slice.dt, this.landmask.dt)
     #for (j in seq_len(ncol(this.slice.dt))[5:ncol(this.slice.dt)])  set(this.slice.dt,which(is.na(this.slice.dt[[j]])),j,0)
     this.slice.dt <- na.omit(this.slice.dt)
@@ -367,15 +365,12 @@ availableQuantities_LPJ_GUESS_GlobFIRM_FireMIP <- function(source, names){
 
   # First get the list of *.out files present
   files.present <- list.files(source@dir, "*.nc")
-  print(files.present)
 
   quantities.present <- list()
   for(file in files.present) {
 
     # remove the.nc
     var.str <- gsub(".nc", "", file)
-
-    print(var.str)
 
     split.thing <- unlist(strsplit(var.str, "_"))
     var.str <- split.thing[length(split.thing)]
@@ -390,7 +385,6 @@ availableQuantities_LPJ_GUESS_GlobFIRM_FireMIP <- function(source, names){
     else if(var.str == "trans") var.str <- NULL # not standard
 
     if(!is.null(var.str)) {
-      print(lookupQuantity(var.str, source@format@quantities))
       if(names) quantities.present <- append(quantities.present, var.str)
       else  quantities.present <- append(quantities.present, lookupQuantity(var.str, source@format@quantities))
 
@@ -579,7 +573,7 @@ LPJ_GUESS_GlobFIRM_FireMIP.PFTs <- list(
       leaf.form = "NA",
       phenology = "NA",
       climate.zone = "NA",
-      colour = "rosybrown",
+      colour = "palegreen",
       shade.tolerance = "no"
   ),
 
@@ -590,7 +584,7 @@ LPJ_GUESS_GlobFIRM_FireMIP.PFTs <- list(
       leaf.form = "NA",
       phenology = "NA",
       climate.zone = "NA",
-      colour = "rosybrown",
+      colour = "palegreen",
       shade.tolerance = "no"
   ),
 
@@ -601,7 +595,7 @@ LPJ_GUESS_GlobFIRM_FireMIP.PFTs <- list(
       leaf.form = "NA",
       phenology = "NA",
       climate.zone = "NA",
-      colour = "rosybrown",
+      colour = "palegreen",
       shade.tolerance = "no"
   ),
 
@@ -612,7 +606,7 @@ LPJ_GUESS_GlobFIRM_FireMIP.PFTs <- list(
       leaf.form = "NA",
       phenology = "NA",
       climate.zone = "NA",
-      colour = "rosybrown",
+      colour = "palegreen",
       shade.tolerance = "no"
   ),
 
@@ -623,18 +617,18 @@ LPJ_GUESS_GlobFIRM_FireMIP.PFTs <- list(
       leaf.form = "NA",
       phenology = "NA",
       climate.zone = "NA",
-      colour = "rosybrown",
+      colour = "palegreen",
       shade.tolerance = "no"
   ),
 
   new("PFT",
-      id = "TeCo",
+      id = "TeCoirr",
       name = "Irrigated Temperate Corn",
       growth.form = "Agricultural",
       leaf.form = "NA",
       phenology = "NA",
       climate.zone = "NA",
-      colour = "rosybrown",
+      colour = "palegreen",
       shade.tolerance = "no"
   )
 

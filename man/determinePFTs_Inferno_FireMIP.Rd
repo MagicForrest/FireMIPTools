@@ -2,18 +2,17 @@
 % Please edit documentation in R/Format-Inferno_FireMIP.R
 \name{determinePFTs_Inferno_FireMIP}
 \alias{determinePFTs_Inferno_FireMIP}
-\title{Detemine PFTs present in an FireMIP run source}
+\title{Return Inferno PFTs}
 \usage{
 determinePFTs_Inferno_FireMIP(x, variables)
 }
 \arguments{
-\item{x}{A Source objects describing a FireMIP source}
+\item{x}{A Source objects describing an  Inferno-FireMIP source}
 
-\item{variables}{Some variable to look for to detremine the PFTs present in the run.  Not the function automatically searches:
-"lai", "cmass", "dens" and "fpc".  If they are not in your output you should define another per-PFT variable here.  Currently ignored.}
+\item{variables}{Currently ignored.}
 }
 \description{
-Detemine PFTs present in an FireMIP run source
+Return Inferno PFTs
 }
 \author{
 Matthew Forrest \email{matthew.forrest@senckenberg.de}

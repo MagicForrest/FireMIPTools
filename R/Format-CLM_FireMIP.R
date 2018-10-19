@@ -328,10 +328,8 @@ availableQuantities_CLM_FireMIP <- function(source, names){
       else if (var.str == "convfc") var.str <- NULL # not standard FireMIP
       else if (var.str == "mrsol") var.str <- NULL # not standard FireMIP - too many layers
       else if (var.str == "CLM-gridcell") var.str <- NULL # not a quantity
-      print(var.str)
 
       if(!is.null(var.str)) {
-        print(lookupQuantity(var.str, source@format@quantities))
         if(names) quantities.present <- append(quantities.present, var.str)
         else   quantities.present <- append(quantities.present, lookupQuantity(var.str, source@format@quantities))
 
@@ -541,7 +539,7 @@ CLM_FireMIP.PFTs <- list(
   # BBS_Shb
   new("PFT",
       id = "BBS_Shb",
-      name = "BorealSummergreen Shrub",
+      name = "Boreal Summergreen Shrub",
       growth.form = "Shrub",
       leaf.form = "NA",
       phenology = "Deciduous",

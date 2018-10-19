@@ -314,6 +314,10 @@ openFireMIPOutputFile_LPJ_GUESS_SIMFIRE_BLAZE <- function(run, quantity, sta.inf
   # Tidy stuff
   full.dt <- stats::na.omit(full.dt)
 
+  # Correct lon and lats
+  full.dt[, Lon := Lon + 0.25]
+  full.dt[, Lat := Lat + 0.25]
+
   all.years <- sort(unique(full.dt[["Year"]]))
   if(is.monthly) subannual <- "Month"
   else subannual <- "Annual"
@@ -367,15 +371,12 @@ availableQuantities_LPJ_GUESS_SIMFIRE_BLAZE_FireMIP <- function(source, names){
 
   # First get the list of *.out files present
   files.present <- list.files(source@dir, "*.nc")
-  print(files.present)
 
   quantities.present <- list()
   for(file in files.present) {
 
     # remove the.nc
     var.str <- gsub(".nc", "", file)
-
-    print(var.str)
 
       split.thing <- unlist(strsplit(var.str, "_"))
       var.str <- split.thing[length(split.thing)]
@@ -392,7 +393,6 @@ availableQuantities_LPJ_GUESS_SIMFIRE_BLAZE_FireMIP <- function(source, names){
       else if(var.str == "cLitter2") var.str <- NULL # not standard
 
       if(!is.null(var.str)) {
-        print(lookupQuantity(var.str, source@format@quantities))
         if(names) quantities.present <- append(quantities.present, var.str)
         else  quantities.present <- append(quantities.present, lookupQuantity(var.str, source@format@quantities))
 
@@ -581,7 +581,7 @@ LPJ_GUESS_SIMFIRE_BLAZE_FireMIP.PFTs <- list(
       leaf.form = "NA",
       phenology = "NA",
       climate.zone = "NA",
-      colour = "rosybrown",
+      colour = "palegreen",
       shade.tolerance = "no"
   ),
 
@@ -592,7 +592,7 @@ LPJ_GUESS_SIMFIRE_BLAZE_FireMIP.PFTs <- list(
       leaf.form = "NA",
       phenology = "NA",
       climate.zone = "NA",
-      colour = "rosybrown",
+      colour = "palegreen",
       shade.tolerance = "no"
   ),
 
@@ -603,7 +603,7 @@ LPJ_GUESS_SIMFIRE_BLAZE_FireMIP.PFTs <- list(
       leaf.form = "NA",
       phenology = "NA",
       climate.zone = "NA",
-      colour = "rosybrown",
+      colour = "palegreen",
       shade.tolerance = "no"
   ),
 
@@ -614,7 +614,7 @@ LPJ_GUESS_SIMFIRE_BLAZE_FireMIP.PFTs <- list(
       leaf.form = "NA",
       phenology = "NA",
       climate.zone = "NA",
-      colour = "rosybrown",
+      colour = "palegreen",
       shade.tolerance = "no"
   ),
 
@@ -625,18 +625,18 @@ LPJ_GUESS_SIMFIRE_BLAZE_FireMIP.PFTs <- list(
       leaf.form = "NA",
       phenology = "NA",
       climate.zone = "NA",
-      colour = "rosybrown",
+      colour = "palegreen",
       shade.tolerance = "no"
   ),
 
   new("PFT",
-      id = "TeCo",
+      id = "TeCoirr",
       name = "Irrigated Temperate Corn",
       growth.form = "Agricultural",
       leaf.form = "NA",
       phenology = "NA",
       climate.zone = "NA",
-      colour = "rosybrown",
+      colour = "palegreen",
       shade.tolerance = "no"
   )
 

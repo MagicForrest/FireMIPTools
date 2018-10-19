@@ -374,7 +374,6 @@ availableQuantities_Inferno_FireMIP <- function(source, names){
     # remove the.nc
     var.str <- gsub(".nc4", "", file)
     var.str <- gsub(".nc", "", var.str)
-    print(var.str)
 
     split.thing <- unlist(strsplit(var.str, "_"))
     var.str <- split.thing[length(split.thing)]
@@ -383,7 +382,6 @@ availableQuantities_Inferno_FireMIP <- function(source, names){
     else if(var.str == "cVegPFT") var.str <- "cVegpft" # stupid naming
 
     if(!is.null(var.str)) {
-      print(lookupQuantity(var.str, source@format@quantities))
       if(names) quantities.present <- append(quantities.present, var.str)
       else  quantities.present <- append(quantities.present, lookupQuantity(var.str, source@format@quantities))
 

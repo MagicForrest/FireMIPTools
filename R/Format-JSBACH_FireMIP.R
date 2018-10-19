@@ -299,8 +299,14 @@ openFireMIPOutputFile_JSBACH <- function(run, quantity, sta.info, verbose = TRUE
   } # END ANNUAL PER-PFT CASE
 
 
-  # Tidy stuff
+  # Tidy stuff and unit hacks
   full.dt <- stats::na.omit(full.dt)
+  # convert burntArea to percent
+  if(quantity@id == "burntArea") {
+    layer.names <- names(full.dt)
+    layer.names <- layer.names[!layer.names %in% getDimInfo(full.dt)]
+    full.dt[, (layer.names) := .SD * 100, .SDcols = layer.names]
+  }
 
   all.years <- sort(unique(full.dt[["Year"]]))
   if(is.monthly) subannual <- "Month"
@@ -357,15 +363,12 @@ availableQuantities_JSBACH_FireMIP <- function(source, names){
 
   # First get the list of *.out files present
   files.present <- list.files(source@dir, "*.nc")
-  print(files.present)
 
   quantities.present <- list()
   for(file in files.present) {
 
     # remove the.nc
     var.str <- gsub(".nc", "", file)
-
-    print(var.str)
 
     split.thing <- unlist(strsplit(var.str, "_"))
     var.str <- split.thing[length(split.thing)]
@@ -376,7 +379,6 @@ availableQuantities_JSBACH_FireMIP <- function(source, names){
     else if(var.str == "tsl") var.str <- NULL # ignore temperature of soil
 
     if(!is.null(var.str)) {
-      print(lookupQuantity(var.str, source@format@quantities))
       if(names) quantities.present <- append(quantities.present, var.str)
       else  quantities.present <- append(quantities.present, lookupQuantity(var.str, source@format@quantities))
 
