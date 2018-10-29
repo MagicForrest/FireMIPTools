@@ -42,6 +42,8 @@ openFireMIPOutputFile_LPJ_GUESS_GlobFIRM <- function(run, quantity, sta.info, ve
   quantity.string <- quantity@id
   if(quantity.string == "cFuel") quantity.string <- "cfuel"
   if(quantity.string == "cLitter") quantity.string <- "clitter"
+  if(quantity.string == "BA") quantity.string <- "burntArea"
+
 
   file.string <- file.path(run@dir, paste0(run@id, "_", quantity.string, ".nc"))
   print(file.string)
@@ -383,6 +385,7 @@ availableQuantities_LPJ_GUESS_GlobFIRM_FireMIP <- function(source, names){
     else if(var.str == "landCoverFrac") var.str <- NULL # not ignore landCoverFrac
     else if(var.str == "v2") var.str <- "landCoverFrac" # use landCoverFrac_v2
     else if(var.str == "trans") var.str <- NULL # not standard
+    else if(var.str == "burntArea") var.str <- "BA" # burntArea file is catually BA (ie *not* per PFT)
 
     if(!is.null(var.str)) {
       if(names) quantities.present <- append(quantities.present, var.str)

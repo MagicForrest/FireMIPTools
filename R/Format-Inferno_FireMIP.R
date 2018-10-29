@@ -311,6 +311,47 @@ openFireMIPOutputFile_Inferno <- function(run, quantity, sta.info, verbose = TRU
   # Tidy stuff
   full.dt <- stats::na.omit(full.dt)
 
+
+  # convert BA per day to per month
+  if(quantity@id == "burntArea") {
+    layer.names <- names(full.dt)
+    layer.names <- layer.names[!layer.names %in% getDimInfo(full.dt)]
+    days.in.month <- c()
+    for(month in all.months) {
+      days.in.month <- append(days.in.month, month@days)
+    }
+    full.dt[, (layer.names) := .SD  * days.in.month[Month] * 24 * 60 * 60 * 100, .SDcols = layer.names]
+
+    print("Also reading landCoverFrac for burntArea for INFERNO")
+    landcover.run <- run
+    landcover.run@london.centre <- FALSE
+    landcover <- getField(source = landcover.run, var = "landCoverFrac", first.year = first.year, last.year = last.year)
+
+
+
+
+    # make two matrices and mutiply
+    #landcover
+    landcover.dt <- landcover@data
+    setKeyDGVM(landcover.dt)
+    landcover.dt <- landcover.dt[,layer.names,with=FALSE]
+    landcover.matrix <- as.matrix(landcover.dt)
+
+    # BA
+    BA.dt <- copy(full.dt)
+    setKeyDGVM(BA.dt)
+    BA.dt <- BA.dt[,layer.names,with=FALSE]
+    BA.matrix <- as.matrix( BA.dt)
+
+    # multiply and merge
+    final.matrix <- landcover.matrix * BA.matrix
+    final.dt <-  as.data.table(final.matrix)
+    coords.dt <- full.dt[, c("Lon", "Lat", "Year", "Month"), with=TRUE]
+    setKeyDGVM(coords.dt)
+    full.dt <- cbind(coords.dt, final.dt)
+
+  }
+
   all.years <- sort(unique(full.dt[["Year"]]))
   if(is.monthly) subannual <- "Month"
   else subannual <- "Annual"

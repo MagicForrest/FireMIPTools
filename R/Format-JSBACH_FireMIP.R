@@ -97,6 +97,11 @@ openFireMIPOutputFile_JSBACH <- function(run, quantity, sta.info, verbose = TRUE
     all.years <- 1700:2013
   }
   # monthly starting in 1700 -- JSBACH
+  else if(length(this.time) == 3756) {
+    is.monthly <- TRUE
+    all.years <- 1701:2013
+  }
+  # monthly starting in 1700 -- JSBACH
   else if(length(this.time) == 314) {
     all.years <- 1700:2013
   }
@@ -305,7 +310,7 @@ openFireMIPOutputFile_JSBACH <- function(run, quantity, sta.info, verbose = TRUE
   if(quantity@id == "burntArea") {
     layer.names <- names(full.dt)
     layer.names <- layer.names[!layer.names %in% getDimInfo(full.dt)]
-    full.dt[, (layer.names) := .SD * 100, .SDcols = layer.names]
+    # full.dt[, (layer.names) := .SD * 100, .SDcols = layer.names]
   }
 
   all.years <- sort(unique(full.dt[["Year"]]))

@@ -276,6 +276,18 @@ openFireMIPOutputFile_ORCHIDEE <- function(run, quantity, sta.info, verbose = TR
     layer.names <- layer.names[!layer.names %in% getDimInfo(full.dt)]
     full.dt[, (layer.names) := .SD /100, .SDcols = layer.names]
   }
+  # convert BA per day to per month
+  if(quantity@id == "burntArea") {
+    layer.names <- names(full.dt)
+    layer.names <- layer.names[!layer.names %in% getDimInfo(full.dt)]
+    days.in.month <- c()
+    for(month in all.months) {
+      days.in.month <- append(days.in.month, month@days)
+    }
+    print(full.dt)
+    full.dt[, (layer.names) := .SD  * days.in.month[Month], .SDcols = layer.names]
+    print(full.dt)
+  }
 
 
 
