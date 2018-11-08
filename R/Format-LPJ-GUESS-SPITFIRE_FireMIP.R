@@ -40,7 +40,10 @@ openFireMIPOutputFile_LPJ_GUESS_SPITFIRE <- function(run, quantity, sta.info, ve
 
   # open the data file and the gridl file
   quantity.string <- quantity@id
-  if(quantity.string == "cFuel") quantity.string <- "cfuel"
+
+  # look up standard quantities (crosswalk)
+  if(!is.null(standardToFireMIPQuantity(quantity.string))) quantity.string <- standardToFireMIPQuantity(quantity.string)
+
 
   file.string <- file.path(run@dir, paste0(run@id, "_", quantity.string, ".nc"))
   print(file.string)
@@ -311,6 +314,10 @@ openFireMIPOutputFile_LPJ_GUESS_SPITFIRE <- function(run, quantity, sta.info, ve
   # Tidy stuff
   full.dt <- stats::na.omit(full.dt)
 
+  # apply conversion factor if neccesary (especially for standard quantities)
+  layer.names <- layers(full.dt)
+  if(!is.null(getConversionFactorToStandard(quantity@id))) full.dt[, (layer.names) := .SD  * getConversionFactorToStandard(quantity@id), .SDcols = layer.names]
+
   all.years <- sort(unique(full.dt[["Year"]]))
   if(is.monthly) subannual <- "Month"
   else subannual <- "Annual"
@@ -371,26 +378,32 @@ availableQuantities_LPJ_GUESS_SPITFIRE_FireMIP <- function(source, names){
     # remove the.nc
     var.str <- gsub(".nc", "", file)
 
-      split.thing <- unlist(strsplit(var.str, "_"))
-      var.str <- split.thing[length(split.thing)]
-      # if(var.str == "cfuel1") var.str <- NULL #  not standard
-      # else if(var.str == "cfuel2") var.str <- NULL
-      # else if(var.str == "cfuel") var.str <- "cFuel"
-      # else if(var.str == "clitter") var.str <- "cLitter"
-      # else if(var.str == "evap") var.str <- NULL # not standard - possibly should be evspslsoi
-      # else if(var.str == "evapo") var.str <- NULL # not standard - possibly should be evspslsoi
-      # else if(var.str == "intercept") var.str <- NULL # not standard - possibly should be evspslveg
-      # else if(var.str == "landCoverFrac") var.str <- NULL # not ignore landCoverFrac
-      # else if(var.str == "v2") var.str <- "landCoverFrac" # use landCoverFrac_v2
-      # else if(var.str == "trans") var.str <- NULL # not standard
-      # else if(var.str == "Cfire2") var.str <- NULL # not standard
-      # else if(var.str == "cLitter2") var.str <- NULL # not standard
+    split.thing <- unlist(strsplit(var.str, "_"))
+    var.str <- split.thing[length(split.thing)]
+    # if(var.str == "cfuel1") var.str <- NULL #  not standard
+    # else if(var.str == "cfuel2") var.str <- NULL
+    # else if(var.str == "cfuel") var.str <- "cFuel"
+    # else if(var.str == "clitter") var.str <- "cLitter"
+    # else if(var.str == "evap") var.str <- NULL # not standard - possibly should be evspslsoi
+    # else if(var.str == "evapo") var.str <- NULL # not standard - possibly should be evspslsoi
+    # else if(var.str == "intercept") var.str <- NULL # not standard - possibly should be evspslveg
+    # else if(var.str == "landCoverFrac") var.str <- NULL # not ignore landCoverFrac
+    # else if(var.str == "v2") var.str <- "landCoverFrac" # use landCoverFrac_v2
+    # else if(var.str == "trans") var.str <- NULL # not standard
+    # else if(var.str == "Cfire2") var.str <- NULL # not standard
+    # else if(var.str == "cLitter2") var.str <- NULL # not standard
 
-      if(!is.null(var.str)) {
-        if(names) quantities.present <- append(quantities.present, var.str)
-        else  quantities.present <- append(quantities.present, lookupQuantity(var.str, source@format@quantities))
+    if(!is.null(var.str)) {
+      if(names) quantities.present <- append(quantities.present, var.str)
+      else  quantities.present <- append(quantities.present, lookupQuantity(var.str, source@format@quantities))
 
+      # also check for Standard quantites derivable froim FireMIP quantities
+      if(!is.null(FireMIPtoStandardQuantity(var.str))) {
+        if(names) quantities.present <- append(quantities.present, FireMIPtoStandardQuantity(var.str))
+        else  quanities.present <- append(quantities.present, lookupQuantity(FireMIPtoStandardQuantity(var.str), Standard.quantities))
       }
+
+    }
 
   }
 
@@ -664,22 +677,22 @@ LPJ_GUESS_SPITFIRE_FireMIP.PFTs <- list(
 #'
 LPJ_GUESS_SPITFIRE_FireMIP<- new("Format",
 
-                   # UNIQUE ID
-                   id = "LPJ-GUESS-SPITFIRE-FireMIP",
+                                 # UNIQUE ID
+                                 id = "LPJ-GUESS-SPITFIRE-FireMIP",
 
-                   # FUNCTION TO LIST ALL PFTS APPEARING IN A RUN
-                   determinePFTs = determinePFTs_LPJ_GUESS_SPITFIRE_FireMIP,
+                                 # FUNCTION TO LIST ALL PFTS APPEARING IN A RUN
+                                 determinePFTs = determinePFTs_LPJ_GUESS_SPITFIRE_FireMIP,
 
-                   # FUNCTION TO LIST ALL QUANTIES AVAILABLE IN A RUN
-                   availableQuantities = availableQuantities_LPJ_GUESS_SPITFIRE_FireMIP,
+                                 # FUNCTION TO LIST ALL QUANTIES AVAILABLE IN A RUN
+                                 availableQuantities = availableQuantities_LPJ_GUESS_SPITFIRE_FireMIP,
 
-                   # FUNCTION TO READ A FIELD
-                   getField = openFireMIPOutputFile_LPJ_GUESS_SPITFIRE,
+                                 # FUNCTION TO READ A FIELD
+                                 getField = openFireMIPOutputFile_LPJ_GUESS_SPITFIRE,
 
-                   # DEFAULT GLOBAL PFTS
-                   default.pfts = LPJ_GUESS_SPITFIRE_FireMIP.PFTs,
+                                 # DEFAULT GLOBAL PFTS
+                                 default.pfts = LPJ_GUESS_SPITFIRE_FireMIP.PFTs,
 
-                   # QUANTITIES THAT CAN BE PULLED DIRECTLY FROM LPJ-GUESS RUNS
-                   quantities = FireMIP.quantities
+                                 # QUANTITIES THAT CAN BE PULLED DIRECTLY FROM LPJ-GUESS RUNS
+                                 quantities = FireMIP.quantities
 
 )
