@@ -4,6 +4,7 @@
 #'
 #' @format The \code{Quantity} class is an S4 class with the slots defined below.
 #' @rdname Quantity-class
+#' @export
 #' @keywords datasets
 #' @import DGVMTools
 #' @importFrom methods new

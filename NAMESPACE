@@ -3,6 +3,7 @@
 export(CLM_FireMIP)
 export(CTEM_FireMIP)
 export(FireMIP.PFTs)
+export(FireMIP.quantities)
 export(Inferno_FireMIP)
 export(JSBACH_FireMIP)
 export(LPJ_GUESS_GlobFIRM_FireMIP)
