@@ -352,6 +352,9 @@ openFireMIPOutputFile_Inferno <- function(run, quantity, sta.info, verbose = TRU
 
   }
 
+  # if london.centre is requested, make sure all negative longitudes are shifted to positive
+  if(run@london.centre){ full.dt[, Lon := vapply(full.dt[,Lon], 1, FUN = LondonCentre)] }
+
   all.years <- sort(unique(full.dt[["Year"]]))
   if(is.monthly) subannual <- "Month"
   else subannual <- "Annual"
@@ -360,7 +363,8 @@ openFireMIPOutputFile_Inferno <- function(run, quantity, sta.info, verbose = TRU
                  last.year = max(all.years),
                  subannual.resolution = subannual,
                  subannual.original = subannual,
-                 spatial.extent = extent(full.dt))
+                 spatial.extent = extent(full.dt),
+                 spatial.extent.id = "Full")
 
 
   # close the file
@@ -368,8 +372,15 @@ openFireMIPOutputFile_Inferno <- function(run, quantity, sta.info, verbose = TRU
   nc_close(grid.nc)
   gc()
 
-  return(list(dt = full.dt,
-              sta.info = sta.info))
+
+  this.Field <- new("Field",
+                    id = makeFieldID(source = run, var.string = quantity@id, sta.info = sta.info),
+                    source = run,
+                    quant = quantity,
+                    data = full.dt,
+                    sta.info)
+
+  return(this.Field)
 
 
 }
