@@ -33,7 +33,7 @@ openFireMIPOutputFile_Inferno <- function(run, quantity, sta.info, verbose = TRU
   last.year = sta.info@last.year
 
 
-  Year = Lon = landmask = NULL
+  Year = Lon = Lat = Month = landmask = NULL
 
   # get the name of the model
   print(run@format@id)

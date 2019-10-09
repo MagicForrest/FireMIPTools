@@ -33,7 +33,7 @@ openFireMIPOutputFile_LPJ_GUESS_SIMFIRE_BLAZE <- function(run, quantity, sta.inf
   last.year = sta.info@last.year
 
 
-  Year = Lon = landmask = NULL
+  Year = Lon = Lat = landmask = NULL
 
   # get the name of the model
   print(run@format@id)

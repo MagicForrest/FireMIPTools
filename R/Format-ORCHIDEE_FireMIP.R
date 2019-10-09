@@ -33,7 +33,7 @@ openFireMIPOutputFile_ORCHIDEE <- function(run, quantity, sta.info, verbose = TR
   last.year = sta.info@last.year
 
 
-  Year = Lon = landmask = NULL
+  Month = Year = Lon = landmask = NULL
 
   # get the name of the model
   print(run@format@id)
