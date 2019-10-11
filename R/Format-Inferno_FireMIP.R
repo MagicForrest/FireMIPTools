@@ -543,6 +543,56 @@ Inferno_FireMIP.PFTs <- list(
       shade.tolerance = "no"
   ),
 
+  # AGRICULTURAL
+
+  # C3G Pasture
+  new("PFT",
+      id = "C3Pasture",
+      name = "Boreal/Temperate Pasture",
+      growth.form = "Crop",
+      leaf.form = "Broadleaved",
+      phenology = "GrassPhenology",
+      climate.zone = "Extratropical",
+      colour = "lightgoldenrod1",
+      shade.tolerance = "no"
+  ),
+
+  # C4G Pasture
+  new("PFT",
+      id = "C4G",
+      name = "Tropical Pasture",
+      growth.form = "Crop",
+      leaf.form = "Broadleaved",
+      phenology = "GrassPhenology",
+      climate.zone = "Tropical",
+      colour = "sienna2",
+      shade.tolerance = "no"
+  ),
+
+  # C3G Crop
+  new("PFT",
+      id = "C3Crop",
+      name = "Boreal/Temperate Crop",
+      growth.form = "Crop",
+      leaf.form = "Broadleaved",
+      phenology = "GrassPhenology",
+      climate.zone = "Extratropical",
+      colour = "lightgoldenrod1",
+      shade.tolerance = "no"
+  ),
+
+  # C4G Crop
+  new("PFT",
+      id = "C4G",
+      name = "Tropical Crop",
+      growth.form = "Crop",
+      leaf.form = "Broadleaved",
+      phenology = "GrassPhenology",
+      climate.zone = "Tropical",
+      colour = "sienna2",
+      shade.tolerance = "no"
+  ),
+
 
   # SHRUBS
 

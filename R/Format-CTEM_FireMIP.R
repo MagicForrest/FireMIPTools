@@ -70,6 +70,7 @@ openFireMIPOutputFile_CTEM <- function(run, quantity, sta.info, verbose = TRUE) 
   this.landmask.dt <- this.landmask.dt[landmask > 0,]
   this.landmask.dt[, landmask:=NULL]
 
+
   # attempt to automagically determine time axis
   is.monthly <- FALSE
   # monthly starting in 1861 -- CTEM
