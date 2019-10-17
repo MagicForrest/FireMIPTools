@@ -2,6 +2,7 @@
 
 export(CLM_FireMIP)
 export(CTEM_FireMIP)
+export(CTEM_PFTs)
 export(FireMIP)
 export(FireMIP.PFTs)
 export(FireMIP.quantities)

@@ -47,8 +47,8 @@ FireMIP.quantities <- list(
 
   new("Quantity",
       id = "burntArea",
-      name = "Burnt Area Fraction (per PFT)",
-      units = "%",
+      name = "Burnt Area Fraction",
+      units = "fraction",
       colours = reversed.viridis,
       format = c("FireMIP", "LPJ-GUESS-SPITFIRE"),
       cf.name = "Burnt Area Fraction (per PFT)"),

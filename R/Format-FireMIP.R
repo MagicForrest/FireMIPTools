@@ -142,8 +142,8 @@ openFireMIPOutputFile <- function(source, quantity, sta.info, file.name, verbose
         if(verbose) print(paste0("Got PFT axis " , pft.axis.name))
 
         if(model == "CLASS-CTEM") {
-          if(length(this.vegtype) == 9) this.pfts <- c("NDL-EVG", "NDL-DCD", "BDL-EVG", "BDL-DCD-COLD", "BDL-DCD-DRY", "C3-CROP", "C4-CROP", "C3-GRASS", "C4-GRASS")
-          else if(length(this.vegtype) == 10) this.pfts <- c("NDL-EVG", "NDL-DCD", "BDL-EVG", "BDL-DCD-COLD", "BDL-DCD-DRY", "C3-CROP", "C4-CROP", "C3-GRASS", "C4-GRASS", "Bare")
+          if(length(this.vegtype) == 9) this.pfts <- c("NE", "ND", "BE", "BS", "BR", "C3Crop", "C4Crop", "C3G", "C4G")
+          else if(length(this.vegtype) == 10) this.pfts <- c("NE", "ND", "BE", "BS", "BR", "C3Crop", "C4Crop", "C3G", "C4G", "Bare")
         }
         else if(model == "JULES") {
           if(length(this.vegtype) == 13) this.pfts <- c("BD", "TrBE", "TeBE", "ND", "NE", "C3G", "C3Crop", "C3Pasture",  "C4G", "C4Crop", "C4Pasture", "De_Shb", "Ev_Shb")

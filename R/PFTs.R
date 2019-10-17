@@ -531,3 +531,118 @@ LPJmL_PFTs <- list(
   )
 
 )
+
+#' @export
+CTEM_PFTs <- list(
+
+  # TREES
+
+  new("PFT",
+      id = "NE",
+      name = "Needleleaved Evergreen Tree",
+      growth.form = "Tree",
+      leaf.form = "Needleleaved",
+      phenology = "Evergreen",
+      climate.zone = "NA",
+      colour = "darkblue",
+      shade.tolerance = "no"
+  ),
+
+
+  new("PFT",
+      id = "ND",
+      name = "Needleleaved Summergreen Tree",
+      growth.form = "Tree",
+      leaf.form = "Needleleaved",
+      phenology = "Deciduous",
+      climate.zone = "NA",
+      colour = "cornflowerblue",
+      shade.tolerance = "no"
+  ),
+
+  new("PFT",
+      id = "BS",
+      name = "Broadleaved Cold Deciduous Tree",
+      growth.form = "Tree",
+      leaf.form = "Broadleaved",
+      phenology = "Summergreen",
+      climate.zone = "NA",
+      colour = "cyan",
+      shade.tolerance = "no"
+  ),
+
+  new("PFT",
+      id = "BE",
+      name = "Broadleaved Evergreen Tree",
+      growth.form = "Tree",
+      leaf.form = "Broadleaved",
+      phenology = "Evergreen",
+      climate.zone = "NA",
+      colour = "darkgreen",
+      shade.tolerance = "no"
+  ),
+
+  new("PFT",
+      id = "BR",
+      name = "Broadleaved Dry Deciduous Tree",
+      growth.form = "Tree",
+      leaf.form = "Broadleaved",
+      phenology = "Raingreen",
+      climate.zone = "NA",
+      colour = "maroon",
+      shade.tolerance = "no"
+  ),
+
+  # GRASSES
+
+  new("PFT",
+      id = "C3G",
+      name = "Boreal/Temperate Grass",
+      growth.form = "Grass",
+      leaf.form = "Broadleaved",
+      phenology = "GrassPhenology",
+      climate.zone = "NA",
+      colour = "lightgoldenrod1",
+      shade.tolerance = "no"
+  ),
+
+  new("PFT",
+      id = "C4G",
+      name = "Tropical Grass",
+      growth.form = "Grass",
+      leaf.form = "Broadleaved",
+      phenology = "GrassPhenology",
+      climate.zone = "NA",
+      colour = "sienna2",
+      shade.tolerance = "no"
+  ),
+
+
+  # CROPS
+
+  new("PFT",
+      id = "C3Crop",
+      name = "C3 Crop",
+      growth.form = "Crop",
+      leaf.form = "NA",
+      phenology = "NA",
+      climate.zone = "NA",
+      colour = "palegreen",
+      shade.tolerance = "no"
+  ),
+
+  new("PFT",
+      id = "C4Crop",
+      name = "C4 Crop",
+      growth.form = "Crop",
+      leaf.form = "NA",
+      phenology = "NA",
+      climate.zone = "NA",
+      colour = "palegoldenrod",
+      shade.tolerance = "no"
+  )
+
+
+
+)
+
