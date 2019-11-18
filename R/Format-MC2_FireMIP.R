@@ -326,22 +326,6 @@ openFireMIPOutputFile_MC2 <- function(run, quantity, sta.info, verbose = TRUE) {
 }
 
 
-#' Detemine PFTs present in an FireMIP run source
-#'
-#' @param x  A Source objects describing a FireMIP source
-#' @param variables Some variable to look for to detremine the PFTs present in the run.  Not the function automatically searches:
-#'  "lai", "cmass", "dens" and "fpc".  If they are not in your output you should define another per-PFT variable here.  Currently ignored.
-#' @author Matthew Forrest \email{matthew.forrest@@senckenberg.de}
-#' @keywords internal
-
-determinePFTs_MC2_FireMIP <- function(x, variables) {
-
-  warning("determinePFTs_MC2_FireMIP not currently implmented.")
-  return(x@format@default.pfts)
-
-}
-
-
 
 #' List all quantities available for a FireMIP Source
 #'
@@ -397,117 +381,7 @@ availableQuantities_MC2_FireMIP <- function(source, names){
 #' @keywords datasets
 MC2_FireMIP.PFTs <- list(
 
-  # BOREAL TREES
 
-  # NE
-  new("PFT",
-      id = "NE",
-      name = "Needleleaved Evergreen Tree",
-      growth.form = "Tree",
-      leaf.form = "Needleleaved",
-      phenology = "Evergreen",
-      climate.zone = "NA",
-      colour = "darkblue",
-      shade.tolerance = "no"
-  ),
-
-  # NS
-  new("PFT",
-      id = "NS",
-      name = "Needleleaved Summergreen Tree",
-      growth.form = "Tree",
-      leaf.form = "Needleleaved",
-      phenology = "Summergreen",
-      climate.zone = "NA",
-      colour = "cornflowerblue",
-      shade.tolerance = "no"
-  ),
-
-  # BS
-  new("PFT",
-      id = "BS",
-      name = "Broadleaved Summergreen Tree",
-      growth.form = "Tree",
-      leaf.form = "Broadleaved",
-      phenology = "Summergreen",
-      climate.zone = "NA",
-      colour = "cyan",
-      shade.tolerance = "no"
-  ),
-
-  # BE
-  new("PFT",
-      id = "BE",
-      name = "Broadleaved Evergreen Tree",
-      growth.form = "Tree",
-      leaf.form = "Broadleaved",
-      phenology = "Evergreen",
-      climate.zone = "NA",
-      colour = "darkgreen",
-      shade.tolerance = "no"
-  ),
-
-  # BR
-  new("PFT",
-      id = "BR",
-      name = "Broadleaved Raingreen Tree",
-      growth.form = "Tree",
-      leaf.form = "Broadleaved",
-      phenology = "Raingreen",
-      climate.zone = "NA",
-      colour = "maroon",
-      shade.tolerance = "no"
-  ),
-
-  # GRASSES
-
-  # C3G
-  new("PFT",
-      id = "C3G",
-      name = "Boreal/Temperate Grass",
-      growth.form = "Grass",
-      leaf.form = "Broadleaved",
-      phenology = "GrassPhenology",
-      climate.zone = "NA",
-      colour = "lightgoldenrod1",
-      shade.tolerance = "no"
-  ),
-
-  # C4G
-  new("PFT",
-      id = "C4G",
-      name = "Tropical Grass",
-      growth.form = "Grass",
-      leaf.form = "Broadleaved",
-      phenology = "GrassPhenology",
-      climate.zone = "NA",
-      colour = "sienna2",
-      shade.tolerance = "no"
-  ),
-
-  # Shb
-  new("PFT",
-      id = "Shb",
-      name = "Shrub",
-      growth.form = "Shrub",
-      leaf.form = "NA",
-      phenology = "NA",
-      climate.zone = "NA",
-      colour = "darkred",
-      shade.tolerance = "no"
-  ),
-
-  # Crops
-  new("PFT",
-      id = "Crops",
-      name = "Agricultural",
-      growth.form = "Agricultural",
-      leaf.form = "NA",
-      phenology = "NA",
-      climate.zone = "NA",
-      colour = "black",
-      shade.tolerance = "no"
-  )
 
 )
 
@@ -522,17 +396,15 @@ MC2_FireMIP.PFTs <- list(
 #'
 #' @format A \code{Quantity} object is an S4 class.
 #' @keywords datasets
-#' @importClassesFrom DGVMTools Quantity Source Format Field PFT Period STAInfo
+#' @importClassesFrom DGVMTools Quantity Source Format Field Layer Period STAInfo
 #' @import DGVMTools
+#' @include PFTs.R
 #' @export
 #'
 MC2_FireMIP<- new("Format",
 
                    # UNIQUE ID
                    id = "MC2-FireMIP",
-
-                   # FUNCTION TO LIST ALL PFTS APPEARING IN A RUN
-                   determinePFTs = determinePFTs_MC2_FireMIP,
 
                    # FUNCTION TO LIST ALL QUANTIES AVAILABLE IN A RUN
                    availableQuantities = availableQuantities_MC2_FireMIP,
@@ -541,7 +413,7 @@ MC2_FireMIP<- new("Format",
                    getField = openFireMIPOutputFile_MC2,
 
                    # DEFAULT GLOBAL PFTS
-                   default.pfts = MC2_FireMIP.PFTs,
+                   defined.layers = MC2_FireMIP.PFTs,
 
                    # QUANTITIES THAT CAN BE PULLED DIRECTLY FROM LPJ-GUESS RUNS
                    quantities = FireMIP.quantities

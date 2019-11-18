@@ -346,21 +346,6 @@ openFireMIPOutputFile_JSBACH <- function(run, quantity, sta.info, verbose = TRUE
 }
 
 
-#' Detemine PFTs present in an FireMIP run source
-#'
-#' @param x  A Source objects describing a FireMIP source
-#' @param variables Some variable to look for to detremine the PFTs present in the run.  Not the function automatically searches:
-#'  "lai", "cmass", "dens" and "fpc".  If they are not in your output you should define another per-PFT variable here.  Currently ignored.
-#' @author Matthew Forrest \email{matthew.forrest@@senckenberg.de}
-#' @keywords internal
-
-determinePFTs_JSBACH_FireMIP <- function(x, variables) {
-
-  return(x@format@default.pfts)
-
-}
-
-
 
 #' List all quantities available for a FireMIP Source
 #'
@@ -414,136 +399,147 @@ availableQuantities_JSBACH_FireMIP <- function(source, names){
 JSBACH_FireMIP.PFTs <- list(
 
 
-  new("PFT",
+  new("Layer",
       id = "ExtE",
       name = "Extratropical Evergreen Tree",
-      growth.form = "Tree",
-      leaf.form = "Needleleaved",
-      phenology = "Evergreen",
-      climate.zone = "Extratropical",
       colour = "darkblue",
-      shade.tolerance = "no"
+      properties = list(type = "PFT",
+                        growth.form = "Tree",
+                        leaf.form = "Needleleaved",
+                        phenology = "Evergreen",
+                        climate.zone = "Extratropical",
+                        shade.tolerance = "no")
   ),
 
-  new("PFT",
+  new("Layer",
       id = "ExtD",
       name = "Extratropical Deciduous Tree",
-      growth.form = "Tree",
-      leaf.form = "Broadleaved",
-      phenology = "Summergreen",
-      climate.zone = "NA",
       colour = "cyan",
-      shade.tolerance = "no"
+      properties = list(type = "PFT",
+                        growth.form = "Tree",
+                        leaf.form = "Broadleaved",
+                        phenology = "Summergreen",
+                        climate.zone = "NA",
+                        shade.tolerance = "no")
   ),
 
 
-  new("PFT",
+  new("Layer",
       id = "TrE",
       name = "Tropical Evergreen Tree",
-      growth.form = "Tree",
-      leaf.form = "Broadleaved",
-      phenology = "Evergreen",
-      climate.zone = "Tropical",
       colour = "darkgreen",
-      shade.tolerance = "no"
+      properties = list(type = "PFT",
+                        growth.form = "Tree",
+                        leaf.form = "Broadleaved",
+                        phenology = "Evergreen",
+                        climate.zone = "Tropical",
+                        shade.tolerance = "no")
   ),
 
-  new("PFT",
+  new("Layer",
       id = "TrD",
       name = "Tropical Deciduous Tree",
-      growth.form = "Tree",
-      leaf.form = "Broadleaved",
-      phenology = "Deciduous",
-      climate.zone = "NA",
       colour = "maroon",
-      shade.tolerance = "no"
+      properties = list(type = "PFT",
+                        growth.form = "Tree",
+                        leaf.form = "Broadleaved",
+                        phenology = "Deciduous",
+                        climate.zone = "NA",
+                        shade.tolerance = "no")
   ),
 
   # GRASSES
 
-  new("PFT",
+  new("Layer",
       id = "C3G",
       name = "Boreal/Temperate Grass",
-      growth.form = "Grass",
-      leaf.form = "Broadleaved",
-      phenology = "GrassPhenology",
-      climate.zone = "NA",
       colour = "lightgoldenrod1",
-      shade.tolerance = "no"
+      properties = list(type = "PFT",
+                        growth.form = "Grass",
+                        leaf.form = "Broadleaved",
+                        phenology = "GrassPhenology",
+                        climate.zone = "NA",
+                        shade.tolerance = "no")
   ),
 
-  new("PFT",
+  new("Layer",
       id = "C3G_pas",
       name = "C3 Pasture Grass",
-      growth.form = "Grass",
-      leaf.form = "Broadleaved",
-      phenology = "GrassPhenology",
-      climate.zone = "NA",
       colour = "lightgoldenrod4",
-      shade.tolerance = "no"
+      properties = list(type = "PFT",
+                        growth.form = "Grass",
+                        leaf.form = "Broadleaved",
+                        phenology = "GrassPhenology",
+                        climate.zone = "NA",
+                        shade.tolerance = "no")
   ),
 
-  new("PFT",
+  new("Layer",
       id = "C4G",
       name = "Tropical Grass",
-      growth.form = "Grass",
-      leaf.form = "Broadleaved",
-      phenology = "GrassPhenology",
-      climate.zone = "NA",
       colour = "sienna2",
-      shade.tolerance = "no"
+      properties = list(type = "PFT",
+                        growth.form = "Grass",
+                        leaf.form = "Broadleaved",
+                        phenology = "GrassPhenology",
+                        climate.zone = "NA",
+                        shade.tolerance = "no")
   ),
 
 
-  new("PFT",
+  new("Layer",
       id = "C4G_pas",
       name = "C4 Pasture Grass",
-      growth.form = "Grass",
-      leaf.form = "Broadleaved",
-      phenology = "GrassPhenology",
-      climate.zone = "NA",
       colour = "sienna",
-      shade.tolerance = "no"
+      properties = list(type = "PFT",
+                        growth.form = "Grass",
+                        leaf.form = "Broadleaved",
+                        phenology = "GrassPhenology",
+                        climate.zone = "NA",
+                        shade.tolerance = "no")
   ),
 
 
 
   # SHRUBS
 
-  new("PFT",
+  new("Layer",
       id = "Rg_Shb",
       name = "Raingreen Shrub",
-      growth.form = "Shrub",
-      leaf.form = "NA",
-      phenology = "Evergreen",
-      climate.zone = "NA",
       colour = "darkred",
-      shade.tolerance = "no"
+      properties = list(type = "PFT",
+                        growth.form = "Shrub",
+                        leaf.form = "NA",
+                        phenology = "Evergreen",
+                        climate.zone = "NA",
+                        shade.tolerance = "no")
   ),
 
 
-  new("PFT",
+  new("Layer",
       id = "De_Shb",
       name = "Deciduous Shrub",
-      growth.form = "Shrub",
-      leaf.form = "NA",
-      phenology = "Deciduous",
-      climate.zone = "NA",
       colour = "palevioletred1",
-      shade.tolerance = "no"
+      properties = list(type = "PFT",
+                        growth.form = "Shrub",
+                        leaf.form = "NA",
+                        phenology = "Deciduous",
+                        climate.zone = "NA",
+                        shade.tolerance = "no")
   ),
 
   # CROPS
 
-  new("PFT",
+  new("Layer",
       id = "Crop",
       name = "Agricultural",
-      growth.form = "Agricultural",
-      leaf.form = "NA",
-      phenology = "NA",
-      climate.zone = "NA",
       colour = "palegreen",
-      shade.tolerance = "no"
+      properties = list(type = "PFT",
+                        growth.form = "Agricultural",
+                        leaf.form = "NA",
+                        phenology = "NA",
+                        climate.zone = "NA",
+                        shade.tolerance = "no")
   )
 
 )
@@ -559,17 +555,15 @@ JSBACH_FireMIP.PFTs <- list(
 #'
 #' @format A \code{Quantity} object is an S4 class.
 #' @keywords datasets
-#' @importClassesFrom DGVMTools Quantity Source Format Field PFT Period STAInfo
+#' @importClassesFrom DGVMTools Quantity Source Format Field Layer Period STAInfo
 #' @import DGVMTools
+#' @include PFTs.R
 #' @export
 #'
 JSBACH_FireMIP<- new("Format",
 
                      # UNIQUE ID
                      id = "JSBACH-FireMIP",
-
-                     # FUNCTION TO LIST ALL PFTS APPEARING IN A RUN
-                     determinePFTs = determinePFTs_JSBACH_FireMIP,
 
                      # FUNCTION TO LIST ALL QUANTIES AVAILABLE IN A RUN
                      availableQuantities = availableQuantities_JSBACH_FireMIP,
@@ -578,7 +572,7 @@ JSBACH_FireMIP<- new("Format",
                      getField = openFireMIPOutputFile_JSBACH,
 
                      # DEFAULT GLOBAL PFTS
-                     default.pfts = JSBACH_FireMIP.PFTs,
+                     defined.layers = JSBACH_FireMIP.PFTs,
 
                      # QUANTITIES THAT CAN BE PULLED DIRECTLY FROM LPJ-GUESS RUNS
                      quantities = FireMIP.quantities
