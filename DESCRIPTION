@@ -14,3 +14,20 @@ License: GPL | file LICENSE
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 6.1.1
+Collate: 
+    'FireMIP-PFTs.R'
+    'FireMIP-Quantities.R'
+    'PFTs.R'
+    'Format-CLM_FireMIP.R'
+    'Format-CTEM_FireMIP.R'
+    'Format-FireMIP.R'
+    'Format-Inferno_FireMIP.R'
+    'Format-JSBACH_FireMIP.R'
+    'Format-LPJ-GUESS-GlobFIRM_FireMIP.R'
+    'Format-LPJ-GUESS-SIMFIRE-BLAZE_FireMIP.R'
+    'Format-LPJ-GUESS-SPITFIRE_FireMIP.R'
+    'Format-MC2_FireMIP.R'
+    'Format-ORCHIDEE_FireMIP.R'
+    'convert-standard-quantities.R'
+    'getDimension.R'
+    'package-documentation.R'

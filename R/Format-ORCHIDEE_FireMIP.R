@@ -321,22 +321,6 @@ openFireMIPOutputFile_ORCHIDEE <- function(run, quantity, sta.info, verbose = TR
 }
 
 
-#' Detemine PFTs present in an FireMIP run source
-#'
-#' @param x  A Source objects describing a FireMIP source
-#' @param variables Some variable to look for to detremine the PFTs present in the run.  Not the function automatically searches:
-#'  "lai", "cmass", "dens" and "fpc".  If they are not in your output you should define another per-PFT variable here.  Currently ignored.
-#' @author Matthew Forrest \email{matthew.forrest@@senckenberg.de}
-#' @keywords internal
-
-determinePFTs_ORCHIDEE_FireMIP <- function(x, variables) {
-
-  return(x@format@default.pfts)
-
-}
-
-
-
 #' List all quantities available for a FireMIP Source
 #'
 #' Simply lists all LPJ-GUESS output variables (stored as .out files) available in a directory.
@@ -407,156 +391,169 @@ ORCHIDEE_FireMIP.PFTs <- list(
 
   # TREES
 
-  new("PFT",
+  new("Layer",
       id = "BNE",
       name = "Boreal Needleleaved Evergreen Tree",
-      growth.form = "Tree",
-      leaf.form = "Needleleaved",
-      phenology = "Evergreen",
-      climate.zone = "Boreal",
       colour = "darkblue",
-      shade.tolerance = "None"
+      properties = list(type = "PFT",
+                        growth.form = "Tree",
+                        leaf.form = "Needleleaved",
+                        phenology = "Evergreen",
+                        climate.zone = "Boreal",
+                        shade.tolerance = "None")
   ),
 
 
-  BNS = new("PFT",
+  BNS = new("Layer",
             id = "BNS",
             name = "Boreal Needleleaved Summergreen Tree",
-            growth.form = "Tree",
-            leaf.form = "Needleleaved",
-            phenology = "Summergreen",
-            climate.zone = "Boreal",
             colour = "cadetblue2",
-            shade.tolerance = "None"
+            properties = list(type = "PFT",
+                              growth.form = "Tree",
+                              leaf.form = "Needleleaved",
+                              phenology = "Summergreen",
+                              climate.zone = "Boreal",
+                              shade.tolerance = "None")
   ),
 
-  new("PFT",
+  new("Layer",
       id = "BBS",
       name = "Boreal B/leaved Summergreen Tree",
-      growth.form = "Tree",
-      leaf.form = "Broadleaved",
-      phenology = "Summergreen",
-      climate.zone = "Boreal",
       colour = "cyan",
-      shade.tolerance = "None"
+      properties = list(type = "PFT",
+                        growth.form = "Tree",
+                        leaf.form = "Broadleaved",
+                        phenology = "Summergreen",
+                        climate.zone = "Boreal",
+                        shade.tolerance = "None")
   ),
 
-  new("PFT",
+  new("Layer",
       id = "TeBE",
       name = "Temperate Broadleaved Evergreen Tree",
-      growth.form = "Tree",
-      leaf.form = "Broadleaved",
-      phenology = "Evergreen",
-      climate.zone = "Temperate",
       colour = "darkgreen",
-      shade.tolerance = "None"
+      properties = list(type = "PFT",
+                        growth.form = "Tree",
+                        leaf.form = "Broadleaved",
+                        phenology = "Evergreen",
+                        climate.zone = "Temperate",
+                        shade.tolerance = "None")
   ),
 
-  new("PFT",
+  new("Layer",
       id = "TeNE",
       name = "Temperate Needleleaved Evergreen Tree",
-      growth.form = "Tree",
-      leaf.form = "Needleleaved",
-      phenology = "Evergreen",
-      climate.zone = "Temperate",
       colour = "lightseagreen",
-      shade.tolerance = "None"
+      properties = list(type = "PFT",
+                        growth.form = "Tree",
+                        leaf.form = "Needleleaved",
+                        phenology = "Evergreen",
+                        climate.zone = "Temperate",
+                        shade.tolerance = "None")
   ),
 
-  new("PFT",
+  new("Layer",
       id = "TeBS",
       name = "Temperate Broadleaved Summergreen Tree",
-      growth.form = "Tree",
-      leaf.form = "Broadleaved",
-      phenology = "Summergreen",
       colour = "darkolivegreen3",
-      climate.zone = "Temperate",
-      shade.tolerance = "None"
+      properties = list(type = "PFT",
+                        growth.form = "Tree",
+                        leaf.form = "Broadleaved",
+                        phenology = "Summergreen",
+                        climate.zone = "Temperate",
+                        shade.tolerance = "None")
   ),
 
-  new("PFT",
+  new("Layer",
       id = "TrBE",
       name = "Tropical Broadleaved Evergreen Tree",
-      growth.form = "Tree",
-      leaf.form = "Broadleaved",
-      phenology = "Evergreen",
-      climate.zone = "Tropical",
       colour = "orchid4",
-      shade.tolerance = "None"
+      properties = list(type = "PFT",
+                        growth.form = "Tree",
+                        leaf.form = "Broadleaved",
+                        phenology = "Evergreen",
+                        climate.zone = "Tropical",
+                        shade.tolerance = "None")
   ),
 
-  new("PFT",
+  new("Layer",
       id = "TrBR",
       name = "Tropical Broadleaved Raingreen Tree",
-      growth.form = "Tree",
-      leaf.form = "Broadleaved",
-      phenology = "Raingreen",
-      climate.zone = "Tropical",
       colour = "palevioletred",
-      shade.tolerance = "None"
+      properties = list(type = "PFT",
+                        growth.form = "Tree",
+                        leaf.form = "Broadleaved",
+                        phenology = "Raingreen",
+                        climate.zone = "Tropical",
+                        shade.tolerance = "None")
   ),
 
 
   # GRASSES
 
-  new("PFT",
+  new("Layer",
       id = "C3G",
       name = "Boreal/Temperate Grass",
-      growth.form = "Grass",
-      leaf.form = "Broadleaved",
-      phenology = "GrassPhenology",
-      climate.zone = "NA",
       colour = "lightgoldenrod1",
-      shade.tolerance = "None"
+      properties = list(type = "PFT",
+                        growth.form = "Grass",
+                        leaf.form = "Broadleaved",
+                        phenology = "GrassPhenology",
+                        climate.zone = "NA",
+                        shade.tolerance = "None")
   ),
 
-  new("PFT",
+  new("Layer",
       id = "C4G",
       name = "Tropical Grass",
-      growth.form = "Grass",
-      leaf.form = "Broadleaved",
-      phenology = "GrassPhenology",
-      climate.zone = "NA",
       colour = "sienna2",
-      shade.tolerance = "None"
+      properties = list(type = "PFT",
+                        growth.form = "Grass",
+                        leaf.form = "Broadleaved",
+                        phenology = "GrassPhenology",
+                        climate.zone = "NA",
+                        shade.tolerance = "None")
   ),
 
 
-  new("PFT",
+  new("Layer",
       id = "C3_agr",
       name = "C3 Agriculture",
-      growth.form = "Grass",
-      leaf.form = "Broadleaved",
-      phenology = "GrassPhenology",
-      climate.zone = "NA",
       colour = "lightgoldenrod4",
-      shade.tolerance = "no"
+      properties = list(type = "PFT",
+                        growth.form = "Grass",
+                        leaf.form = "Broadleaved",
+                        phenology = "GrassPhenology",
+                        climate.zone = "NA",
+                        shade.tolerance = "no")
   ),
 
-  new("PFT",
+  new("Layer",
       id = "C4_agr",
       name = "C4 Agriculture",
-      growth.form = "Grass",
-      leaf.form = "Broadleaved",
-      phenology = "GrassPhenology",
-      climate.zone = "NA",
       colour = "sienna",
-      shade.tolerance = "no"
+      properties = list(type = "PFT",
+                        growth.form = "Grass",
+                        leaf.form = "Broadleaved",
+                        phenology = "GrassPhenology",
+                        climate.zone = "NA",
+                        shade.tolerance = "no")
   ),
 
   # OTHER
 
 
   # Bare
-  new("PFT",
+  new("Layer",
       id = "Bare",
       name = "Bare",
-      growth.form = "NA",
-      leaf.form = "NA",
-      phenology = "NA",
-      climate.zone = "NA",
       colour = "grey90",
-      shade.tolerance = "no"
+      properties = list(type = "NonPFT",
+                        growth.form = "NA",
+                        leaf.form = "NA",
+                        phenology = "NA",
+                        climate.zone = "NA",
+                        shade.tolerance = "no")
   )
 
 )
@@ -572,17 +569,15 @@ ORCHIDEE_FireMIP.PFTs <- list(
 #'
 #' @format A \code{Quantity} object is an S4 class.
 #' @keywords datasets
-#' @importClassesFrom DGVMTools Quantity Source Format Field PFT Period STAInfo
+#' @importClassesFrom DGVMTools Quantity Source Format Field Layer Period STAInfo
 #' @import DGVMTools
+#' @include PFTs.R
 #' @export
 #'
 ORCHIDEE_FireMIP<- new("Format",
 
                        # UNIQUE ID
                        id = "ORCHIDEE-FireMIP",
-
-                       # FUNCTION TO LIST ALL PFTS APPEARING IN A RUN
-                       determinePFTs = determinePFTs_ORCHIDEE_FireMIP,
 
                        # FUNCTION TO LIST ALL QUANTIES AVAILABLE IN A RUN
                        availableQuantities = availableQuantities_ORCHIDEE_FireMIP,
@@ -591,7 +586,7 @@ ORCHIDEE_FireMIP<- new("Format",
                        getField = openFireMIPOutputFile_ORCHIDEE,
 
                        # DEFAULT GLOBAL PFTS
-                       default.pfts = ORCHIDEE_FireMIP.PFTs,
+                       defined.layers = ORCHIDEE_FireMIP.PFTs,
 
                        # QUANTITIES THAT CAN BE PULLED DIRECTLY FROM LPJ-GUESS RUNS
                        quantities = FireMIP.quantities

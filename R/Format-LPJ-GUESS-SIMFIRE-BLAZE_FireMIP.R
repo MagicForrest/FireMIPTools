@@ -351,21 +351,6 @@ openFireMIPOutputFile_LPJ_GUESS_SIMFIRE_BLAZE <- function(run, quantity, sta.inf
 }
 
 
-#' Detemine PFTs present in an FireMIP run source
-#'
-#' @param x  A Source objects describing a FireMIP source
-#' @param variables Some variable to look for to detremine the PFTs present in the run.  Not the function automatically searches:
-#'  "lai", "cmass", "dens" and "fpc".  If they are not in your output you should define another per-PFT variable here.  Currently ignored.
-#' @author Matthew Forrest \email{matthew.forrest@@senckenberg.de}
-#' @keywords internal
-
-determinePFTs_LPJ_GUESS_SIMFIRE_BLAZE_FireMIP <- function(x, variables) {
-
-  return(x@format@default.pfts)
-
-}
-
-
 
 #' List all quantities available for a FireMIP Source
 #'
@@ -416,244 +401,7 @@ availableQuantities_LPJ_GUESS_SIMFIRE_BLAZE_FireMIP <- function(source, names){
 
 }
 
-########################################################
-########### FireMIP Coarse PFTS ########################
-########################################################
 
-#' @format An S4 class object with the slots as defined below.
-#' @keywords datasets
-LPJ_GUESS_SIMFIRE_BLAZE_FireMIP.PFTs <- list(
-
-  # TREES
-
-  new("PFT",
-      id = "BNE",
-      name = "Boreal Needleleaved Evergreen Tree",
-      growth.form = "Tree",
-      leaf.form = "Needleleaved",
-      phenology = "Evergreen",
-      climate.zone = "Boreal",
-      colour = "darkblue",
-      shade.tolerance = "None"
-  ),
-
-  new("PFT",
-      id = "BINE",
-      name = "Boreal Shade-Intolerant Needleleaved Evergreen Tree",
-      growth.form = "Tree",
-      leaf.form = "Needleleaved",
-      phenology = "Evergreen",
-      climate.zone = "Boreal",
-      colour = "dodgerblue3",
-      shade.tolerance = "BNE"
-  ),
-
-  BNS = new("PFT",
-            id = "BNS",
-            name = "Boreal Needleleaved Summergreen Tree",
-            growth.form = "Tree",
-            leaf.form = "Needleleaved",
-            phenology = "Summergreen",
-            climate.zone = "Boreal",
-            colour = "cadetblue2",
-            shade.tolerance = "None"
-  ),
-
-  new("PFT",
-      id = "IBS",
-      name = "Shade-intolerant B/leaved Summergreen Tree",
-      growth.form = "Tree",
-      leaf.form = "Broadleaved",
-      phenology = "Summergreen",
-      climate.zone = "Temperate",
-      colour = "chartreuse",
-      shade.tolerance = "None"
-  ),
-
-  new("PFT",
-      id = "TeBE",
-      name = "Temperate Broadleaved Evergreen Tree",
-      growth.form = "Tree",
-      leaf.form = "Broadleaved",
-      phenology = "Evergreen",
-      climate.zone = "Temperate",
-      colour = "darkgreen",
-      shade.tolerance = "None"
-  ),
-
-  new("PFT",
-      id = "TeNE",
-      name = "Temperate Needleleaved Evergreen Tree",
-      growth.form = "Tree",
-      leaf.form = "Needleleaved",
-      phenology = "Evergreen",
-      climate.zone = "Temperate",
-      colour = "lightseagreen",
-      shade.tolerance = "None"
-  ),
-
-  new("PFT",
-      id = "TeBS",
-      name = "Temperate Broadleaved Summergreen Tree",
-      growth.form = "Tree",
-      leaf.form = "Broadleaved",
-      phenology = "Summergreen",
-      colour = "darkolivegreen3",
-      climate.zone = "Temperate",
-      shade.tolerance = "None"
-  ),
-
-  new("PFT",
-      id = "TrBE",
-      name = "Tropical Broadleaved Evergreen Tree",
-      growth.form = "Tree",
-      leaf.form = "Broadleaved",
-      phenology = "Evergreen",
-      climate.zone = "Tropical",
-      colour = "orchid4",
-      shade.tolerance = "None"
-  ),
-
-  new("PFT",
-      id = "TrIBE",
-      name = "Tropical Shade-intolerant Broadleaved Evergreen Tree",
-      growth.form = "Tree",
-      leaf.form = "Broadleaved",
-      phenology = "Evergreen",
-      climate.zone = "Tropical",
-      colour = "orchid",
-      shade.tolerance = "TrBE"
-  ),
-
-  new("PFT",
-      id = "TrBR",
-      name = "Tropical Broadleaved Raingreen Tree",
-      growth.form = "Tree",
-      leaf.form = "Broadleaved",
-      phenology = "Raingreen",
-      climate.zone = "Tropical",
-      colour = "palevioletred",
-      shade.tolerance = "None"
-  ),
-
-
-  # GRASSES
-
-  new("PFT",
-      id = "C3G",
-      name = "Boreal/Temperate Grass",
-      growth.form = "Grass",
-      leaf.form = "Broadleaved",
-      phenology = "GrassPhenology",
-      climate.zone = "NA",
-      colour = "lightgoldenrod1",
-      shade.tolerance = "None"
-  ),
-
-  new("PFT",
-      id = "C4G",
-      name = "Tropical Grass",
-      growth.form = "Grass",
-      leaf.form = "Broadleaved",
-      phenology = "GrassPhenology",
-      climate.zone = "NA",
-      colour = "sienna2",
-      shade.tolerance = "None"
-  ),
-
-
-  new("PFT",
-      id = "C3G_pas",
-      name = "C3 Pasture Grass",
-      growth.form = "Grass",
-      leaf.form = "Broadleaved",
-      phenology = "GrassPhenology",
-      climate.zone = "NA",
-      colour = "lightgoldenrod4",
-      shade.tolerance = "no"
-  ),
-
-  new("PFT",
-      id = "C4G_pas",
-      name = "C4 Pasture Grass",
-      growth.form = "Grass",
-      leaf.form = "Broadleaved",
-      phenology = "GrassPhenology",
-      climate.zone = "NA",
-      colour = "sienna",
-      shade.tolerance = "no"
-  ),
-
-  # CROPS
-
-  new("PFT",
-      id = "TeSW",
-      name = "Temperate Summer Wheat",
-      growth.form = "Agricultural",
-      leaf.form = "NA",
-      phenology = "NA",
-      climate.zone = "NA",
-      colour = "palegreen",
-      shade.tolerance = "no"
-  ),
-
-  new("PFT",
-      id = "TeSWirr",
-      name = "Irrigated Temperate Summer Wheat",
-      growth.form = "Agricultural",
-      leaf.form = "NA",
-      phenology = "NA",
-      climate.zone = "NA",
-      colour = "palegreen",
-      shade.tolerance = "no"
-  ),
-
-  new("PFT",
-      id = "TeWW",
-      name = "Temperate Winter Wheat",
-      growth.form = "Agricultural",
-      leaf.form = "NA",
-      phenology = "NA",
-      climate.zone = "NA",
-      colour = "palegreen",
-      shade.tolerance = "no"
-  ),
-
-  new("PFT",
-      id = "TeWWirr",
-      name = "Irrigated Temperate Winter Wheat",
-      growth.form = "Agricultural",
-      leaf.form = "NA",
-      phenology = "NA",
-      climate.zone = "NA",
-      colour = "palegreen",
-      shade.tolerance = "no"
-  ),
-
-  new("PFT",
-      id = "TeCo",
-      name = "Temperate Corn",
-      growth.form = "Agricultural",
-      leaf.form = "NA",
-      phenology = "NA",
-      climate.zone = "NA",
-      colour = "palegreen",
-      shade.tolerance = "no"
-  ),
-
-  new("PFT",
-      id = "TeCoirr",
-      name = "Irrigated Temperate Corn",
-      growth.form = "Agricultural",
-      leaf.form = "NA",
-      phenology = "NA",
-      climate.zone = "NA",
-      colour = "palegreen",
-      shade.tolerance = "no"
-  )
-
-
-)
 
 
 
@@ -666,17 +414,15 @@ LPJ_GUESS_SIMFIRE_BLAZE_FireMIP.PFTs <- list(
 #'
 #' @format A \code{Quantity} object is an S4 class.
 #' @keywords datasets
-#' @importClassesFrom DGVMTools Quantity Source Format Field PFT Period STAInfo
+#' @importClassesFrom DGVMTools Quantity Source Format Field Layer Period STAInfo
 #' @import DGVMTools
+#' @include PFTs.R
 #' @export
 #'
 LPJ_GUESS_SIMFIRE_BLAZE_FireMIP<- new("Format",
 
                    # UNIQUE ID
                    id = "LPJ-GUESS-SIMFIRE-BLAZE-FireMIP",
-
-                   # FUNCTION TO LIST ALL PFTS APPEARING IN A RUN
-                   determinePFTs = determinePFTs_LPJ_GUESS_SIMFIRE_BLAZE_FireMIP,
 
                    # FUNCTION TO LIST ALL QUANTIES AVAILABLE IN A RUN
                    availableQuantities = availableQuantities_LPJ_GUESS_SIMFIRE_BLAZE_FireMIP,
@@ -685,7 +431,7 @@ LPJ_GUESS_SIMFIRE_BLAZE_FireMIP<- new("Format",
                    getField = openFireMIPOutputFile_LPJ_GUESS_SIMFIRE_BLAZE,
 
                    # DEFAULT GLOBAL PFTS
-                   default.pfts = LPJ_GUESS_SIMFIRE_BLAZE_FireMIP.PFTs,
+                   defined.layers = LPJ_GUESS_PFTs,
 
                    # QUANTITIES THAT CAN BE PULLED DIRECTLY FROM LPJ-GUESS RUNS
                    quantities = FireMIP.quantities
