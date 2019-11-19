@@ -664,7 +664,7 @@ LPJmL_PFTs <- list(
 #' @format An S4 class object with the slots as defined below.
 #' @keywords datasets
 #' @export
-CTEM_PFTs<- list(
+CTEM_PFTs <- list(
 
   # TREES
 
@@ -679,7 +679,6 @@ CTEM_PFTs<- list(
                         climate.zone = "NA",
                         shade.tolerance = "no")
   ),
-
 
   new("Layer",
       id = "ND",
@@ -759,7 +758,7 @@ CTEM_PFTs<- list(
   # CROPS
 
   new("Layer",
-      id = "C3CropP",
+      id = "C3Crop",
       name = "Agricultural",
       colour = "palegreen",
       properties = list(type = "PFT",

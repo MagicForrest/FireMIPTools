@@ -627,7 +627,7 @@ CLM_FireMIP.PFTs <- list(
                     getField = openFireMIPOutputFile_CLM,
 
                     # DEFAULT GLOBAL PFTS
-                    defined.layers = CLM_FireMIP.PFTs,
+                    predefined.layers = CLM_FireMIP.PFTs,
 
                     # QUANTITIES THAT CAN BE PULLED DIRECTLY FROM LPJ-GUESS RUNS
                     quantities = FireMIP.quantities

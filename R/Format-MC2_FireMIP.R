@@ -413,7 +413,7 @@ MC2_FireMIP<- new("Format",
                    getField = openFireMIPOutputFile_MC2,
 
                    # DEFAULT GLOBAL PFTS
-                   defined.layers = MC2_FireMIP.PFTs,
+                   predefined.layers = MC2_FireMIP.PFTs,
 
                    # QUANTITIES THAT CAN BE PULLED DIRECTLY FROM LPJ-GUESS RUNS
                    quantities = FireMIP.quantities

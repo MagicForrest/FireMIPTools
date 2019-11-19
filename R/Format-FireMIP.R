@@ -472,7 +472,7 @@ FireMIP <- new("Format",
               getField = openFireMIPOutputFile,
 
               # DEFAULT GLOBAL PFTS
-              defined.layers = FireMIP.PFTs,
+              predefined.layers = FireMIP.PFTs,
 
               # QUANTITIES THAT CAN BE PULLED DIRECTLY FROM LPJ-GUESS RUNS
               quantities = FireMIP.quantities

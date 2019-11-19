@@ -431,7 +431,7 @@ LPJ_GUESS_SIMFIRE_BLAZE_FireMIP<- new("Format",
                    getField = openFireMIPOutputFile_LPJ_GUESS_SIMFIRE_BLAZE,
 
                    # DEFAULT GLOBAL PFTS
-                   defined.layers = LPJ_GUESS_PFTs,
+                   predefined.layers = LPJ_GUESS_PFTs,
 
                    # QUANTITIES THAT CAN BE PULLED DIRECTLY FROM LPJ-GUESS RUNS
                    quantities = FireMIP.quantities

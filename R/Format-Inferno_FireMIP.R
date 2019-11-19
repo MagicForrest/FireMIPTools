@@ -706,7 +706,7 @@ Inferno_FireMIP<- new("Format",
                       getField = openFireMIPOutputFile_Inferno,
 
                       # DEFAULT GLOBAL PFTS
-                      defined.layers = Inferno_FireMIP.PFTs,
+                      predefined.layers = Inferno_FireMIP.PFTs,
 
                       # QUANTITIES THAT CAN BE PULLED DIRECTLY FROM LPJ-GUESS RUNS
                       quantities = FireMIP.quantities
