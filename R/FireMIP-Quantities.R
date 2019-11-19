@@ -7,6 +7,7 @@
 #' @keywords datasets
 #' @import DGVMTools
 #' @importFrom methods new
+#' @export
 #'
 FireMIP.quantities <- list(
 
