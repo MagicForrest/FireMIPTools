@@ -585,7 +585,7 @@ ORCHIDEE_FireMIP<- new("Format",
                        # FUNCTION TO READ A FIELD
                        getField = openFireMIPOutputFile_ORCHIDEE,
 
-                       # DEFAULT GLOBAL PFTS
+                       # DEFAULT LAYERS
                        predefined.layers = ORCHIDEE_FireMIP.PFTs,
 
                        # QUANTITIES THAT CAN BE PULLED DIRECTLY FROM LPJ-GUESS RUNS
