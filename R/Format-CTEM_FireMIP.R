@@ -399,7 +399,7 @@ CTEM_FireMIP<- new("Format",
                    # FUNCTION TO READ A FIELD
                    getField = openFireMIPOutputFile_CTEM,
 
-                   # DEFAULT GLOBAL PFTS
+                   # DEFAULT LAYERS
                    predefined.layers = CTEM_PFTs,
 
                    # QUANTITIES THAT CAN BE PULLED DIRECTLY FROM LPJ-GUESS RUNS

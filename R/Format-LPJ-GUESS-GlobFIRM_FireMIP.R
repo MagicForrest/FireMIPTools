@@ -420,7 +420,7 @@ LPJ_GUESS_GlobFIRM_FireMIP<- new("Format",
                                  # FUNCTION TO READ A FIELD
                                  getField = openFireMIPOutputFile_LPJ_GUESS_GlobFIRM,
 
-                                 # DEFAULT GLOBAL PFTS
+                                 # DEFAULT LAYERS
                                  predefined.layers = LPJ_GUESS_PFTs,
 
                                  # QUANTITIES THAT CAN BE PULLED DIRECTLY FROM LPJ-GUESS RUNS

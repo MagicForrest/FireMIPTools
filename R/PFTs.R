@@ -664,7 +664,7 @@ LPJmL_PFTs <- list(
 #' @format An S4 class object with the slots as defined below.
 #' @keywords datasets
 #' @export
-CTEM_PFTs <- list(
+CTEM_PFTs<- list(
 
   # TREES
 
