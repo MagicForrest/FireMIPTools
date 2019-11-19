@@ -4,11 +4,13 @@
 #'
 #' @format The \code{Quantity} class is an S4 class with the slots defined below.
 #' @rdname Quantity-class
+#' @export
 #' @keywords datasets
 #' @import DGVMTools
 #' @importFrom methods new
 #' @export
 #'
+
 FireMIP.quantities <- list(
 
   #### BURNT AREA AND EMISSIONS
@@ -47,8 +49,8 @@ FireMIP.quantities <- list(
 
   new("Quantity",
       id = "burntArea",
-      name = "Burnt Area Fraction (per PFT)",
-      units = "%",
+      name = "Burnt Area Fraction",
+      units = "fraction",
       colours = reversed.viridis,
       format = c("FireMIP", "LPJ-GUESS-SPITFIRE"),
       cf.name = "Burnt Area Fraction (per PFT)"),

@@ -255,6 +255,9 @@ openFireMIPOutputFile_CLM <- function(run, quantity, sta.info, verbose = TRUE) {
   full.dt <- stats::na.omit(full.dt)
   print(full.dt)
 
+  # if london.centre is requested, make sure all negative longitudes are shifted to positive
+  if(run@london.centre){ full.dt[, Lon := vapply(full.dt[,Lon], 1, FUN = LondonCentre)] }
+
   all.years <- sort(unique(full.dt[["Year"]]))
   subannual <- "Month"
   if(dimensions.present == "perPFT") subannual <- "Annual"
@@ -263,7 +266,8 @@ openFireMIPOutputFile_CLM <- function(run, quantity, sta.info, verbose = TRUE) {
                  last.year = max(all.years),
                  subannual.resolution = subannual,
                  subannual.original = subannual,
-                 spatial.extent = extent(full.dt))
+                 spatial.extent = extent(full.dt),
+                 spatial.extent.id = "Full")
 
 
   # close the file
@@ -271,27 +275,18 @@ openFireMIPOutputFile_CLM <- function(run, quantity, sta.info, verbose = TRUE) {
   nc_close(grid.nc)
   gc()
 
-  return(list(dt = full.dt,
-              sta.info = sta.info))
+
+  this.Field <- new("Field",
+                    id = makeFieldID(source = run, var.string = quantity@id, sta.info = sta.info),
+                    source = run,
+                    quant = quantity,
+                    data = full.dt,
+                    sta.info)
+
+  return(this.Field)
 
 
 }
-
-
-#' Detemine PFTs present in an FireMIP run source
-#'
-#' @param x  A Source objects describing a FireMIP source
-#' @param variables Some variable to look for to detremine the PFTs present in the run.  Not the function automatically searches:
-#'  "lai", "cmass", "dens" and "fpc".  If they are not in your output you should define another per-PFT variable here.  Currently ignored.
-#' @author Matthew Forrest \email{matthew.forrest@@senckenberg.de}
-#' @keywords internal
-
-determinePFTs_CLM_FireMIP <- function(x, variables) {
-
-  return(x@format@default.pfts)
-
-}
-
 
 
 #' List all quantities available for a FireMIP Source
@@ -358,267 +353,283 @@ CLM_FireMIP.PFTs <- list(
 
   # BOREAL TREES
   # Bare
-  new("PFT",
+  new("Layer",
       id = "Bare",
       name = "Bare",
-      growth.form = "NA",
-      leaf.form = "NA",
-      phenology = "NA",
-      climate.zone = "NA",
       colour = "grey90",
-      shade.tolerance = "no"
+      properties = list(type = "PFT",
+                        growth.form = "NA",
+                        leaf.form = "NA",
+                        phenology = "NA",
+                        climate.zone = "NA",
+                        shade.tolerance = "no")
   ),
 
   # BNE
-  new("PFT",
+  new("Layer",
       id = "BNE",
       name = "Boreal Needleleaved Evergreen Tree",
-      growth.form = "Tree",
-      leaf.form = "Needleleaved",
-      phenology = "Evergreen",
-      climate.zone = "Boreal",
       colour = "darkblue",
-      shade.tolerance = "None"
+      properties = list(type = "PFT",
+                        growth.form = "Tree",
+                        leaf.form = "Needleleaved",
+                        phenology = "Evergreen",
+                        climate.zone = "Boreal",
+                        shade.tolerance = "None")
   ),
 
 
   # BNS
-  BNS = new("PFT",
+  BNS = new("Layer",
             id = "BNS",
             name = "Boreal Needleleaved Summergreen Tree",
-            growth.form = "Tree",
-            leaf.form = "Needleleaved",
-            phenology = "Summergreen",
-            climate.zone = "Boreal",
             colour = "cadetblue2",
-            shade.tolerance = "None"
-  ),
+            properties = list(type = "PFT",
+                              growth.form = "Tree",
+                              leaf.form = "Needleleaved",
+                              phenology = "Summergreen",
+                              climate.zone = "Boreal",
+                              shade.tolerance = "None")
+            ),
 
-  # BBS
-  new("PFT",
-      id = "BBS",
-      name = "Shade-intolerant B/leaved Summergreen Tree",
-      growth.form = "Tree",
-      leaf.form = "Broadleaved",
-      phenology = "Summergreen",
-      climate.zone = "Boreal",
-      colour = "dodgerblue3",
-      shade.tolerance = "None"
-  ),
+            # BBS
+            new("Layer",
+                id = "BBS",
+                name = "Shade-intolerant B/leaved Summergreen Tree",
+                colour = "dodgerblue3",
+                properties = list(type = "PFT",
+                                  growth.form = "Tree",
+                                  leaf.form = "Broadleaved",
+                                  phenology = "Summergreen",
+                                  climate.zone = "Boreal",
+                                  shade.tolerance = "None")
+            ),
 
-  # TEMPERATE TREES
+            # TEMPERATE TREES
 
-  # TeBE
-  new("PFT",
-      id = "TeBE",
-      name = "Temperate Broadleaved Evergreen Tree",
-      growth.form = "Tree",
-      leaf.form = "Broadleaved",
-      phenology = "Evergreen",
-      climate.zone = "Temperate",
-      colour = "darkgreen",
-      shade.tolerance = "None"
-  ),
+            # TeBE
+            new("Layer",
+                id = "TeBE",
+                name = "Temperate Broadleaved Evergreen Tree",
+                colour = "darkgreen",
+                properties = list(type = "PFT",
+                                  growth.form = "Tree",
+                                  leaf.form = "Broadleaved",
+                                  phenology = "Evergreen",
+                                  climate.zone = "Temperate",
+                                  shade.tolerance = "None")
+            ),
 
-  # TeNE
-  new("PFT",
-      id = "TeNE",
-      name = "Temperate Needleleaved Evergreen Tree",
-      growth.form = "Tree",
-      leaf.form = "Needleleaved",
-      phenology = "Evergreen",
-      climate.zone = "Temperate",
-      colour = "lightseagreen",
-      shade.tolerance = "None"
-  ),
+            # TeNE
+            new("Layer",
+                id = "TeNE",
+                name = "Temperate Needleleaved Evergreen Tree",
+                colour = "lightseagreen",
+                properties = list(type = "PFT",
+                                  growth.form = "Tree",
+                                  leaf.form = "Needleleaved",
+                                  phenology = "Evergreen",
+                                  climate.zone = "Temperate",
+                                  shade.tolerance = "None")
+            ),
 
-  # TeBS
-  new("PFT",
-      id = "TeBS",
-      name = "Temperate Broadleaved Summergreen Tree",
-      growth.form = "Tree",
-      leaf.form = "Broadleaved",
-      phenology = "Summergreen",
-      colour = "darkolivegreen3",
-      climate.zone = "Temperate",
-      shade.tolerance = "None"
-  ),
-
-
-  # TROPICAL TREES
-
-  # TrBE
-  new("PFT",
-      id = "TrBE",
-      name = "Tropical Broadleaved Evergreen Tree",
-      growth.form = "Tree",
-      leaf.form = "Broadleaved",
-      phenology = "Evergreen",
-      climate.zone = "Tropical",
-      colour = "orchid4",
-      shade.tolerance = "None"
-  ),
+            # TeBS
+            new("Layer",
+                id = "TeBS",
+                name = "Temperate Broadleaved Summergreen Tree",
+                colour = "darkolivegreen3",
+                properties = list(type = "PFT",
+                                  growth.form = "Tree",
+                                  leaf.form = "Broadleaved",
+                                  phenology = "Summergreen",
+                                  climate.zone = "Temperate",
+                                  shade.tolerance = "None")
+            ),
 
 
-  # TrBR
-  new("PFT",
-      id = "TrBR",
-      name = "Tropical Broadleaved Raingreen Tree",
-      growth.form = "Tree",
-      leaf.form = "Broadleaved",
-      phenology = "Raingreen",
-      climate.zone = "Tropical",
-      colour = "palevioletred",
-      shade.tolerance = "None"
-  ),
+            # TROPICAL TREES
+
+            # TrBE
+            new("Layer",
+                id = "TrBE",
+                name = "Tropical Broadleaved Evergreen Tree",
+                colour = "orchid4",
+                properties = list(type = "PFT",
+                                  growth.form = "Tree",
+                                  leaf.form = "Broadleaved",
+                                  phenology = "Evergreen",
+                                  climate.zone = "Tropical",
+                                  shade.tolerance = "None")
+            ),
 
 
-  # GRASSES
-
-  # C3G
-  new("PFT",
-      id = "C3G",
-      name = "Boreal/Temperate Grass",
-      growth.form = "Grass",
-      leaf.form = "Broadleaved",
-      phenology = "GrassPhenology",
-      climate.zone = "NA",
-      colour = "lightgoldenrod1",
-      shade.tolerance = "None"
-  ),
-
-  # C3G_arc
-  new("PFT",
-      id = "C3G_arc",
-      name = "Arctic Grass",
-      growth.form = "Grass",
-      leaf.form = "Broadleaved",
-      phenology = "GrassPhenology",
-      climate.zone = "Arctic",
-      colour = "plum",
-      shade.tolerance = "None"
-  ),
-
-  # C4G
-  new("PFT",
-      id = "C4G",
-      name = "Tropical Grass",
-      growth.form = "Grass",
-      leaf.form = "Broadleaved",
-      phenology = "GrassPhenology",
-      climate.zone = "NA",
-      colour = "sienna2",
-      shade.tolerance = "None"
-  ),
+            # TrBR
+            new("Layer",
+                id = "TrBR",
+                name = "Tropical Broadleaved Raingreen Tree",
+                colour = "palevioletred",
+                properties = list(type = "PFT",
+                                  growth.form = "Tree",
+                                  leaf.form = "Broadleaved",
+                                  phenology = "Raingreen",
+                                  climate.zone = "Tropical",
+                                  shade.tolerance = "None")
+            ),
 
 
-  # BE_Shb
-  new("PFT",
-      id = "BE_Shb",
-      name = "Broadleaved Evergreen Shrub",
-      growth.form = "Shrub",
-      leaf.form = "NA",
-      phenology = "Evergreen",
-      climate.zone = "NA",
-      colour = "darkred",
-      shade.tolerance = "no"
-  ),
+            # GRASSES
 
-  # TeBS_Shb
-  new("PFT",
-      id = "TeBS_Shb",
-      name = "Temperate Summergreen Shrub",
-      growth.form = "Shrub",
-      leaf.form = "NA",
-      phenology = "Deciduous",
-      climate.zone = "NA",
-      colour = "palevioletred1",
-      shade.tolerance = "no"
-  ),
+            # C3G
+            new("Layer",
+                id = "C3G",
+                name = "Boreal/Temperate Grass",
+                colour = "lightgoldenrod1",
+                properties = list(type = "PFT",
+                growth.form = "Grass",
+                leaf.form = "Broadleaved",
+                phenology = "GrassPhenology",
+                climate.zone = "NA",
+                shade.tolerance = "None")
+            ),
 
-  # BBS_Shb
-  new("PFT",
-      id = "BBS_Shb",
-      name = "Boreal Summergreen Shrub",
-      growth.form = "Shrub",
-      leaf.form = "NA",
-      phenology = "Deciduous",
-      climate.zone = "NA",
-      colour = "salmon",
-      shade.tolerance = "no"
-  ),
+            # C3G_arc
+            new("Layer",
+                id = "C3G_arc",
+                name = "Arctic Grass",
+                colour = "plum",
+                properties = list(type = "PFT",
+                growth.form = "Grass",
+                leaf.form = "Broadleaved",
+                phenology = "GrassPhenology",
+                climate.zone = "Arctic",
+                shade.tolerance = "None")
+            ),
 
-  # TeBS_Shb
-  new("PFT",
-      id = "TeBS_Shb",
-      name = "Temperate Summergreen Shrub",
-      growth.form = "Shrub",
-      leaf.form = "NA",
-      phenology = "Deciduous",
-      climate.zone = "NA",
-      colour = "palevioletred1",
-      shade.tolerance = "no"
-  ),
+            # C4G
+            new("Layer",
+                id = "C4G",
+                name = "Tropical Grass",
+                colour = "sienna2",
+                properties = list(type = "PFT",
+                                  growth.form = "Grass",
+                                  leaf.form = "Broadleaved",
+                                  phenology = "GrassPhenology",
+                                  climate.zone = "NA",
+                                  shade.tolerance = "None")
+            ),
 
-  # Crop1
-  new("PFT",
-      id = "Crop1",
-      name = "Crop 1",
-      growth.form = "Crop",
-      leaf.form = "NA",
-      phenology = "Crop",
-      climate.zone = "NA",
-      colour = "palegreen",
-      shade.tolerance = "no"
-  ),
 
-  # Crop2
-  new("PFT",
-      id = "Crop2",
-      name = "Crop 2",
-      growth.form = "Crop",
-      leaf.form = "NA",
-      phenology = "Crop",
-      climate.zone = "NA",
-      colour = "palegoldenrod",
-      shade.tolerance = "no"
+            # BE_Shb
+            new("Layer",
+                id = "BE_Shb",
+                name = "Broadleaved Evergreen Shrub",
+                colour = "darkred",
+                properties = list(type = "PFT",
+                                  growth.form = "Shrub",
+                                  leaf.form = "NA",
+                                  phenology = "Evergreen",
+                                  climate.zone = "NA",
+                                  shade.tolerance = "no")
+            ),
+
+            # TeBS_Shb
+            new("Layer",
+                id = "TeBS_Shb",
+                name = "Temperate Summergreen Shrub",
+                colour = "palevioletred1",
+                properties = list(type = "PFT",
+                                  growth.form = "Shrub",
+                                  leaf.form = "NA",
+                                  phenology = "Deciduous",
+                                  climate.zone = "NA",
+                                  shade.tolerance = "no")
+            ),
+
+            # BBS_Shb
+            new("Layer",
+                id = "BBS_Shb",
+                name = "Boreal Summergreen Shrub",
+                colour = "salmon",
+                properties = list(type = "PFT",
+                                  growth.form = "Shrub",
+                                  leaf.form = "NA",
+                                  phenology = "Deciduous",
+                                  climate.zone = "NA",
+                                  shade.tolerance = "no")
+            ),
+
+            # TeBS_Shb
+            new("Layer",
+                id = "TeBS_Shb",
+                name = "Temperate Summergreen Shrub",
+                colour = "palevioletred1",
+                properties = list(type = "PFT",
+                                  growth.form = "Shrub",
+                                  leaf.form = "NA",
+                                  phenology = "Deciduous",
+                                  climate.zone = "NA",
+                                  shade.tolerance = "no")
+            ),
+
+            # Crop1
+            new("Layer",
+                id = "Crop1",
+                name = "Crop 1",
+                colour = "palegreen",
+                properties = list(type = "PFT",
+                                  growth.form = "Crop",
+                                  leaf.form = "NA",
+                                  phenology = "Crop",
+                                  climate.zone = "NA",
+                                  shade.tolerance = "no")
+            ),
+
+            # Crop2
+            new("Layer",
+                id = "Crop2",
+                name = "Crop 2",
+                colour = "palegoldenrod",
+                properties = list(type = "PFT",
+                                  growth.form = "Crop",
+                                  leaf.form = "NA",
+                                  phenology = "Crop",
+                                  climate.zone = "NA",
+                                  shade.tolerance = "no")
+            )
+
   )
 
-)
 
 
+  ####################################################
+  ########### CLM_FireMIP FORMAT ########################
+  ####################################################
+  #' CLM-FireMIP Format objects
+  #'
+  #' @description \code{CLM_FireMIP} - a Format for reading CLM FireMIP model output
+  #'
+  #' @format A \code{Quantity} object is an S4 class.
+  #' @keywords datasets
+  #' @importClassesFrom DGVMTools Quantity Source Format Field Layer Period STAInfo
+  #' @import DGVMTools
+  #' @include PFTs.R
+  #' @export
+  #'
+  CLM_FireMIP<- new("Format",
 
-####################################################
-########### CLM_FireMIP FORMAT ########################
-####################################################
-#' CLM-FireMIP Format objects
-#'
-#' @description \code{CLM_FireMIP} - a Format for reading CLM FireMIP model output
-#'
-#' @format A \code{Quantity} object is an S4 class.
-#' @keywords datasets
-#' @importClassesFrom DGVMTools Quantity Source Format Field PFT Period STAInfo
-#' @import DGVMTools
-#' @export
-#'
-CLM_FireMIP<- new("Format",
+                    # UNIQUE ID
+                    id = "CLM-FireMIP",
 
-              # UNIQUE ID
-              id = "CLM-FireMIP",
+                    # FUNCTION TO LIST ALL QUANTIES AVAILABLE IN A RUN
+                    availableQuantities = availableQuantities_CLM_FireMIP,
 
-              # FUNCTION TO LIST ALL PFTS APPEARING IN A RUN
-              determinePFTs = determinePFTs_CLM_FireMIP,
+                    # FUNCTION TO READ A FIELD
+                    getField = openFireMIPOutputFile_CLM,
 
-              # FUNCTION TO LIST ALL QUANTIES AVAILABLE IN A RUN
-              availableQuantities = availableQuantities_CLM_FireMIP,
+                    # DEFAULT LAYERS
+                    predefined.layers = CLM_FireMIP.PFTs,
 
-              # FUNCTION TO READ A FIELD
-              getField = openFireMIPOutputFile_CLM,
+                    # QUANTITIES THAT CAN BE PULLED DIRECTLY FROM LPJ-GUESS RUNS
+                    quantities = FireMIP.quantities
 
-              # DEFAULT GLOBAL PFTS
-              default.pfts = CLM_FireMIP.PFTs,
-
-              # QUANTITIES THAT CAN BE PULLED DIRECTLY FROM LPJ-GUESS RUNS
-              quantities = FireMIP.quantities
-
-)
+  )

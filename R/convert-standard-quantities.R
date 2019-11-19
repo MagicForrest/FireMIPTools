@@ -41,7 +41,7 @@ FireMIPtoStandardQuantity <- function(firemip.quant){
   for(possible.quant in standard.quantities.crosswalk) {
 
     if(firemip.quant == possible.quant$FireMIP) {
-      standard.string <- standard.quant$Standard
+      standard.string <- possible.quant$Standard
     }
 
   }

@@ -70,6 +70,7 @@ openFireMIPOutputFile_CTEM <- function(run, quantity, sta.info, verbose = TRUE) 
   this.landmask.dt <- this.landmask.dt[landmask > 0,]
   this.landmask.dt[, landmask:=NULL]
 
+
   # attempt to automagically determine time axis
   is.monthly <- FALSE
   # monthly starting in 1861 -- CTEM
@@ -293,6 +294,9 @@ openFireMIPOutputFile_CTEM <- function(run, quantity, sta.info, verbose = TRUE) 
   # Tidy stuff
   full.dt <- stats::na.omit(full.dt)
 
+  # if london.centre is requested, make sure all negative longitudes are shifted to positive
+  if(run@london.centre){ full.dt[, Lon := vapply(full.dt[,Lon], 1, FUN = LondonCentre)] }
+
   all.years <- sort(unique(full.dt[["Year"]]))
   if(is.monthly) subannual <- "Month"
   else subannual <- "Annual"
@@ -301,7 +305,8 @@ openFireMIPOutputFile_CTEM <- function(run, quantity, sta.info, verbose = TRUE) 
                  last.year = max(all.years),
                  subannual.resolution = subannual,
                  subannual.original = subannual,
-                 spatial.extent = extent(full.dt))
+                 spatial.extent = extent(full.dt),
+                 spatial.extent.id = "Full")
 
 
   # close the file
@@ -309,24 +314,16 @@ openFireMIPOutputFile_CTEM <- function(run, quantity, sta.info, verbose = TRUE) 
   nc_close(grid.nc)
   gc()
 
-  return(list(dt = full.dt,
-              sta.info = sta.info))
 
+  this.Field <- new("Field",
+                    id = makeFieldID(source = run, var.string = quantity@id, sta.info = sta.info),
+                    source = run,
+                    quant = quantity,
+                    data = full.dt,
+                    sta.info)
 
-}
+  return(this.Field)
 
-
-#' Detemine PFTs present in an FireMIP run source
-#'
-#' @param x  A Source objects describing a FireMIP source
-#' @param variables Some variable to look for to detremine the PFTs present in the run.  Not the function automatically searches:
-#'  "lai", "cmass", "dens" and "fpc".  If they are not in your output you should define another per-PFT variable here.  Currently ignored.
-#' @author Matthew Forrest \email{matthew.forrest@@senckenberg.de}
-#' @keywords internal
-
-determinePFTs_CTEM_FireMIP <- function(x, variables) {
-
-  return(x@format@default.pfts)
 
 }
 
@@ -374,122 +371,6 @@ availableQuantities_CTEM_FireMIP <- function(source, names){
 
 }
 
-########################################################
-########### FireMIP Coarse PFTS ########################
-########################################################
-
-#' @format An S4 class object with the slots as defined below.
-#' @keywords datasets
-CTEM_FireMIP.PFTs <- list(
-
-  # TREES
-
-   new("PFT",
-      id = "NDL-EVG",
-      name = "Needleleaved Evergreen Tree",
-      growth.form = "Tree",
-      leaf.form = "Needleleaved",
-      phenology = "Evergreen",
-      climate.zone = "NA",
-      colour = "darkblue",
-      shade.tolerance = "no"
-  ),
-
-
-  new("PFT",
-      id = "NDL-DCD",
-      name = "Needleleaved Summergreen Tree",
-      growth.form = "Tree",
-      leaf.form = "Needleleaved",
-      phenology = "Deciduous",
-      climate.zone = "NA",
-      colour = "cornflowerblue",
-      shade.tolerance = "no"
-  ),
-
-  new("PFT",
-      id = "BDL-DCD-COLD",
-      name = "Broadleaved Cold Deciduous Tree",
-      growth.form = "Tree",
-      leaf.form = "Broadleaved",
-      phenology = "Summergreen",
-      climate.zone = "NA",
-      colour = "cyan",
-      shade.tolerance = "no"
-  ),
-
-  new("PFT",
-      id = "BDL-EVG",
-      name = "Broadleaved Evergreen Tree",
-      growth.form = "Tree",
-      leaf.form = "Broadleaved",
-      phenology = "Evergreen",
-      climate.zone = "NA",
-      colour = "darkgreen",
-      shade.tolerance = "no"
-  ),
-
-  new("PFT",
-      id = "BDL-DCD-DRY",
-      name = "Broadleaved Dry Deciduous Tree",
-      growth.form = "Tree",
-      leaf.form = "Broadleaved",
-      phenology = "Raingreen",
-      climate.zone = "NA",
-      colour = "maroon",
-      shade.tolerance = "no"
-  ),
-
-  # GRASSES
-
-  new("PFT",
-      id = "C3G-GRASS",
-      name = "Boreal/Temperate Grass",
-      growth.form = "Grass",
-      leaf.form = "Broadleaved",
-      phenology = "GrassPhenology",
-      climate.zone = "NA",
-      colour = "lightgoldenrod1",
-      shade.tolerance = "no"
-  ),
-
-  new("PFT",
-      id = "C4G-GRASS",
-      name = "Tropical Grass",
-      growth.form = "Grass",
-      leaf.form = "Broadleaved",
-      phenology = "GrassPhenology",
-      climate.zone = "NA",
-      colour = "sienna2",
-      shade.tolerance = "no"
-  ),
-
-
-  # CROPS
-
-  new("PFT",
-      id = "C3-CROP",
-      name = "Agricultural",
-      growth.form = "Agricultural",
-      leaf.form = "NA",
-      phenology = "NA",
-      climate.zone = "NA",
-      colour = "palegreen",
-      shade.tolerance = "no"
-  ),
-
-  new("PFT",
-      id = "C4-CROP",
-      name = "Agricultural",
-      growth.form = "Agricultural",
-      leaf.form = "NA",
-      phenology = "NA",
-      climate.zone = "NA",
-      colour = "palegoldenrod",
-      shade.tolerance = "no"
-  )
-
-)
 
 
 
@@ -502,8 +383,9 @@ CTEM_FireMIP.PFTs <- list(
 #'
 #' @format A \code{Quantity} object is an S4 class.
 #' @keywords datasets
-#' @importClassesFrom DGVMTools Quantity Source Format Field PFT Period STAInfo
+#' @importClassesFrom DGVMTools Quantity Source Format Field Layer Period STAInfo
 #' @import DGVMTools
+#' @include PFTs.R
 #' @export
 #'
 CTEM_FireMIP<- new("Format",
@@ -511,17 +393,14 @@ CTEM_FireMIP<- new("Format",
                    # UNIQUE ID
                    id = "CTEM-FireMIP",
 
-                   # FUNCTION TO LIST ALL PFTS APPEARING IN A RUN
-                   determinePFTs = determinePFTs_CTEM_FireMIP,
-
                    # FUNCTION TO LIST ALL QUANTIES AVAILABLE IN A RUN
                    availableQuantities = availableQuantities_CTEM_FireMIP,
 
                    # FUNCTION TO READ A FIELD
                    getField = openFireMIPOutputFile_CTEM,
 
-                   # DEFAULT GLOBAL PFTS
-                   default.pfts = CTEM_FireMIP.PFTs,
+                   # DEFAULT LAYERS
+                   predefined.layers = CTEM_PFTs,
 
                    # QUANTITIES THAT CAN BE PULLED DIRECTLY FROM LPJ-GUESS RUNS
                    quantities = FireMIP.quantities

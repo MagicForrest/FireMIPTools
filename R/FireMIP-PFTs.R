@@ -14,113 +14,122 @@ FireMIP.PFTs <- list(
   # BOREAL TREES
 
   # NE
-  new("PFT",
+  new("Layer",
       id = "NE",
       name = "Needleleaved Evergreen Tree",
-      growth.form = "Tree",
-      leaf.form = "Needleleaved",
-      phenology = "Evergreen",
-      climate.zone = "NA",
       colour = "darkblue",
-      shade.tolerance = "no"
+      properties = list(type = "PFT",
+                        growth.form = "Tree",
+                        leaf.form = "Needleleaved",
+                        phenology = "Evergreen",
+                        climate.zone = "NA",
+                        shade.tolerance = "no")
   ),
 
   # NS
-  new("PFT",
+  new("Layer",
       id = "NS",
       name = "Needleleaved Summergreen Tree",
-      growth.form = "Tree",
-      leaf.form = "Needleleaved",
-      phenology = "Summergreen",
-      climate.zone = "NA",
       colour = "cornflowerblue",
-      shade.tolerance = "no"
+      properties = list(type = "PFT",
+                        growth.form = "Tree",
+                        leaf.form = "Needleleaved",
+                        phenology = "Summergreen",
+                        climate.zone = "NA",
+                        shade.tolerance = "no")
   ),
 
   # BS
-  new("PFT",
+  new("Layer",
       id = "BS",
       name = "Broadleaved Summergreen Tree",
-      growth.form = "Tree",
-      leaf.form = "Broadleaved",
-      phenology = "Summergreen",
-      climate.zone = "NA",
       colour = "cyan",
-      shade.tolerance = "no"
+      properties = list(type = "PFT",
+                        growth.form = "Tree",
+                        leaf.form = "Broadleaved",
+                        phenology = "Summergreen",
+                        climate.zone = "NA",
+                        shade.tolerance = "no")
   ),
 
   # BE
-  new("PFT",
+  new("Layer",
       id = "BE",
       name = "Broadleaved Evergreen Tree",
-      growth.form = "Tree",
-      leaf.form = "Broadleaved",
-      phenology = "Evergreen",
-      climate.zone = "NA",
       colour = "darkgreen",
-      shade.tolerance = "no"
+      properties = list(type = "PFT",
+                        growth.form = "Tree",
+                        leaf.form = "Broadleaved",
+                        phenology = "Evergreen",
+                        climate.zone = "NA",
+                        shade.tolerance = "no")
   ),
 
   # BR
-  new("PFT",
+  new("Layer",
       id = "BR",
       name = "Broadleaved Raingreen Tree",
-      growth.form = "Tree",
-      leaf.form = "Broadleaved",
-      phenology = "Raingreen",
-      climate.zone = "NA",
       colour = "maroon",
-      shade.tolerance = "no"
+      properties = list(type = "PFT",
+                        growth.form = "Tree",
+                        leaf.form = "Broadleaved",
+                        phenology = "Raingreen",
+                        climate.zone = "NA",
+                        shade.tolerance = "no")
   ),
 
   # GRASSES
 
   # C3G
-  new("PFT",
+  new("Layer",
       id = "C3G",
       name = "Boreal/Temperate Grass",
-      growth.form = "Grass",
-      leaf.form = "Broadleaved",
-      phenology = "GrassPhenology",
-      climate.zone = "NA",
       colour = "lightgoldenrod1",
-      shade.tolerance = "no"
+      properties = list(type = "PFT",
+                        growth.form = "Grass",
+                        leaf.form = "Broadleaved",
+                        phenology = "GrassPhenology",
+                        climate.zone = "NA",
+                        shade.tolerance = "no")
   ),
 
   # C4G
-  new("PFT",
+  new("Layer",
       id = "C4G",
       name = "Tropical Grass",
-      growth.form = "Grass",
-      leaf.form = "Broadleaved",
-      phenology = "GrassPhenology",
-      climate.zone = "NA",
       colour = "sienna2",
-      shade.tolerance = "no"
+      properties = list(type = "PFT",
+                        growth.form = "Grass",
+                        leaf.form = "Broadleaved",
+                        phenology = "GrassPhenology",
+                        climate.zone = "NA",
+                        shade.tolerance = "no")
   ),
 
   # Shb
-  new("PFT",
+  new("Layer",
       id = "Shb",
       name = "Shrub",
-      growth.form = "Shrub",
-      leaf.form = "NA",
-      phenology = "NA",
-      climate.zone = "NA",
       colour = "darkred",
-      shade.tolerance = "no"
+      properties = list(type = "PFT",
+                        growth.form = "Shrub",
+                        leaf.form = "NA",
+                        phenology = "NA",
+                        climate.zone = "NA",
+                        shade.tolerance = "no")
   ),
 
   # Crops
-  new("PFT",
+  new("Layer",
       id = "Crops",
       name = "Agricultural",
-      growth.form = "Agricultural",
-      leaf.form = "NA",
-      phenology = "NA",
-      climate.zone = "NA",
       colour = "black",
-      shade.tolerance = "no"
+      properties = list(type = "PFT",
+                        growth.form = "Agricultural",
+                        leaf.form = "NA",
+                        phenology = "NA",
+                        climate.zone = "NA",
+                        shade.tolerance = "no")
   )
 
 )
