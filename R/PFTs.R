@@ -497,7 +497,8 @@ JULES_PFTs<- list(
 )
 
 
-
+#' @format An S4 class object with the slots as defined below.
+#' @keywords datasets
 #' @export
 LPJmL_PFTs <- list(
 
