@@ -136,7 +136,7 @@ openFireMIPOutputFile <- function(source, quantity, sta.info, file.name, verbose
           this.vegtype <- 1:12
         }
         else {
-          this.vegtype <- ncvar_get(this.nc, pft.axis.name, verbose=TRUE)
+          this.vegtype <- ncvar_get(this.nc, pft.axis.name, verbose=verbose)
         }
 
         if(verbose) print(paste0("Got PFT axis " , pft.axis.name))
@@ -343,13 +343,16 @@ openFireMIPOutputFile <- function(source, quantity, sta.info, file.name, verbose
 
 
   t2 <- Sys.time()
-  print(t2-t1)
+  if(debug || verbose) {
+    print("Read netCDF file, time taken:")
+    print(t2-t1)
+  }
 
   # set the keys
   t1 <- Sys.time()
   setKeyDGVM(full.dt)
   t2 <- Sys.time()
-  if(debug) {
+  if(debug || verbose) {
     print("Keys set, time taken:")
     print(t2-t1)
   }
