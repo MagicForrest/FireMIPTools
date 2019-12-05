@@ -9,6 +9,8 @@
 #' @import DGVMTools
 #' @importFrom methods new
 #' @export
+#'
+
 FireMIP.quantities <- list(
 
   #### BURNT AREA AND EMISSIONS
