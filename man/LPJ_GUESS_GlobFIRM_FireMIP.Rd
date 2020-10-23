@@ -4,7 +4,9 @@
 \name{LPJ_GUESS_GlobFIRM_FireMIP}
 \alias{LPJ_GUESS_GlobFIRM_FireMIP}
 \title{LPJ_GUESS_GlobFIRM-FireMIP Format objects}
-\format{A \code{Quantity} object is an S4 class.}
+\format{
+A \code{Quantity} object is an S4 class.
+}
 \usage{
 LPJ_GUESS_GlobFIRM_FireMIP
 }

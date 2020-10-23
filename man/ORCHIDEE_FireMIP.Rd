@@ -4,7 +4,9 @@
 \name{ORCHIDEE_FireMIP}
 \alias{ORCHIDEE_FireMIP}
 \title{ORCHIDEE-FireMIP Format objects}
-\format{A \code{Quantity} object is an S4 class.}
+\format{
+A \code{Quantity} object is an S4 class.
+}
 \usage{
 ORCHIDEE_FireMIP
 }

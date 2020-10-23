@@ -26,7 +26,7 @@
 #'
 #' @export
 
-openFireMIPOutputFile_CTEM <- function(run, quantity, sta.info, verbose = TRUE) {
+openFireMIPOutputFile_CTEM <- function(run, quantity, sta.info, file.name, verbose = TRUE) {
 
 
   first.year = sta.info@first.year

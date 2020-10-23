@@ -4,7 +4,9 @@
 \name{CLM_FireMIP}
 \alias{CLM_FireMIP}
 \title{CLM-FireMIP Format objects}
-\format{A \code{Quantity} object is an S4 class.}
+\format{
+A \code{Quantity} object is an S4 class.
+}
 \usage{
 CLM_FireMIP
 }

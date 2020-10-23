@@ -4,7 +4,13 @@
 \alias{openFireMIPOutputFile_JSBACH}
 \title{Open a JSBACH FireMIP output file}
 \usage{
-openFireMIPOutputFile_JSBACH(run, quantity, sta.info, verbose = TRUE)
+openFireMIPOutputFile_JSBACH(
+  run,
+  quantity,
+  sta.info,
+  file.name,
+  verbose = TRUE
+)
 }
 \arguments{
 \item{run}{A Source object to define the run we want to open.}

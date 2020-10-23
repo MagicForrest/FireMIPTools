@@ -4,7 +4,7 @@
 \alias{openFireMIPOutputFile_MC2}
 \title{Open a MC2 FireMIP output file}
 \usage{
-openFireMIPOutputFile_MC2(run, quantity, sta.info, verbose = TRUE)
+openFireMIPOutputFile_MC2(run, quantity, sta.info, file.name, verbose = TRUE)
 }
 \arguments{
 \item{run}{A Source object to define the run we want to open.}

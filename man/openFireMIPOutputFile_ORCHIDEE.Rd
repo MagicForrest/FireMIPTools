@@ -4,7 +4,13 @@
 \alias{openFireMIPOutputFile_ORCHIDEE}
 \title{Open a ORCHIDEE FireMIP output file}
 \usage{
-openFireMIPOutputFile_ORCHIDEE(run, quantity, sta.info, verbose = TRUE)
+openFireMIPOutputFile_ORCHIDEE(
+  run,
+  quantity,
+  sta.info,
+  file.name,
+  verbose = TRUE
+)
 }
 \arguments{
 \item{run}{A Source object to define the run we want to open.}

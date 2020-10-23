@@ -4,7 +4,9 @@
 \name{FireMIP.quantities}
 \alias{FireMIP.quantities}
 \title{FireMIp Quantities}
-\format{The \code{Quantity} class is an S4 class with the slots defined below.}
+\format{
+The \code{Quantity} class is an S4 class with the slots defined below.
+}
 \usage{
 FireMIP.quantities
 }

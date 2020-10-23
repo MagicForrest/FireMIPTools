@@ -4,7 +4,9 @@
 \name{CTEM_FireMIP}
 \alias{CTEM_FireMIP}
 \title{CTEM-FireMIP Format objects}
-\format{A \code{Quantity} object is an S4 class.}
+\format{
+A \code{Quantity} object is an S4 class.
+}
 \usage{
 CTEM_FireMIP
 }

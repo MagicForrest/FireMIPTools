@@ -4,8 +4,13 @@
 \alias{openFireMIPOutputFile_LPJ_GUESS_SIMFIRE_BLAZE}
 \title{Open a LPJ_GUESS_SIMFIRE_BLAZE FireMIP output file}
 \usage{
-openFireMIPOutputFile_LPJ_GUESS_SIMFIRE_BLAZE(run, quantity, sta.info,
-  verbose = TRUE)
+openFireMIPOutputFile_LPJ_GUESS_SIMFIRE_BLAZE(
+  run,
+  quantity,
+  sta.info,
+  file.name,
+  verbose = TRUE
+)
 }
 \arguments{
 \item{run}{A Source object to define the run we want to open.}
