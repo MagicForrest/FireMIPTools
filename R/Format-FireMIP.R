@@ -117,6 +117,14 @@ openFireMIPOutputFile <- function(source, quantity, sta.info, file.name, verbose
   else if(length(this.time) == 319) {
     all.years <- 1700:2018
   }
+  # for LGM runs
+  else if(length(this.time) == 1080) {
+    is.monthly <- TRUE
+    all.years <- 1:90
+  }
+  else if(length(this.time) == 90) {
+    all.years <- 1:90
+  }
   else {
     stop(paste("Guess time axis for time dimensions length", length(this.time)))
   }
