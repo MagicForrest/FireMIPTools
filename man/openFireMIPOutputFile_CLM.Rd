@@ -4,7 +4,7 @@
 \alias{openFireMIPOutputFile_CLM}
 \title{Open a CLM FireMIP output file}
 \usage{
-openFireMIPOutputFile_CLM(run, quantity, sta.info, verbose = TRUE)
+openFireMIPOutputFile_CLM(run, quantity, sta.info, file.name, verbose = TRUE)
 }
 \arguments{
 \item{run}{A Source object to define the run we want to open.}

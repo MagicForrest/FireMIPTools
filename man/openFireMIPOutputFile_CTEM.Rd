@@ -4,7 +4,7 @@
 \alias{openFireMIPOutputFile_CTEM}
 \title{Open a CTEM FireMIP output file}
 \usage{
-openFireMIPOutputFile_CTEM(run, quantity, sta.info, verbose = TRUE)
+openFireMIPOutputFile_CTEM(run, quantity, sta.info, file.name, verbose = TRUE)
 }
 \arguments{
 \item{run}{A Source object to define the run we want to open.}

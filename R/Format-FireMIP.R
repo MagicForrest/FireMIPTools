@@ -140,12 +140,12 @@ openFireMIPOutputFile <- function(source, quantity, sta.info, file.name, verbose
       if(pft.axis.name %in% vars.present || pft.axis.name %in% dims.present) {
         is.perPFT <- TRUE
         # LPJmL4.0 does not have npfts defined properly as a dimension
-        if(model == "LPJmL4.0") {
-          this.vegtype <- 1:12
-        }
-        else {
+        #if(model == "LPJmL4.0") {
+        #  this.vegtype <- 1:12
+        #}
+        #else {
           this.vegtype <- ncvar_get(this.nc, pft.axis.name, verbose=verbose)
-        }
+        #}
 
         if(verbose) print(paste0("Got PFT axis " , pft.axis.name))
 
@@ -158,7 +158,41 @@ openFireMIPOutputFile <- function(source, quantity, sta.info, file.name, verbose
           else if(length(this.vegtype) == 17) this.pfts <- c("BD", "TrBE", "TeBE", "ND", "NE", "C3G", "C3Crop", "C3Pasture",  "C4G", "C4Crop", "C4Pasture", "De_Shb", "Ev_Shb", "Urban", "Lake", "Bare", "Ice" )
         }
         else if(model == "LPJmL4.0") {
+          print("LPJmL4.0")
+          print(this.vegtype)
           if(length(this.vegtype) == 12) this.pfts <- c("NaturalStandFraction", "TrBE", "TrBR", "TeNE", "TeBE", "TeBS", "BNE", "BBS",  "BNS", "C4G", "C3G", "C3Polar")
+          if(length(this.vegtype) == 32) this.pfts <- c("temperate cereals",
+                                                        "rice",
+                                                        "maize",
+                                                        "tropical cereals",
+                                                        "pulses",
+                                                        "temperate roots",
+                                                        "tropical roots",
+                                                        "oil crops sunflower",
+                                                        "oil crops soybean",
+                                                        "oil crops groundnut",
+                                                        "oil crops rapeseed",
+                                                        "sugarcane",
+                                                        "others",
+                                                        "pasture",
+                                                        "biomass grass",
+                                                        "biomass tree",
+                                                        "irrigated temperate cereals",
+                                                        "irrigated rice",
+                                                        "irrigated maize",
+                                                        "irrigated tropical cereals",
+                                                        "irrigated pulses",
+                                                        "irrigated temperate roots",
+                                                        "irrigated tropical roots",
+                                                        "irrigated oil crops sunflower",
+                                                        "irrigated oil crops soybean",
+                                                        "irrigated oil crops groundnut",
+                                                        "irrigated oil crops rapeseed",
+                                                        "irrigated sugarcane",
+                                                        "irrigated others",
+                                                        "irrigated pasture",
+                                                        "irrigated biomass grass",
+                                                        "irrigated biomass tree")
         }
         break()
       }

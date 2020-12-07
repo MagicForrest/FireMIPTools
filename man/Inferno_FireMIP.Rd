@@ -4,7 +4,9 @@
 \name{Inferno_FireMIP}
 \alias{Inferno_FireMIP}
 \title{Inferno-FireMIP Format objects}
-\format{A \code{Quantity} object is an S4 class.}
+\format{
+A \code{Quantity} object is an S4 class.
+}
 \usage{
 Inferno_FireMIP
 }

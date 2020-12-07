@@ -26,7 +26,7 @@
 #'
 #' @export
 
-openFireMIPOutputFile_Inferno <- function(run, quantity, sta.info, verbose = TRUE) {
+openFireMIPOutputFile_Inferno <- function(run, quantity, sta.info, file.name, verbose = TRUE) {
 
 
   first.year = sta.info@first.year

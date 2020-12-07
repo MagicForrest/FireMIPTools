@@ -4,7 +4,9 @@
 \name{MC2_FireMIP}
 \alias{MC2_FireMIP}
 \title{MC2-FireMIP Format objects}
-\format{A \code{Quantity} object is an S4 class.}
+\format{
+A \code{Quantity} object is an S4 class.
+}
 \usage{
 MC2_FireMIP
 }

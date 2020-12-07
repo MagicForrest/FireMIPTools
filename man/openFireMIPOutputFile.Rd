@@ -4,8 +4,16 @@
 \alias{openFireMIPOutputFile}
 \title{Open a FireMIP output file}
 \usage{
-openFireMIPOutputFile(source, quantity, sta.info, file.name,
-  verbose = TRUE, model, grid.file, debug = FALSE)
+openFireMIPOutputFile(
+  source,
+  quantity,
+  sta.info,
+  file.name,
+  verbose = TRUE,
+  model,
+  grid.file,
+  debug = FALSE
+)
 }
 \arguments{
 \item{source}{A Source object to define the run we want to open.}

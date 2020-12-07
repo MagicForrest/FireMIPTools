@@ -26,7 +26,7 @@
 #'
 #' @export
 
-openFireMIPOutputFile_LPJ_GUESS_SIMFIRE_BLAZE <- function(run, quantity, sta.info, verbose = TRUE) {
+openFireMIPOutputFile_LPJ_GUESS_SIMFIRE_BLAZE <- function(run, quantity, sta.info, file.name, verbose = TRUE) {
 
 
   first.year = sta.info@first.year

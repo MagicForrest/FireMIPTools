@@ -4,7 +4,13 @@
 \alias{openFireMIPOutputFile_Inferno}
 \title{Open a Inferno FireMIP output file}
 \usage{
-openFireMIPOutputFile_Inferno(run, quantity, sta.info, verbose = TRUE)
+openFireMIPOutputFile_Inferno(
+  run,
+  quantity,
+  sta.info,
+  file.name,
+  verbose = TRUE
+)
 }
 \arguments{
 \item{run}{A Source object to define the run we want to open.}

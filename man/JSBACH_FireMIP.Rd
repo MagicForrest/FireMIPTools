@@ -4,7 +4,9 @@
 \name{JSBACH_FireMIP}
 \alias{JSBACH_FireMIP}
 \title{JSBACH-FireMIP Format objects}
-\format{A \code{Quantity} object is an S4 class.}
+\format{
+A \code{Quantity} object is an S4 class.
+}
 \usage{
 JSBACH_FireMIP
 }

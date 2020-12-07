@@ -4,7 +4,9 @@
 \name{FireMIP.PFTs}
 \alias{FireMIP.PFTs}
 \title{FireMIP PFTs}
-\format{An S4 class object with the slots as defined below.}
+\format{
+An S4 class object with the slots as defined below.
+}
 \usage{
 FireMIP.PFTs
 }
