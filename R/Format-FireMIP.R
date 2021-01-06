@@ -37,7 +37,7 @@ openFireMIPOutputFile <- function(source, quantity, sta.info, file.name, verbose
 
   ### DETERMINE WHICH FIREMIP MODEL WE ARE DEALING WITH
   if(missing(model) || is.null(model)) {
-
+    stop('Please specify with FireMIP model you are using when calling getField, with model = "CLASS-CTEM"/"LPJmL4.0"/"JULES"/"LPJ-GUESS-SPITFIRE"')
   }
 
 
@@ -144,7 +144,7 @@ openFireMIPOutputFile <- function(source, quantity, sta.info, file.name, verbose
         #  this.vegtype <- 1:12
         #}
         #else {
-          this.vegtype <- ncvar_get(this.nc, pft.axis.name, verbose=verbose)
+        this.vegtype <- ncvar_get(this.nc, pft.axis.name, verbose=verbose)
         #}
 
         if(verbose) print(paste0("Got PFT axis " , pft.axis.name))
@@ -156,6 +156,10 @@ openFireMIPOutputFile <- function(source, quantity, sta.info, file.name, verbose
         else if(model == "JULES") {
           if(length(this.vegtype) == 13) this.pfts <- c("BD", "TrBE", "TeBE", "ND", "NE", "C3G", "C3Crop", "C3Pasture",  "C4G", "C4Crop", "C4Pasture", "De_Shb", "Ev_Shb")
           else if(length(this.vegtype) == 17) this.pfts <- c("BD", "TrBE", "TeBE", "ND", "NE", "C3G", "C3Crop", "C3Pasture",  "C4G", "C4Crop", "C4Pasture", "De_Shb", "Ev_Shb", "Urban", "Lake", "Bare", "Ice" )
+        }
+        else if(model == "LPJ-GUESS-SPITFIRE") {
+          if(length(this.vegtype) == 12) this.pfts <- c("BNE", "BINE", "BNS", "TeNE", "TeBS", "IBS", "TeBE", "TrBE",  "TrIBE", "TrBR", "C3G", "C4G")
+          else stop("Unexpected length of vegtype dimension in FireMIP (LPJ-GUESS-SPITFRE) file.")
         }
         else if(model == "LPJmL4.0") {
           print("LPJmL4.0")
@@ -507,19 +511,19 @@ availableQuantities_FireMIP <- function(source, names){
 #'
 FireMIP <- new("Format",
 
-              # UNIQUE ID
-              id = "FireMIP",
+               # UNIQUE ID
+               id = "FireMIP",
 
-              # FUNCTION TO LIST ALL QUANTIES AVAILABLE IN A RUN
-              availableQuantities = availableQuantities_FireMIP,
+               # FUNCTION TO LIST ALL QUANTIES AVAILABLE IN A RUN
+               availableQuantities = availableQuantities_FireMIP,
 
-              # FUNCTION TO READ A FIELD
-              getField = openFireMIPOutputFile,
+               # FUNCTION TO READ A FIELD
+               getField = openFireMIPOutputFile,
 
-              # DEFAULT GLOBAL PFTS
-              predefined.layers = FireMIP.PFTs,
+               # DEFAULT GLOBAL PFTS
+               predefined.layers = FireMIP.PFTs,
 
-              # QUANTITIES THAT CAN BE PULLED DIRECTLY FROM LPJ-GUESS RUNS
-              quantities = FireMIP.quantities
+               # QUANTITIES THAT CAN BE PULLED DIRECTLY FROM LPJ-GUESS RUNS
+               quantities = FireMIP.quantities
 
 )

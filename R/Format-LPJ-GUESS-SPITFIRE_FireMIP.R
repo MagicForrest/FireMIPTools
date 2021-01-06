@@ -107,6 +107,10 @@ openFireMIPOutputFile_LPJ_GUESS_SPITFIRE <- function(run, quantity, sta.info, fi
   else if(length(this.time) == 314) {
     all.years <- 1700:2013
   }
+  # annual for LGM -- LPJ_GUESS_SPITFIRE
+  else if(length(this.time) == 90) {
+    all.years <- 1:90
+  }
   else {
     stop(paste("Guess time axis for time dimensions length", length(this.time)))
   }
