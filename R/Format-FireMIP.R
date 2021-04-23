@@ -159,6 +159,13 @@ openFireMIPOutputFile <- function(source, quantity, sta.info, file.name, verbose
         }
         else if(model == "LPJ-GUESS-SPITFIRE") {
           if(length(this.vegtype) == 12) this.pfts <- c("BNE", "BINE", "BNS", "TeNE", "TeBS", "IBS", "TeBE", "TrBE",  "TrIBE", "TrBR", "C3G", "C4G")
+          else if(length(this.vegtype) == 28) this.pfts <- c("BNE", "BINE", "BNS", "TeNE", "TeBS", "IBS", "TeBE", "TrBE",  "TrIBE", "TrBR", "C3G", "C4G", "C3G_pas", "C4G_pas",
+                                                            "CC3ann","CC3per", "CC3nfx" , "CC4ann" , "CC4per" , "CC3anni" ,"CC3peri" , "CC3nfxi" , "CC4anni" ,"CC4peri" , "CC3G_ic",
+                                                            "CC4G_ic", "BareSoil", "Barren")
+          else if(length(this.vegtype) == 26) this.pfts <- c("BNE", "BINE", "BNS", "TeNE", "TeBS", "IBS", "TeBE", "TrBE",  "TrIBE", "TrBR", "C3G", "C4G", "C3G_pas", "C4G_pas",
+                                                             "CC3ann","CC3per", "CC3nfx" , "CC4ann" , "CC4per" , "CC3anni" ,"CC3peri" , "CC3nfxi" , "CC4anni" ,"CC4peri" , "CC3G_ic",
+                                                             "CC4G_ic")
+
           else stop("Unexpected length of vegtype dimension in FireMIP (LPJ-GUESS-SPITFRE) file.")
         }
         else if(model == "LPJmL4.0") {
