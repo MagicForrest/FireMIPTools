@@ -77,20 +77,24 @@ openFireMIPOutputFile_Inferno <- function(run, quantity, sta.info, file.name, ve
 
   # attempt to automagically determine time axis
   is.monthly <- FALSE
-  # monthly starting in 1861 -- CTEM
+  # monthly starting in 1861
   if(length(this.time) == 1836) {
     is.monthly <- TRUE
     all.years <- 1861:2013
   }
-  # annual starting in 1950 -- CTEM
+  # annual starting in 1950
   else if(length(this.time) == 64) {
     all.years <- 1950:2013
   }
-  # annual starting in 1950 -- CTEM
+  # annual starting in 1950
   else if(length(this.time) == 156) {
     all.years <- 1860:2013
   }
-  # monthly starting in 1950 -- CTEM
+  # annual starting in 1950
+  else if(length(this.time) == 155) {
+    all.years <- 1861:2014
+  }
+  # monthly starting in 1950
   else if(length(this.time) == 768) {
     is.monthly <- TRUE
     all.years <- 1950:2013
@@ -109,11 +113,12 @@ openFireMIPOutputFile_Inferno <- function(run, quantity, sta.info, file.name, ve
   # also determine if it is perPFT
   is.perPFT <- FALSE
   if(length(vars.present) > 3 || length(dims.present) > 3) {
-    if("lev" %in% vars.present || "lev" %in% dims.present || "lev_4" %in% vars.present || "lev_4" %in% dims.present || "lev_3" %in% vars.present || "lev_3" %in% dims.present){
+    if("lev" %in% vars.present || "lev" %in% dims.present || "lev_4" %in% vars.present || "lev_4" %in% dims.present || "lev_3" %in% vars.present || "lev_3" %in% dims.present || "type" %in% vars.present || "type" %in% dims.present){
       is.perPFT <- TRUE
       if("lev" %in% vars.present || "lev" %in% dims.present) this.vegtype <- ncvar_get(this.nc,"lev",verbose=verbose)
       if("lev_4" %in% vars.present || "lev_4" %in% dims.present) this.vegtype <- ncvar_get(this.nc,"lev_4",verbose=verbose)
       if("lev_3" %in% vars.present || "lev_3" %in% dims.present) this.vegtype <- ncvar_get(this.nc,"lev_3",verbose=verbose)
+      if("type" %in% vars.present || "type" %in% dims.present) this.vegtype <- ncvar_get(this.nc,"type",verbose=verbose)
       if(length(this.vegtype) == 9) this.pfts <- c("TrBE","TeBE", "BD", "NE", "ND", "C3G", "C4G", "Ev_Shb", "De_Shb")
       if(length(this.vegtype) == 10) this.pfts <- c("TrBE","TeBE", "BD", "NE", "ND", "C3G", "C4G", "Ev_Shb", "De_Shb", "Bare")
       else if(length(this.vegtype) == 13) this.pfts <- c("TrBE","TeBE", "BD", "NE", "ND", "C3G", "C4G", "Ev_Shb", "De_Shb", "Urban", "Water", "Bare", "Ice")

@@ -43,8 +43,10 @@ openFireMIPOutputFile_CLM <- function(run, quantity, sta.info, file.name, verbos
   # make the string and open the filex (note special cases)
   if(quantity@id == "BA") file.string <- file.path(run@dir, "BAF.nc")
   else if(quantity@id == "Cfire") file.string <- file.path(run@dir, "CFFIRE.nc")
+  else if(quantity@id == "cSoil") file.string <- file.path(run@dir, "cSoilt.nc")
   else file.string <- file.path(run@dir, paste0(quantity@id, ".nc"))
   this.nc <- nc_open(file.string, readunlim=FALSE, verbose=verbose, suppress_dimvals=FALSE )
+
 
   # because, frustratingly, CLM variables are often missing lon and lat, open another file
   # also used for masking out water areas which have 0 instead on NA
@@ -56,7 +58,8 @@ openFireMIPOutputFile_CLM <- function(run, quantity, sta.info, file.name, verbos
   this.lat <- ncvar_get(grid.nc,"lat",verbose=verbose)
   this.lon <- ncvar_get(grid.nc,"lon",verbose=verbose)
 
-  # also prepare a list of land only gridcells
+
+    # also prepare a list of land only gridcells
   this.landmask <- ncvar_get(grid.nc, "landmask", start = c(1,1), count = c(-1,-1))
   dimnames(this.landmask) <- list(this.lat, this.lon)
   this.landmask.dt <- as.data.table(melt(this.landmask))
@@ -116,7 +119,8 @@ openFireMIPOutputFile_CLM <- function(run, quantity, sta.info, file.name, verbos
        quantity@id == "rh" ||
        quantity@id == "ra" ||
        quantity@id == "mrro" ||
-       quantity@id == "evapotrans") {
+       quantity@id == "evapotrans" ||
+       (quantity@id == "cSoil" && this.nc$dim$time$len == 768) ) {
       this.time <- 1950:2013
     }
 

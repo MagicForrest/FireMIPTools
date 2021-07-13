@@ -105,6 +105,10 @@ openFireMIPOutputFile_JSBACH <- function(run, quantity, sta.info, file.name, ver
   else if(length(this.time) == 314) {
     all.years <- 1700:2013
   }
+  # monthly starting in 1700 -- JSBACH
+  else if(length(this.time) == 313) {
+    all.years <- 1700:2012
+  }
   else {
     stop(paste("Guess time axis for time dimensions length", length(this.time)))
   }
