@@ -19,7 +19,7 @@ FireMIP.quantities <- list(
       id = "fFirePFT",
       name = "C emitted from fire (per PFT)",
       units = "kg C m-2 s-1",
-      colours = reversed.viridis,
+      colours =  function(n) rev(viridis::viridis(n)),
       format = c("FireMIP", "LPJ-GUESS-SPITFIRE"),
       standard_name = "C emitted from fire (per PFT)"),
 
@@ -27,7 +27,7 @@ FireMIP.quantities <- list(
       id = "fFire",
       name = "C emitted from fire",
       units = "kg C m-2 s-1",
-      colours = reversed.viridis,
+      colours =  function(n) rev(viridis::viridis(n)),
       format = c("FireMIP", "LPJ-GUESS-SPITFIRE"),
       standard_name = "CO2 emitted from fire"),
 
@@ -35,7 +35,7 @@ FireMIP.quantities <- list(
       id = "coFire",
       name = "CO emitted from fire",
       units = "kg C m-2 s-1",
-      colours = reversed.viridis,
+      colours =  function(n) rev(viridis::viridis(n)),
       format = c("FireMIP", "LPJ-GUESS-SPITFIRE"),
       standard_name = "CO emitted from fire"),
 
@@ -43,7 +43,7 @@ FireMIP.quantities <- list(
       id = "Cfire",
       name = "C emitted from fire",
       units = "kg C m-2 s-1",
-      colours = reversed.viridis,
+      colours =  function(n) rev(viridis::viridis(n)),
       format = c("FireMIP", "LPJ-GUESS-SPITFIRE"),
       standard_name = "C emitted from fire"),
 
@@ -51,7 +51,7 @@ FireMIP.quantities <- list(
       id = "burntArea",
       name = "Burnt Area Fraction",
       units = "fraction",
-      colours = reversed.viridis,
+      colours =  function(n) rev(viridis::viridis(n)),
       format = c("FireMIP", "LPJ-GUESS-SPITFIRE"),
       standard_name = "Burnt Area Fraction (per PFT)"),
 
@@ -59,7 +59,7 @@ FireMIP.quantities <- list(
       id = "BA",
       name = "Burnt Area Fraction (monthly)",
       units = "%",
-      colours = reversed.viridis,
+      colours =  function(n) rev(viridis::viridis(n)),
       format = c("FireMIP", "LPJ-GUESS-SPITFIRE"),
       standard_name = "Burnt Area Fraction (monthly)"),
 
@@ -67,7 +67,7 @@ FireMIP.quantities <- list(
       id = "fFirepft",
       name = "C emitted from fire (per PFT)",
       units = "kg C m-2 s-1",
-      colours = reversed.viridis,
+      colours =  function(n) rev(viridis::viridis(n)),
       format = c("FireMIP", "LPJ-GUESS-SPITFIRE"),
       standard_name = "C emitted from fire (per PFT)"),
 
@@ -79,7 +79,7 @@ FireMIP.quantities <- list(
       id = "cFuelLiveGrass",
       name = "Carbon in live grass fuel",
       units = "kg C m-2",
-      colours = reversed.viridis,
+      colours =  function(n) rev(viridis::viridis(n)),
       format = c("FireMIP", "LPJ-GUESS-SPITFIRE"),
       standard_name = "Carbon in live grass fuel"),
 
@@ -87,7 +87,7 @@ FireMIP.quantities <- list(
       id = "cFuel",
       name = "Carbon in fuel fuel",
       units = "kg C m-2",
-      colours = reversed.viridis,
+      colours =  function(n) rev(viridis::viridis(n)),
       format = c("FireMIP", "LPJ-GUESS-SPITFIRE"),
       standard_name = "Carbon in fuel"),
 
@@ -95,7 +95,7 @@ FireMIP.quantities <- list(
       id = "cFuel1hr",
       name = "Carbon in 1hr fuel",
       units = "kg C m-2",
-      colours = reversed.viridis,
+      colours =  function(n) rev(viridis::viridis(n)),
       format = c("FireMIP", "LPJ-GUESS-SPITFIRE"),
       standard_name = "Carbon in 1hr fuel"),
 
@@ -103,7 +103,7 @@ FireMIP.quantities <- list(
       id = "cFuel10hr",
       name = "Carbon in 10hr fuel",
       units = "kg C m-2",
-      colours = reversed.viridis,
+      colours =  function(n) rev(viridis::viridis(n)),
       format = c("FireMIP", "LPJ-GUESS-SPITFIRE"),
       standard_name = "Carbon in 10hr fuel"),
 
@@ -111,7 +111,7 @@ FireMIP.quantities <- list(
       id = "cFuel100hr",
       name = "Carbon in 100hr fuel",
       units = "kg C m-2",
-      colours = reversed.viridis,
+      colours =  function(n) rev(viridis::viridis(n)),
       format = c("FireMIP", "LPJ-GUESS-SPITFIRE"),
       standard_name = "Carbon in 100hr fuel"),
 
@@ -119,7 +119,7 @@ FireMIP.quantities <- list(
       id = "cFuel1000hr",
       name = "Carbon in 1000hr fuel",
       units = "kg C m-2",
-      colours = reversed.viridis,
+      colours =  function(n) rev(viridis::viridis(n)),
       format = c("FireMIP", "LPJ-GUESS-SPITFIRE"),
       standard_name = "Carbon in 1000hr fuel"),
 
@@ -130,7 +130,7 @@ FireMIP.quantities <- list(
       id = "ccFuelLiveGrass",
       name = "Combusion Completeness in live grass fuel",
       units = "%",
-      colours = reversed.viridis,
+      colours =  function(n) rev(viridis::viridis(n)),
       format = c("FireMIP", "LPJ-GUESS-SPITFIRE"),
       standard_name = "Combusion Completeness live grass fuel"),
 
@@ -138,7 +138,7 @@ FireMIP.quantities <- list(
       id = "ccFuel1hr",
       name = "Combustion Completeness in 1hr fuel",
       units = "%",
-      colours = reversed.viridis,
+      colours =  function(n) rev(viridis::viridis(n)),
       format = c("FireMIP", "LPJ-GUESS-SPITFIRE"),
       standard_name = "Combustion Completenessin 1hr fuel"),
 
@@ -146,7 +146,7 @@ FireMIP.quantities <- list(
       id = "ccFuel10hr",
       name = "Combustion Completenessin 10hr fuel",
       units = "%",
-      colours = reversed.viridis,
+      colours =  function(n) rev(viridis::viridis(n)),
       format = c("FireMIP", "LPJ-GUESS-SPITFIRE"),
       standard_name = "Combustion Completeness in 10hr fuel"),
 
@@ -154,7 +154,7 @@ FireMIP.quantities <- list(
       id = "ccFuel100hr",
       name = "Combustion Completenessin 100hr fuel",
       units = "%",
-      colours = reversed.viridis,
+      colours =  function(n) rev(viridis::viridis(n)),
       format = c("FireMIP", "LPJ-GUESS-SPITFIRE"),
       standard_name = "Combustion Completeness in 100hr fuel"),
 
@@ -162,7 +162,7 @@ FireMIP.quantities <- list(
       id = "ccFuel1000hr",
       name = "Combustion Completenessin 1000hr fuel",
       units = "%",
-      colours = reversed.viridis,
+      colours =  function(n) rev(viridis::viridis(n)),
       format = c("FireMIP", "LPJ-GUESS-SPITFIRE"),
       standard_name = "Combustion Completeness in 1000hr fuel"),
 
@@ -173,7 +173,7 @@ FireMIP.quantities <- list(
       id = "mFuelDead",
       name = "Fuel moisture of dead fuel",
       units = "",
-      colours = reversed.viridis,
+      colours =  function(n) rev(viridis::viridis(n)),
       format = c("FireMIP", "LPJ-GUESS-SPITFIRE"),
       standard_name = "Fuel moisture of dead fuel"),
 
@@ -181,7 +181,7 @@ FireMIP.quantities <- list(
       id = "mFuelLiveGrass",
       name = "Fuel moisture of live grass fuel",
       units = "",
-      colours = reversed.viridis,
+      colours =  function(n) rev(viridis::viridis(n)),
       format = c("FireMIP", "LPJ-GUESS-SPITFIRE"),
       standard_name = "Fuel moisture of live grass fuel"),
 
@@ -189,7 +189,7 @@ FireMIP.quantities <- list(
       id = "mFuel",
       name = "Fuel moisture (all fuel)",
       units = "",
-      colours = reversed.viridis,
+      colours =  function(n) rev(viridis::viridis(n)),
       format = c("FireMIP"),
       standard_name = "Fuel moisture"),
 
@@ -199,7 +199,7 @@ FireMIP.quantities <- list(
       id = "intensFire",
       name = "Fireline intensity",
       units = "kW m-1",
-      colours = reversed.viridis,
+      colours =  function(n) rev(viridis::viridis(n)),
       format = c("FireMIP", "LPJ-GUESS-SPITFIRE"),
       standard_name = "Fireline intensity"),
 
@@ -207,7 +207,7 @@ FireMIP.quantities <- list(
       id = "nrfire",
       name = "Number of fires",
       units = "nr m-2 month-1",
-      colours = reversed.viridis,
+      colours =  function(n) rev(viridis::viridis(n)),
       format = c("FireMIP", "LPJ-GUESS-SPITFIRE"),
       standard_name = "Number of fires"),
 
@@ -215,7 +215,7 @@ FireMIP.quantities <- list(
       id = "nrIgn",
       name = "Potential ignitions",
       units = "nr m-2 month-1",
-      colours = reversed.viridis,
+      colours =  function(n) rev(viridis::viridis(n)),
       format = c("FireMIP", "LPJ-GUESS-SPITFIRE"),
       standard_name = "Potential ignitions"),
 
@@ -223,7 +223,7 @@ FireMIP.quantities <- list(
       id = "meanFire",
       name = "Mean fire size",
       units = "m2",
-      colours = reversed.viridis,
+      colours =  function(n) rev(viridis::viridis(n)),
       format = c("FireMIP", "LPJ-GUESS-SPITFIRE"),
       standard_name = "Mean fire size"),
 
@@ -231,7 +231,7 @@ FireMIP.quantities <- list(
       id = "cMortality",
       name = "Number of individuals killed",
       units = "indiv m-2 month-1",
-      colours = reversed.viridis,
+      colours =  function(n) rev(viridis::viridis(n)),
       format = c("FireMIP", "LPJ-GUESS-SPITFIRE"),
       standard_name = "Number of individuals killed"),
 
@@ -239,7 +239,7 @@ FireMIP.quantities <- list(
       id = "RoS",
       name = "Mean rate of spread",
       units = "m/s",
-      colours = reversed.viridis,
+      colours =  function(n) rev(viridis::viridis(n)),
       format = c("FireMIP", "LPJ-GUESS-SPITFIRE"),
       standard_name = "Mean rate of spread"),
 
@@ -247,7 +247,7 @@ FireMIP.quantities <- list(
       id = "durat",
       name = "Mean fire duration",
       units = "min",
-      colours = reversed.viridis,
+      colours =  function(n) rev(viridis::viridis(n)),
       format = c("FireMIP", "LPJ-GUESS-SPITFIRE"),
       standard_name = "Mean fire duration"),
 
@@ -257,7 +257,7 @@ FireMIP.quantities <- list(
       id = "mrro",
       name = "Total Runoff",
       units = "kg m-2 s-1",
-      colours = reversed.viridis,
+      colours =  function(n) rev(viridis::viridis(n)),
       format = c("FireMIP", "LPJ-GUESS-SPITFIRE"),
       standard_name = "Total Runoff"),
 
@@ -265,7 +265,7 @@ FireMIP.quantities <- list(
       id = "evapotrans",
       name = "Total Evapo-Transpiration",
       units = "kg m-2 s-1",
-      colours = reversed.viridis,
+      colours =  function(n) rev(viridis::viridis(n)),
       format = c("FireMIP", "LPJ-GUESS-SPITFIRE"),
       standard_name = "Total Evapo-Transpiration"),
 
@@ -273,7 +273,7 @@ FireMIP.quantities <- list(
       id = "evapotranspft",
       name = "Vegtype level evapotranspiration ",
       units = "kg m-2 s-1",
-      colours = reversed.viridis,
+      colours =  function(n) rev(viridis::viridis(n)),
       format = c("FireMIP", "LPJ-GUESS-SPITFIRE"),
       standard_name = "Vegtype level evapotranspiration "),
 
@@ -281,7 +281,7 @@ FireMIP.quantities <- list(
       id = "evapo",
       name = "Vegtype level soil evaporation",
       units = "kg m-2 s-1",
-      colours = reversed.viridis,
+      colours =  function(n) rev(viridis::viridis(n)),
       format = c("FireMIP", "LPJ-GUESS-SPITFIRE"),
       standard_name = "Vegtype level soil evaporation"),
 
@@ -289,7 +289,7 @@ FireMIP.quantities <- list(
       id = "mrso",
       name = "Total Soil Moisture Content",
       units = "kg m-2",
-      colours = reversed.viridis,
+      colours =  function(n) rev(viridis::viridis(n)),
       format = c("FireMIP", "LPJ-GUESS-SPITFIRE"),
       standard_name = "Total Soil Moisture Content"),
 
@@ -297,7 +297,7 @@ FireMIP.quantities <- list(
       id = "mrsos",
       name = "Surface Layer (50cm) Soil Moisture Content",
       units = "kg m-2",
-      colours = reversed.viridis,
+      colours =  function(n) rev(viridis::viridis(n)),
       format = c("FireMIP", "LPJ-GUESS-SPITFIRE"),
       standard_name = "Surface Layer (50cm) Soil Moisture Content"),
 
@@ -305,7 +305,7 @@ FireMIP.quantities <- list(
       id = "evspsblveg",
       name = "Evaporation from Canopy",
       units = "kg m-2 s-1",
-      colours = reversed.viridis,
+      colours =  function(n) rev(viridis::viridis(n)),
       format = c("FireMIP", "LPJ-GUESS-SPITFIRE"),
       standard_name = "Evaporation from Canopy"),
 
@@ -313,7 +313,7 @@ FireMIP.quantities <- list(
       id = "evspsblsoi",
       name = "Evaporation from Soil",
       units = "kg m-2 s-1",
-      colours = reversed.viridis,
+      colours =  function(n) rev(viridis::viridis(n)),
       format = c("FireMIP", "LPJ-GUESS-SPITFIRE"),
       standard_name = "Evaporation from Soil"),
 
@@ -321,7 +321,7 @@ FireMIP.quantities <- list(
       id = "tran",
       name = "Transpiration",
       units = "kg m-2 s-1",
-      colours = reversed.viridis,
+      colours =  function(n) rev(viridis::viridis(n)),
       format = c("FireMIP", "LPJ-GUESS-SPITFIRE"),
       standard_name = "Transpiration"),
 
@@ -329,7 +329,7 @@ FireMIP.quantities <- list(
       id = "tsl",
       name = "Temperature of soil",
       units = "K",
-      colours = reversed.viridis,
+      colours =  function(n) rev(viridis::viridis(n)),
       format = c("FireMIP", "LPJ-GUESS-SPITFIRE"),
       standard_name = "Temperature of soil"),
 
@@ -337,7 +337,7 @@ FireMIP.quantities <- list(
       id = "mslpft",
       name = "Vegtype level soil moisture",
       units = "kg  m-2",
-      colours = reversed.viridis,
+      colours =  function(n) rev(viridis::viridis(n)),
       format = c("FireMIP", "LPJ-GUESS-SPITFIRE"),
       standard_name = "Vegtype level soil moisture"),
 
@@ -349,7 +349,7 @@ FireMIP.quantities <- list(
       id = "gpp",
       name = "Gross Primary Production",
       units = "kg C m-2 s-1",
-      colours = reversed.viridis,
+      colours =  function(n) rev(viridis::viridis(n)),
       format = c("FireMIP", "LPJ-GUESS-SPITFIRE"),
       standard_name = "Gross Primary Production"),
 
@@ -357,7 +357,7 @@ FireMIP.quantities <- list(
       id = "npp",
       name = "Net Primary Production",
       units = "kg C m-2 s-1",
-      colours = reversed.viridis,
+      colours =  function(n) rev(viridis::viridis(n)),
       format = c("FireMIP", "LPJ-GUESS-SPITFIRE"),
       standard_name = "Net Primary Production"),
 
@@ -365,7 +365,7 @@ FireMIP.quantities <- list(
       id = "nbp",
       name = "Net Biospheric Production",
       units = "kg C m-2 s-1",
-      colours = reversed.viridis,
+      colours =  function(n) rev(viridis::viridis(n)),
       format = c("FireMIP", "LPJ-GUESS-SPITFIRE"),
       standard_name = "Net Biospheric Production"),
 
@@ -373,7 +373,7 @@ FireMIP.quantities <- list(
       id = "ra",
       name = "Autotrophic (Plant) Respiration",
       units = "kg C m-2 s-1",
-      colours = reversed.viridis,
+      colours =  function(n) rev(viridis::viridis(n)),
       format = c("FireMIP", "LPJ-GUESS-SPITFIRE"),
       standard_name = "Autotrophic (Plant) Respiration"),
 
@@ -381,7 +381,7 @@ FireMIP.quantities <- list(
       id = "rh",
       name = "Heterotrophic Respiration",
       units = "kg C m-2 s-1",
-      colours = reversed.viridis,
+      colours =  function(n) rev(viridis::viridis(n)),
       format = c("FireMIP", "LPJ-GUESS-SPITFIRE"),
       standard_name = "Heterotrophic Respiration"),
 
@@ -389,7 +389,7 @@ FireMIP.quantities <- list(
       id = "gpppft",
       name = "Vegtype level GPP",
       units = "kg C m-2 s-1",
-      colours = reversed.viridis,
+      colours =  function(n) rev(viridis::viridis(n)),
       format = c("FireMIP", "LPJ-GUESS-SPITFIRE"),
       standard_name = "Vegtype level GPP"),
 
@@ -397,7 +397,7 @@ FireMIP.quantities <- list(
       id = "npppft",
       name = "Vegtype level NPP",
       units = "kg C m-2 s-1",
-      colours = reversed.viridis,
+      colours =  function(n) rev(viridis::viridis(n)),
       format = c("FireMIP", "LPJ-GUESS-SPITFIRE"),
       standard_name = "Vegtype level NPP"),
 
@@ -405,7 +405,7 @@ FireMIP.quantities <- list(
       id = "nbppft",
       name = "Vegtype level NBP",
       units = "kg C m-2 s-1",
-      colours = reversed.viridis,
+      colours =  function(n) rev(viridis::viridis(n)),
       format = c("FireMIP"),
       standard_name = "Vegtype level NBP"),
 
@@ -413,7 +413,7 @@ FireMIP.quantities <- list(
       id = "fLuc",
       name = "CO2 Flux to Atmosphere from Land Use Change",
       units = "kg C m-2 s-1",
-      colours = reversed.viridis,
+      colours =  function(n) rev(viridis::viridis(n)),
       format = c("FireMIP", "LPJ-GUESS-SPITFIRE"),
       standard_name = "CO2 Flux to Atmosphere from Land Use Change"),
 
@@ -421,7 +421,7 @@ FireMIP.quantities <- list(
       id = "fGrazing",
       name = "CO2 Flux to Atmosphere from grazing",
       units = "kg C m-2 s-1",
-      colours = reversed.viridis,
+      colours =  function(n) rev(viridis::viridis(n)),
       format = c("FireMIP", "LPJ-GUESS-SPITFIRE"),
       standard_name = "CO2 Flux to Atmosphere from grazing"),
 
@@ -429,7 +429,7 @@ FireMIP.quantities <- list(
       id = "fHarvest",
       name = "CO2 Flux to Atmosphere from crop harvesting",
       units = "kg C m-2 s-1",
-      colours = reversed.viridis,
+      colours =  function(n) rev(viridis::viridis(n)),
       format = c("FireMIP", "LPJ-GUESS-SPITFIRE"),
       standard_name = "CO2 Flux to Atmosphere from crop harvesting"),
 
@@ -439,7 +439,7 @@ FireMIP.quantities <- list(
       id = "cVegpft",
       name = "Vegtype level Carbon in Vegetation",
       units = "kg C m-2",
-      colours = reversed.viridis,
+      colours =  function(n) rev(viridis::viridis(n)),
       format = c("FireMIP", "LPJ-GUESS-SPITFIRE"),
       standard_name = "Vegtype level Carbon in Vegetation"),
 
@@ -447,7 +447,7 @@ FireMIP.quantities <- list(
       id = "cVeg",
       name = "Carbon in Vegetation",
       units = "kg C m-2",
-      colours = reversed.viridis,
+      colours =  function(n) rev(viridis::viridis(n)),
       format = c("FireMIP", "LPJ-GUESS-SPITFIRE"),
       standard_name = "Carbon in Vegetation"),
 
@@ -455,7 +455,7 @@ FireMIP.quantities <- list(
       id = "cLeaf",
       name = "Carbon in Leaves",
       units = "kg C m-2",
-      colours = reversed.viridis,
+      colours =  function(n) rev(viridis::viridis(n)),
       format = c("CTEM_FireMIP"),
       standard_name = "Carbon_in_leaves"),
 
@@ -463,7 +463,7 @@ FireMIP.quantities <- list(
       id = "cRoot",
       name = "Carbon in Roots",
       units = "kg C m-2",
-      colours = reversed.viridis,
+      colours =  function(n) rev(viridis::viridis(n)),
       format = c("CTEM_FireMIP"),
       standard_name = "Carbon_in_roots"),
 
@@ -471,7 +471,7 @@ FireMIP.quantities <- list(
       id = "cWood",
       name = "Carbon in Wood",
       units = "kg C m-2",
-      colours = reversed.viridis,
+      colours =  function(n) rev(viridis::viridis(n)),
       format = c("CTEM_FireMIP"),
       standard_name = "Carbon_in_wood"),
 
@@ -479,7 +479,7 @@ FireMIP.quantities <- list(
       id = "cCwd",
       name = "Carbon in CWD",
       units = "kg C m-2",
-      colours = reversed.viridis,
+      colours =  function(n) rev(viridis::viridis(n)),
       format = c("CTEM_FireMIP"),
       standard_name = "Carbon_in_coarse_woody_debris"),
 
@@ -487,7 +487,7 @@ FireMIP.quantities <- list(
       id = "cLitter",
       name = "Carbon in Above-ground Litter Pool",
       units = "kg C m-2",
-      colours = reversed.viridis,
+      colours =  function(n) rev(viridis::viridis(n)),
       format = c("FireMIP", "LPJ-GUESS-SPITFIRE"),
       standard_name = "Carbon in Above-ground Litter Pool"),
 
@@ -495,7 +495,7 @@ FireMIP.quantities <- list(
       id = "cSoil",
       name = "Carbon in Soil (including below-ground litter)",
       units = "kg C m-2",
-      colours = reversed.viridis,
+      colours =  function(n) rev(viridis::viridis(n)),
       format = c("FireMIP", "LPJ-GUESS-SPITFIRE"),
       standard_name = "Carbon in Soil (including below-ground litter)"),
 
@@ -503,7 +503,7 @@ FireMIP.quantities <- list(
       id = "cSoilpft",
       name = "Carbon in Soil per PFT (including below-ground litter)",
       units = "kg C m-2",
-      colours = reversed.viridis,
+      colours =  function(n) rev(viridis::viridis(n)),
       format = c("FireMIP", "LPJ-GUESS-SPITFIRE"),
       standard_name = "Vegtype soil carbon"),
 
@@ -511,7 +511,7 @@ FireMIP.quantities <- list(
       id = "fLitterSoil",
       name = "Total Carbon Flux from Litter to Soil",
       units = "kg C m-2 s-1",
-      colours = reversed.viridis,
+      colours =  function(n) rev(viridis::viridis(n)),
       format = c("FireMIP"),
       standard_name = "Total Carbon Flux from Litter to Soil"),
 
@@ -519,7 +519,7 @@ FireMIP.quantities <- list(
       id = "fVegLitter",
       name = "Total Carbon Flux from Vegetation to Litter",
       units = "kg C m-2 s-1",
-      colours = reversed.viridis,
+      colours =  function(n) rev(viridis::viridis(n)),
       format = c("FireMIP"),
       standard_name = "Total Carbon Flux from Vegetation to Litter"),
 
@@ -530,7 +530,7 @@ FireMIP.quantities <- list(
       id = "landCoverFrac",
       name = "Fractional Land Cover of PFT",
       units = "",
-      colours = reversed.viridis,
+      colours =  function(n) rev(viridis::viridis(n)),
       format = c("FireMIP", "LPJ-GUESS-SPITFIRE"),
       standard_name = "Fractional Land Cover of PFT"),
 
@@ -538,7 +538,7 @@ FireMIP.quantities <- list(
       id = "lai",
       name = "Leaf Area Index",
       units = "",
-      colours = reversed.viridis,
+      colours =  function(n) rev(viridis::viridis(n)),
       format = "FireMIP",
       standard_name = "Leaf Area Index"),
 
@@ -546,7 +546,7 @@ FireMIP.quantities <- list(
       id = "theightpft",
       name = "Vegtype level tree heights",
       units = "m",
-      colours = reversed.viridis,
+      colours =  function(n) rev(viridis::viridis(n)),
       format = c("FireMIP", "LPJ-GUESS-SPITFIRE"),
       standard_name = "Vegtype level tree heights"),
 
@@ -556,7 +556,7 @@ FireMIP.quantities <- list(
       id = "cProduct",
       name = "Carbon in Products of Land Use Change",
       units = "kg C m-2",
-      colours = reversed.viridis,
+      colours =  function(n) rev(viridis::viridis(n)),
       format = c("FireMIP", "LPJ-GUESS-SPITFIRE"),
       standard_name = "Carbon in Products of Land Use Change"),
 
@@ -564,7 +564,7 @@ FireMIP.quantities <- list(
       id = "fLuc",
       name = "CO2 Flux to Atmosphere from Land Use Change",
       units = "kg C m-2 s-1",
-      colours = reversed.viridis,
+      colours =  function(n) rev(viridis::viridis(n)),
       format = c("FireMIP", "LPJ-GUESS-SPITFIRE"),
       standard_name = "CO2 Flux to Atmosphere from Land Use Change"),
 
@@ -574,7 +574,7 @@ FireMIP.quantities <- list(
       id = "pr",
       name = "Precipitation",
       units = "kg m-2 s-1",
-      colours = reversed.viridis,
+      colours =  function(n) rev(viridis::viridis(n)),
       format = c("FireMIP", "LPJ-GUESS-SPITFIRE"),
       standard_name = "Precipitation"),
 
@@ -582,7 +582,7 @@ FireMIP.quantities <- list(
       id = "rsds",
       name = "Surface_Downwelling_Shortwave-Radiation",
       units = "W m-2",
-      colours = reversed.viridis,
+      colours =  function(n) rev(viridis::viridis(n)),
       format = c("FireMIP", "LPJ-GUESS-SPITFIRE"),
       standard_name = "Surface_Downwelling_Shortwave-Radiation"),
 
@@ -590,7 +590,7 @@ FireMIP.quantities <- list(
       id = "tas",
       name = "Near-Surface_Air_Temperature",
       units = "K",
-      colours = reversed.viridis,
+      colours =  function(n) rev(viridis::viridis(n)),
       format = c("FireMIP", "LPJ-GUESS-SPITFIRE"),
       standard_name = "Near-Surface_Air_Temperature"),
 
@@ -598,7 +598,7 @@ FireMIP.quantities <- list(
      id = "Albedo",
      name = "Vegtype level Broadband Albedo",
      units = "fraction",
-     colours = reversed.viridis,
+     colours =  function(n) rev(viridis::viridis(n)),
      format = c("FireMIP", "LPJ-GUESS-SPITFIRE"),
      standard_name = "Vegtype level Broadband Albedo"),
 
@@ -606,7 +606,7 @@ FireMIP.quantities <- list(
       id = "shflxpft",
       name = "Vegtype level sensible heat flux",
       units = "W m_2",
-      colours = reversed.viridis,
+      colours =  function(n) rev(viridis::viridis(n)),
       format = c("FireMIP", "LPJ-GUESS-SPITFIRE"),
       standard_name = "Vegtype level sensible heat flux"),
 
@@ -615,7 +615,7 @@ FireMIP.quantities <- list(
       id = "snow_depth",
       name = "Snow depth",
       units = "m m_2",
-      colours = reversed.viridis,
+      colours =  function(n) rev(viridis::viridis(n)),
       format = c("FireMIP", "LPJ-GUESS-SPITFIRE"),
       standard_name = "Snow depth"),
 
@@ -623,7 +623,7 @@ FireMIP.quantities <- list(
       id = "vtype",
       name = "MC2 vegetation type",
       units = "category",
-      colours = reversed.viridis,
+      colours =  function(n) rev(viridis::viridis(n)),
       format = c("FireMIP", "LPJ-GUESS-SPITFIRE"),
       standard_name = "MC2 vegetation type")
 

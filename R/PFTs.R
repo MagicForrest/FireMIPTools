@@ -289,9 +289,9 @@ JULES_PFTs<- list(
                         shade.tolerance = "no")
   ),
 
-  # BS
+  # BD
   new("Layer",
-      id = "BS",
+      id = "BD",
       name = "Broadleaved Deciduous Tree",
       colour = "chartreuse",
       properties = list(type = "PFT",
@@ -520,7 +520,7 @@ LPJmL_PFTs <- list(
   # BBS
   new("Layer",
       id = "BBS",
-      name = " Boreal Broadleaved Summergreen Tree",
+      name = "Boreal Broadleaved Summergreen Tree",
       colour = "chartreuse",
       properties = list(type = "PFT",
                         growth.form = "Tree",
@@ -665,6 +665,144 @@ LPJmL_PFTs <- list(
 #' @format An S4 class object with the slots as defined below.
 #' @keywords datasets
 #' @export
+CLASS_CTEM_PFTs <- list(
+
+  # TREES
+
+  new("Layer",
+      id = "NE",
+      name = "Needleleaved Evergreen Tree",
+      colour = "darkblue",
+      properties = list(type = "PFT",
+                        growth.form = "Tree",
+                        leaf.form = "Needleleaved",
+                        phenology = "Evergreen",
+                        climate.zone = "NA",
+                        shade.tolerance = "no")
+  ),
+
+  new("Layer",
+      id = "ND",
+      name = "Needleleaved Deciduous Tree",
+      colour = "cornflowerblue",
+      properties = list(type = "PFT",
+                        growth.form = "Tree",
+                        leaf.form = "Needleleaved",
+                        phenology = "Deciduous",
+                        climate.zone = "NA",
+                        shade.tolerance = "no")
+  ),
+
+  new("Layer",
+      id = "BE",
+      name = "Broadleaved Evergreen Tree",
+      colour = "cyan",
+      properties = list(type = "PFT",
+                        growth.form = "Tree",
+                        leaf.form = "Broadleaved",
+                        phenology = "Evergreen",
+                        climate.zone = "NA",
+                        shade.tolerance = "no")
+  ),
+
+  new("Layer",
+      id = "BCD",
+      name = "Broadleaved Cold Deciduous Tree",
+      colour = "darkgreen",
+      properties = list(type = "PFT",
+                        growth.form = "Tree",
+                        leaf.form = "Broadleaved",
+                        phenology = "Deciduous",
+                        climate.zone = "NA",
+                        shade.tolerance = "no")
+  ),
+
+  new("Layer",
+      id = "BDD",
+      name = "Broadleaved Drought Deciduous Tree",
+      colour = "maroon",
+      properties = list(type = "PFT",
+                        growth.form = "Tree",
+                        leaf.form = "Broadleaved",
+                        phenology = "Deciduous",
+                        climate.zone = "NA",
+                        shade.tolerance = "no")
+  ),
+
+
+  # CROPS
+
+  new("Layer",
+      id = "C3Crop",
+      name = "Agricultural",
+      colour = "palegreen",
+      properties = list(type = "PFT",
+                        growth.form = "Agricultural",
+                        leaf.form = "NA",
+                        phenology = "NA",
+                        climate.zone = "NA",
+                        shade.tolerance = "no")
+  ),
+
+  new("Layer",
+      id = "C4Crop",
+      name = "Agricultural",
+      colour = "palegoldenrod",
+      properties = list(type = "PFT",
+                        growth.form = "Agricultural",
+                        leaf.form = "NA",
+                        phenology = "NA",
+                        climate.zone = "NA",
+                        shade.tolerance = "no")
+  ),
+
+  # GRASSES
+
+  new("Layer",
+      id = "C3G",
+      name = "C3G Grass",
+      colour = "lightgoldenrod1",
+      properties = list(type = "PFT",
+                        growth.form = "Grass",
+                        leaf.form = "Broadleaved",
+                        phenology = "GrassPhenology",
+                        climate.zone = "NA",
+                        shade.tolerance = "no")
+  ),
+
+  new("Layer",
+      id = "C4G",
+      name = "C4 Grass",
+      colour = "sienna2",
+      properties = list(type = "PFT",
+                        growth.form = "Grass",
+                        leaf.form = "Broadleaved",
+                        phenology = "GrassPhenology",
+                        climate.zone = "NA",
+                        shade.tolerance = "no")
+  ),
+
+  # Bare ground
+  # Bare
+  new("Layer",
+      id = "Bare",
+      name = "Bare",
+      colour = "grey90",
+      properties = list(type = "PFT",
+                        growth.form = "NA",
+                        leaf.form = "NA",
+                        phenology = "NA",
+                        climate.zone = "NA",
+                        shade.tolerance = "no")
+  )
+
+
+)
+
+
+#' @format An S4 class object with the slots as defined below.
+#' @keywords datasets
+#' @export
 CTEM_PFTs <- list(
 
   # TREES
@@ -783,5 +921,3 @@ CTEM_PFTs <- list(
   )
 
 )
-
-
