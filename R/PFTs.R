@@ -161,7 +161,7 @@ LPJ_GUESS_PFTs  <- list(
       name = "C3 Pasture Grass",
       colour = "lightgoldenrod4",
       properties = list(type = "PFT",
-                        growth.form = "Grass",
+                        growth.form = "Pasture",
                         leaf.form = "Broadleaved",
                         phenology = "GrassPhenology",
                         climate.zone = "NA",
@@ -173,7 +173,7 @@ LPJ_GUESS_PFTs  <- list(
       name = "C4 Pasture Grass",
       colour = "sienna",
       properties = list(type = "PFT",
-                        growth.form = "Grass",
+                        growth.form = "Pasture",
                         leaf.form = "Broadleaved",
                         phenology = "GrassPhenology",
                         climate.zone = "NA",
@@ -502,6 +502,93 @@ JULES_PFTs<- list(
 #' @export
 LPJmL_PFTs <- list(
 
+  # Natural Stand Fraction
+  new("Layer",
+      id = "NaturalStandFraction",
+      name = "Natural Stand Fraction",
+      colour = "darkblue",
+      properties = list(type = "Summary",
+                        growth.form = "NA",
+                        leaf.form = "NA",
+                        phenology = "NA",
+                        climate.zone = "NA",
+                        shade.tolerance = "NA")
+  ),
+
+
+  # TROPICAL TREES
+
+  # TrBE
+  new("Layer",
+      id = "TrBE",
+      name = "Tropical Broadleaved Evergreen Tree",
+      colour = "orchid4",
+      properties = list(type = "PFT",
+                        growth.form = "Tree",
+                        leaf.form = "Broadleaved",
+                        phenology = "Evergreen",
+                        climate.zone = "Tropical",
+                        shade.tolerance = "None")
+  ),
+
+
+  # TrBR
+  new("Layer",
+      id = "TrBR",
+      name = "Tropical Broadleaved Raingreen Tree",
+      colour = "palevioletred",
+      properties = list(type = "PFT",
+                        growth.form = "Tree",
+                        leaf.form = "Broadleaved",
+                        phenology = "Raingreen",
+                        climate.zone = "Tropical",
+                        shade.tolerance = "None")
+  ),
+
+
+  # TEMPERATE TREES
+
+  # TeNE
+  new("Layer",
+      id = "TeNE",
+      name = "Temperate Needleleaved Evergreen Tree",
+      colour = "lightseagreen",
+      properties = list(type = "PFT",
+                        growth.form = "Tree",
+                        leaf.form = "Needleleaved",
+                        phenology = "Evergreen",
+                        climate.zone = "Temperate",
+                        shade.tolerance = "None")
+  ),
+
+
+  # TeBE
+  new("Layer",
+      id = "TeBE",
+      name = "Temperate Broadleaved Evergreen Tree",
+      colour = "darkgreen",
+      properties = list(type = "PFT",
+                        growth.form = "Tree",
+                        leaf.form = "Broadleaved",
+                        phenology = "Evergreen",
+                        climate.zone = "Temperate",
+                        shade.tolerance = "None")
+  ),
+
+
+  # TeBS
+  new("Layer",
+      id = "TeBS",
+      name = "Temperate Broadleaved Summergreen Tree",
+      colour = "darkolivegreen3",
+      properties = list(type = "PFT",
+                        growth.form = "Tree",
+                        leaf.form = "Broadleaved",
+                        phenology = "Summergreen",
+                        climate.zone = "Temperate",
+                        shade.tolerance = "None")
+  ),
+
   # BOREAL TREES
 
   # BNE
@@ -545,97 +632,16 @@ LPJmL_PFTs <- list(
 
 
 
-  # TEMPERATE TREES
-
-  # TeBE
-  new("Layer",
-      id = "TeBE",
-      name = "Temperate Broadleaved Evergreen Tree",
-      colour = "darkgreen",
-      properties = list(type = "PFT",
-                        growth.form = "Tree",
-                        leaf.form = "Broadleaved",
-                        phenology = "Evergreen",
-                        climate.zone = "Temperate",
-                        shade.tolerance = "None")
-  ),
-
-  # TeNE
-  new("Layer",
-      id = "TeNE",
-      name = "Temperate Needleleaved Evergreen Tree",
-      colour = "lightseagreen",
-      properties = list(type = "PFT",
-                        growth.form = "Tree",
-                        leaf.form = "Needleleaved",
-                        phenology = "Evergreen",
-                        climate.zone = "Temperate",
-                        shade.tolerance = "None")
-  ),
-
-  # TeBS
-  new("Layer",
-      id = "TeBS",
-      name = "Temperate Broadleaved Summergreen Tree",
-      colour = "darkolivegreen3",
-      properties = list(type = "PFT",
-                        growth.form = "Tree",
-                        leaf.form = "Broadleaved",
-                        phenology = "Summergreen",
-                        climate.zone = "Temperate",
-                        shade.tolerance = "None")
-  ),
 
 
-  # TROPICAL TREES
-
-  # TrBE
-  new("Layer",
-      id = "TrBE",
-      name = "Tropical Broadleaved Evergreen Tree",
-      colour = "orchid4",
-      properties = list(type = "PFT",
-                        growth.form = "Tree",
-                        leaf.form = "Broadleaved",
-                        phenology = "Evergreen",
-                        climate.zone = "Tropical",
-                        shade.tolerance = "None")
-  ),
-
-
-  # TrBR
-  new("Layer",
-      id = "TrBR",
-      name = "Tropical Broadleaved Raingreen Tree",
-      colour = "palevioletred",
-      properties = list(type = "PFT",
-                        growth.form = "Tree",
-                        leaf.form = "Broadleaved",
-                        phenology = "Raingreen",
-                        climate.zone = "Tropical",
-                        shade.tolerance = "None")
-  ),
 
 
   # GRASSES
 
-  # C3G
-  new("Layer",
-      id = "C3G",
-      name = "Boreal/Temperate Grass",
-      colour = "lightgoldenrod1",
-      properties = list(type = "PFT",
-                        growth.form = "Grass",
-                        leaf.form = "Broadleaved",
-                        phenology = "GrassPhenology",
-                        climate.zone = "NA",
-                        shade.tolerance = "None")
-  ),
-
   # C4G
   new("Layer",
       id = "C4G",
-      name = "Tropical Grass",
+      name = "Tropical C4 Grass",
       colour = "sienna2",
       properties = list(type = "PFT",
                         growth.form = "Grass",
@@ -645,10 +651,25 @@ LPJmL_PFTs <- list(
                         shade.tolerance = "None")
   ),
 
+  # C3G
+  new("Layer",
+      id = "C3G",
+      name = "Temperate C3 Grass",
+      colour = "lightgoldenrod1",
+      properties = list(type = "PFT",
+                        growth.form = "Grass",
+                        leaf.form = "Broadleaved",
+                        phenology = "GrassPhenology",
+                        climate.zone = "NA",
+                        shade.tolerance = "None")
+  ),
+
+
+
   # C3Polar
   new("Layer",
-      id = "C3Polar",
-      name = "Polar Grass",
+      id = "C3PolarG",
+      name = "Polar C3 Grass",
       colour = "black",
       properties = list(type = "PFT",
                         growth.form = "Grass",
