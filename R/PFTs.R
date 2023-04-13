@@ -668,7 +668,7 @@ LPJmL_PFTs <- list(
 
   # C3Polar
   new("Layer",
-      id = "C3PolarG",
+      id = "C3G_polar",
       name = "Polar C3 Grass",
       colour = "black",
       properties = list(type = "PFT",

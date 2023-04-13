@@ -9,6 +9,7 @@
 #'
 #' @param source A Source object to define the run we want to open.
 #' @param quantity A Quantity object to define which variable we want to look up
+#' @param layers A list of Characters dpecifying which layer to read (currently ignored)
 #' @param first.year The first year we want to read (numeric)
 #' @param last.year The last year we want to read (numeric)
 #' @param spatial.extent The spatial extent we want to read (as defined by as raster::extent or an object that can be cast to a raster::extent)
@@ -26,7 +27,7 @@
 #'
 #' @export
 
-openFireMIPOutputFile <- function(source, quantity, sta.info, file.name, verbose = TRUE, model, grid.file, debug = FALSE) {
+openFireMIPOutputFile <- function(source, quantity, layers, sta.info, file.name, verbose = TRUE, model, grid.file, debug = FALSE) {
 
 
   first.year = sta.info@first.year
@@ -443,7 +444,7 @@ openFireMIPOutputFile <- function(source, quantity, sta.info, file.name, verbose
 
 
   this.Field <- new("Field",
-                    id = makeFieldID(source = source, var.string = quantity@id, sta.info = sta.info),
+                    id = makeFieldID(source = source, quant.string = quantity@id, sta.info = sta.info),
                     source = source,
                     quant = quantity,
                     data = full.dt,
